@@ -2,7 +2,7 @@ import { Modal } from 'shared/ui/Modal/Modal';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Suspense } from 'react';
 import { Loader } from 'shared/ui/Loader/Loader';
-// import { RegistrationFormAsync } from '../RegistrationForm/RegistrationForm.async';
+import { RegistrationFormAsync } from '../RegistrationForm/RegistrationForm.async';
 
 interface RegistrationModalProps {
     className?: string;
@@ -18,8 +18,7 @@ export const RegistrationModal = ({ className, isOpen, onClose }: RegistrationMo
         lazy
     >
         <Suspense fallback={<Loader />}>
-            123
-            {/*<RegistrationFormAsync onSuccess={onClose} />*/}
+            <RegistrationFormAsync onSuccess={onClose} />
         </Suspense>
     </Modal>
 );

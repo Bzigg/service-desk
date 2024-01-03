@@ -1,3 +1,4 @@
+import { Controller } from 'react-hook-form'
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import React, {
     InputHTMLAttributes, memo, useEffect, useRef, useState,
@@ -12,6 +13,9 @@ interface InputProps extends HTMLInputProps {
     onChange?: (value: string) => void;
     autofocus?: boolean;
     readonly?: boolean;
+    name?: string;
+    control?: any;
+    [key: string]: any;
 }
 
 export const Input = memo((props: InputProps) => {
@@ -23,6 +27,8 @@ export const Input = memo((props: InputProps) => {
         placeholder,
         autofocus,
         readonly,
+        name,
+        control,
         ...otherProps
     } = props;
     const ref = useRef<HTMLInputElement>(null);
@@ -58,6 +64,48 @@ export const Input = memo((props: InputProps) => {
     const mods: Mods = {
         [cls.readonly]: readonly,
     };
+
+    if (control && name) {
+        return (
+            <Controller
+                control={control}
+                defaultValue={''}
+                name={name}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <div className={classNames(cls.InputWrapper, {}, [className])}>
+                        {placeholder && (
+                            <div className={cls.placeholder}>
+                                {`${placeholder}>`}
+                            </div>
+                        )}
+                        <div className={cls.caretWrapper}>
+                            <input
+                                ref={ref}
+                                type={type}
+                                value={value}
+                                onChange={(...values) => {
+                                    onChangeHandler && onChangeHandler(...values);
+                                    onChange && onChange(...values);
+                                }}
+                                className={cls.input}
+                                onFocus={onFocus}
+                                onBlur={onBlur}
+                                onSelect={onSelect}
+                                readOnly={readonly}
+                                {...otherProps}
+                            />
+                            {isCaretVisible && (
+                                <span
+                                    className={cls.caret}
+                                    style={{ left: `${caretPosition * 9}px` }}
+                                />
+                            )}
+                        </div>
+                    </div>
+                )}
+            />
+        )
+    }
 
     return (
         <div className={classNames(cls.InputWrapper, {}, [className])}>
