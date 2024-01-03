@@ -22,17 +22,26 @@ interface NavbarProps {
 export const Navbar = memo(({ className }: NavbarProps) => {
     const { t } = useTranslation();
     const [isAuthModal, setIsAuthModal] = useState(false);
+    const [isRegistrationModal, setIsRegistrationModal] = useState(false);
     const authData = useSelector(getUserAuthData);
     const dispatch = useDispatch();
     const isAdmin = useSelector(isUserAdmin);
     const isManager = useSelector(isUserManager);
 
-    const onCloseModal = useCallback(() => {
+    const onCloseAuthModal = useCallback(() => {
         setIsAuthModal(false);
     }, []);
 
-    const onShowModal = useCallback(() => {
+    const onCloseRegistrationModal = useCallback(() => {
+        setIsRegistrationModal(false);
+    }, []);
+
+    const onShowAuthModal = useCallback(() => {
         setIsAuthModal(true);
+    }, []);
+
+    const onShowRegistrationModal = useCallback(() => {
+        setIsRegistrationModal(true);
     }, []);
 
     const onLogout = useCallback(() => {
@@ -81,23 +90,35 @@ export const Navbar = memo(({ className }: NavbarProps) => {
 
     return (
         <header className={classNames(cls.Navbar, {}, [className])}>
-            <Button
-                theme={ButtonTheme.CLEAR_INVERTED}
-                className={cls.links}
-                onClick={onShowModal}
-            >
-                {t('Войти')}
-            </Button>
+            <AppLink to="/" className="logo">
+                Service-Desk
+            </AppLink>
+            <div className="buttons">
+                <Button
+                    theme={ButtonTheme.CLEAR_INVERTED}
+                    className={cls.links}
+                    onClick={onShowAuthModal}
+                >
+                    {t('Войти')}
+                </Button>
+                <Button
+                    theme={ButtonTheme.CLEAR_INVERTED}
+                    className={`${cls.links} ml8`}
+                    onClick={onShowRegistrationModal}
+                >
+                    {t('Регистрация')}
+                </Button>
+            </div>
             {isAuthModal && (
                 <LoginModal
                     isOpen={isAuthModal}
-                    onClose={onCloseModal}
+                    onClose={onCloseAuthModal}
                 />
             )}
-            {isAuthModal && (
+            {isRegistrationModal && (
                 <RegistrationModal
-                    isOpen={isAuthModal}
-                    onClose={onCloseModal}
+                    isOpen={isRegistrationModal}
+                    onClose={onCloseRegistrationModal}
                 />
             )}
         </header>
