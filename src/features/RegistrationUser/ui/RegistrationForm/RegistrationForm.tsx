@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
-import { useForm } from 'react-hook-form'
-import cls from 'features/AuthByUsername/ui/LoginForm/LoginForm.module.scss'
-import { Input } from 'shared/ui/Input/Input'
-import { Button } from 'shared/ui/Button/Button'
-import { Select } from 'shared/ui/Select/Select'
+import { useForm } from 'react-hook-form';
+import cls from 'features/AuthByUsername/ui/LoginForm/LoginForm.module.scss';
+import { Input } from 'shared/ui/Input/Input';
+import { Button } from 'shared/ui/Button/Button';
+import { Select } from 'shared/ui/Select/Select';
 
 export interface RegistrationFormProps {
 	onSuccess: () => void;
@@ -35,6 +35,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={className}>
 			<Input
+				label="Выше имя"
 				control={control}
 				name="fName"
 				type="text"
@@ -42,6 +43,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				placeholder="Введите имя"
 			/>
 			<Input
+				label="Ваша фамилия"
 				control={control}
 				name="lName"
 				type="text"
@@ -49,6 +51,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				placeholder="Введите фамилию"
 			/>
 			<Input
+				label="Ваше отчество"
 				control={control}
 				name="mName"
 				type="text"
@@ -56,6 +59,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				placeholder="Введите отчество"
 			/>
 			<Input
+				label="Ваш email"
 				control={control}
 				name="email"
 				type="text"
@@ -63,6 +67,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				placeholder="Введите email"
 			/>
 			<Input
+				label="Ваш пароль"
 				control={control}
 				name="password"
 				type="text"
@@ -70,12 +75,14 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				placeholder="Введите пароль"
 			/>
 			<Select
+				className="mt8"
 				options={ROLES}
 				label="Выберете роль"
 				value={ROLES[0].value}
 				onChange={onChange}
 			/>
 			<Button
+				className="mt8"
 				type="submit"
 			>
 				Зарегистрироваться
