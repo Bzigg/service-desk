@@ -13,6 +13,7 @@ import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Dropdown } from 'shared/ui/Dropdown/Dropdown';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
 import cls from './Navbar.module.scss';
+import { RegistrationModal } from 'features/RegistrationUser/ui/RegistrationModal/RegistrationModal'
 
 interface NavbarProps {
     className?: string;
@@ -89,6 +90,12 @@ export const Navbar = memo(({ className }: NavbarProps) => {
             </Button>
             {isAuthModal && (
                 <LoginModal
+                    isOpen={isAuthModal}
+                    onClose={onCloseModal}
+                />
+            )}
+            {isAuthModal && (
+                <RegistrationModal
                     isOpen={isAuthModal}
                     onClose={onCloseModal}
                 />
