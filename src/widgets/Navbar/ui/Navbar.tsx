@@ -5,7 +5,7 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { LoginModal } from 'features/AuthByUsername';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    getUserAuthData, isUserAdmin, userActions,
+    getUserAuthData, userActions, isUserSelector
 } from 'entities/User';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
@@ -14,6 +14,7 @@ import { Dropdown } from 'shared/ui/Dropdown/Dropdown';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
 import cls from './Navbar.module.scss';
 import { RegistrationModal } from 'features/RegistrationUser/ui/RegistrationModal/RegistrationModal'
+import { useNavigate } from 'react-router-dom'
 
 interface NavbarProps {
     className?: string;
@@ -25,7 +26,8 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     const [isRegistrationModal, setIsRegistrationModal] = useState(false);
     const authData = useSelector(getUserAuthData);
     const dispatch = useDispatch();
-    const isAdmin = useSelector(isUserAdmin);
+    const isUser = useSelector(isUserSelector);
+    const navigate = useNavigate();
 
     const onCloseAuthModal = useCallback(() => {
         setIsAuthModal(false);
@@ -44,6 +46,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     }, []);
 
     const onLogout = useCallback(() => {
+        navigate(RoutePath.main)
         dispatch(userActions.logout());
     }, [dispatch]);
 
@@ -55,20 +58,22 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     title="Service-Desk"
                     theme={TextTheme.INVERTED}
                 />
-                <AppLink
-                    to={RoutePath.article_create}
-                    theme={AppLinkTheme.SECONDARY}
-                    className={cls.createBtn}
-                >
-                    {t('Создать статью')}
-                </AppLink>
-                <AppLink
-                    to={RoutePath.ticket_create}
-                    theme={AppLinkTheme.SECONDARY}
-                    className={cls.createBtn}
-                >
-                    Создать заявку
-                </AppLink>
+                {/*<AppLink*/}
+                {/*    to={RoutePath.article_create}*/}
+                {/*    theme={AppLinkTheme.SECONDARY}*/}
+                {/*    className={cls.createBtn}*/}
+                {/*>*/}
+                {/*    {t('Создать статью')}*/}
+                {/*</AppLink>*/}
+                {isUser &&
+                    <AppLink
+                        to={RoutePath.ticket_create}
+                        theme={AppLinkTheme.SECONDARY}
+                        className={cls.createBtn}
+                    >
+                        Создать заявку
+                    </AppLink>
+                }
                 <Dropdown
                     direction="bottom left"
                     className={cls.dropdown}
