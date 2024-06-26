@@ -35,7 +35,10 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={className}>
 			<Input
-				label="Выше имя"
+				label="Ваше имя"
+				rules={{
+					required: 'Введите ваше имя'
+				}}
 				control={control}
 				name="fName"
 				type="text"
@@ -76,9 +79,10 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 			/>
 			<Select
 				className="mt8"
+				control={control}
+				name="role"
 				options={ROLES}
 				label="Выберете роль"
-				value={ROLES[0].value}
 				onChange={onChange}
 			/>
 			<Button

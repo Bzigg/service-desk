@@ -31,6 +31,7 @@ export const Input = memo((props: InputProps) => {
         readonly,
         name,
         control,
+        rules,
         ...otherProps
     } = props;
     const ref = useRef<HTMLInputElement>(null);
@@ -73,13 +74,15 @@ export const Input = memo((props: InputProps) => {
                 control={control}
                 defaultValue={''}
                 name={name}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
-                    <div className={classNames(cls.InputWrapper, {}, [className])}>
+                rules={rules}
+                render={({ field: { onChange, onBlur, value, ref }, fieldState }) => (
+                    <div className={classNames(cls.Input, {}, [className])}>
                         {label && (
                             <div className={cls.placeholder}>
                                 {`${label}:`}
                             </div>
                         )}
+                        {fieldState?.error?.message && <div className={cls.errorTooltip}>{(fieldState?.error?.message)}</div>}
                         <div className={cls.inputWrapper}>
                             <input
                                 placeholder={placeholder}
@@ -90,7 +93,7 @@ export const Input = memo((props: InputProps) => {
                                     onChangeHandler && onChangeHandler(...values);
                                     onChange && onChange(...values);
                                 }}
-                                className={cls.input}
+                                className={classNames(cls.input, {[cls.error]: Boolean(fieldState?.error?.message)})}
                                 onFocus={onFocus}
                                 onBlur={onBlur}
                                 onSelect={onSelect}

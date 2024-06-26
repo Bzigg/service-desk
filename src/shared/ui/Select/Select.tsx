@@ -1,6 +1,7 @@
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
-import { ChangeEvent, memo, useMemo } from 'react';
+import React, { ChangeEvent, memo, useMemo } from 'react';
 import cls from './Select.module.scss';
+import { Controller } from 'react-hook-form'
 
 export interface SelectOption {
     value: string;
@@ -8,7 +9,10 @@ export interface SelectOption {
 }
 
 interface SelectProps {
+    control?: any;
+    name?: string;
     className?: string;
+    placeholder?: any;
     label?: string;
     options?: SelectOption[];
     value?: string;
@@ -24,6 +28,9 @@ export const Select = memo((props: SelectProps) => {
         onChange,
         value,
         readonly,
+        control,
+        name,
+        placeholder,
     } = props;
 
     const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -43,6 +50,39 @@ export const Select = memo((props: SelectProps) => {
     )), [options]);
 
     const mods: Mods = {};
+
+    if (control && name) {
+        return (
+            <Controller
+                control={control}
+                defaultValue={''}
+                name={name}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <div className={classNames(cls.Wrapper, mods, [className])}>
+                        {label && (
+                            <span className={cls.label}>
+                                {`${label}:`}
+                            </span>
+                        )}
+                        <select
+                            disabled={readonly}
+                            className={cls.select}
+                            value={value}
+                            onChange={(...values) => {
+                                onChangeHandler && onChangeHandler(...values);
+                                onChange && onChange(...values);
+                            }}
+                            placeholder={placeholder}
+                            ref={ref}
+                            onBlur={onBlur}
+                        >
+                            {optionsList}
+                        </select>
+                    </div>
+                )}
+            />
+        )
+    }
 
     return (
         <div className={classNames(cls.Wrapper, mods, [className])}>
