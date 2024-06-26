@@ -6,7 +6,7 @@ export {
     getUserInited,
 } from './model/selectors/getUserInited/getUserInited';
 
-export { isUserAdmin, isUserManager, getUserRoles } from './model/selectors/roleSelectors';
+export { isUserAdmin, getUserRoles } from './model/selectors/roleSelectors';
 
 export {
     userReducer,

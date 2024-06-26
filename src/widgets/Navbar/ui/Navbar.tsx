@@ -5,7 +5,7 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { LoginModal } from 'features/AuthByUsername';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    getUserAuthData, isUserAdmin, isUserManager, userActions,
+    getUserAuthData, isUserAdmin, userActions,
 } from 'entities/User';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
@@ -26,7 +26,6 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     const authData = useSelector(getUserAuthData);
     const dispatch = useDispatch();
     const isAdmin = useSelector(isUserAdmin);
-    const isManager = useSelector(isUserManager);
 
     const onCloseAuthModal = useCallback(() => {
         setIsAuthModal(false);
@@ -48,14 +47,12 @@ export const Navbar = memo(({ className }: NavbarProps) => {
         dispatch(userActions.logout());
     }, [dispatch]);
 
-    const isAdminPanelAvailable = isAdmin || isManager;
-
     if (authData) {
         return (
             <header className={classNames(cls.Navbar, {}, [className])}>
                 <Text
                     className={cls.appName}
-                    title={t('Ulbi TV App')}
+                    title="Service-Desk"
                     theme={TextTheme.INVERTED}
                 />
                 <AppLink
@@ -69,7 +66,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     direction="bottom left"
                     className={cls.dropdown}
                     items={[
-                        ...(isAdminPanelAvailable ? [{
+                        ...(isAdmin ? [{
                             content: t('Админка'),
                             href: RoutePath.admin_panel,
                         }] : []),
