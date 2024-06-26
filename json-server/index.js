@@ -40,7 +40,7 @@ server.post('/login', (req, res) => {
 });
 
 // Эндпоинт для заявок
-server.get('/tickets', (req, res) => {
+server.get('/tickets/all', (req, res) => {
     try {
         const authorizationData = req.headers;
 
@@ -56,6 +56,39 @@ server.get('/tickets', (req, res) => {
 
         if (userFromBd) {
             return res.json(tickets);
+        }
+
+        return res.status(403).json({ message: 'User not found' });
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: e.message });
+    }
+});
+
+server.get('/tickets', (req, res) => {
+    try {
+        const authorizationData = req.headers;
+
+        const username =(JSON.parse(authorizationData.authorization).username)
+        const password =(JSON.parse(authorizationData.authorization).password)
+
+        const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
+        const { users = [], tickets = [] } = db;
+
+        const userFromBd = users.find(
+            (user) => user.username === username && user.password === password,
+        );
+
+        if (userFromBd) {
+            const ticketItem = tickets.find((ticketItem) => {
+                return ticketItem.id === String(req.query.id)
+            })
+
+            if (ticketItem) {
+                return res.json(ticketItem);
+            }
+
+            return res.status(404).json({ message: 'Ticket not found' });
         }
 
         return res.status(403).json({ message: 'User not found' });
