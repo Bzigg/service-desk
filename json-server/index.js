@@ -9,11 +9,15 @@ const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 server.use(jsonServer.defaults({}));
 server.use(jsonServer.bodyParser);
 
+const getDB = () => {
+    return JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
+}
+
 // Эндпоинт для логина
 server.post('/login', (req, res) => {
     try {
         const { username, password } = req.body;
-        const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
+        const db = getDB()
         const { users = [] } = db;
 
         const userFromBd = users.find(
@@ -34,7 +38,7 @@ server.post('/login', (req, res) => {
 // Эндпоинт для заявок
 server.get('/tickets/all', (req, res) => {
     try {
-        const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
+        const db = getDB()
         const { tickets = [] } = db;
 
         if (tickets) {
@@ -50,8 +54,15 @@ server.get('/tickets/all', (req, res) => {
 
 server.get('/tickets/my', (req, res) => {
     try {
-        const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
-        const { tickets = [] } = db;
+        const db = getDB()
+        const { tickets = [], users = [] } = db;
+
+        const userId = JSON.parse(req.headers.authorization).id
+
+        const userFromBd = users.find(
+            (user) => user.id === userId
+        );
+
         const ticketItem = tickets.filter((ticketItem) => {
             return ticketItem.responsibleId === userFromBd.id
         })
@@ -69,7 +80,7 @@ server.get('/tickets/my', (req, res) => {
 
 server.get('/tickets', (req, res) => {
     try {
-        const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
+        const db = getDB()
         const { tickets = [] } = db;
         const ticketItem = tickets.find((ticketItem) => {
             return ticketItem.id === String(req.query.id)
