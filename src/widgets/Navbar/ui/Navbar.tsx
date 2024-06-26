@@ -62,6 +62,13 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                 >
                     {t('Создать статью')}
                 </AppLink>
+                <AppLink
+                    to={RoutePath.ticket_create}
+                    theme={AppLinkTheme.SECONDARY}
+                    className={cls.createBtn}
+                >
+                    Создать заявку
+                </AppLink>
                 <Dropdown
                     direction="bottom left"
                     className={cls.dropdown}

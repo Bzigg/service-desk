@@ -22,6 +22,8 @@ export enum AppRoutes {
     MY_TICKETS = 'my_tickets',
     ALL_TICKETS = 'all_tickets',
     TICKETS_ALL_DETAILS = 'tickets_all_details',
+    TICKET_CREATE = 'ticket_create',
+    TICKET_EDIT = 'ticket_edit',
     PROFILE = 'profile',
     ARTICLES = 'articles',
     // ARTICLE_DETAILS = 'article_details',
@@ -39,6 +41,8 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MY_TICKETS]: '/tickets/my',
     [AppRoutes.ALL_TICKETS]: '/tickets/all',
     [AppRoutes.TICKETS_ALL_DETAILS]: '/tickets/all/', // + :id
+    [AppRoutes.TICKET_CREATE]: '/tickets/create',
+    [AppRoutes.TICKET_EDIT]: '/tickets/:id/edit',
     [AppRoutes.PROFILE]: '/profile/', // + :id
     [AppRoutes.ARTICLES]: '/articles',
     // [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + :id
@@ -69,6 +73,18 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: `${RoutePath.tickets_all_details}:id`,
         element: <TicketDetailsPage />,
         authOnly: true,
+    },
+    [AppRoutes.TICKET_CREATE]: {
+        path: `${RoutePath.ticket_create}`,
+        element: <ArticleEditPage />,
+        authOnly: true,
+        roles: [UserRole.USER],
+    },
+    [AppRoutes.TICKET_EDIT]: {
+        path: `${RoutePath.ticket_edit}`,
+        element: <ArticleEditPage />,
+        authOnly: true,
+        roles: [UserRole.USER],
     },
     [AppRoutes.PROFILE]: {
         path: `${RoutePath.profile}:id`,
