@@ -4,6 +4,7 @@ import cls from 'features/AuthByUsername/ui/LoginForm/LoginForm.module.scss';
 import { Input } from 'shared/ui/Input/Input';
 import { Button } from 'shared/ui/Button/Button';
 import { Select } from 'shared/ui/Select/Select';
+import { classNames } from 'shared/lib/classNames/classNames'
 
 export interface RegistrationFormProps {
 	onSuccess: () => void;
@@ -33,7 +34,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 	}, [])
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className={className}>
+		<form onSubmit={handleSubmit(onSubmit)} className={classNames(`${className}`)}>
 			<Input
 				label="Ваше имя"
 				rules={{
