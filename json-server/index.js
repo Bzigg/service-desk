@@ -9,14 +9,6 @@ const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 server.use(jsonServer.defaults({}));
 server.use(jsonServer.bodyParser);
 
-// Нужно для небольшой задержки, чтобы запрос проходил не мгновенно, имитация реального апи
-server.use(async (req, res, next) => {
-    await new Promise((res) => {
-        setTimeout(res, 800);
-    });
-    next();
-});
-
 // Эндпоинт для логина
 server.post('/login', (req, res) => {
     try {
@@ -42,23 +34,14 @@ server.post('/login', (req, res) => {
 // Эндпоинт для заявок
 server.get('/tickets/all', (req, res) => {
     try {
-        const authorizationData = req.headers;
-
-        const username =(JSON.parse(authorizationData.authorization).username)
-        const password =(JSON.parse(authorizationData.authorization).password)
-
         const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
-        const { users = [], tickets = [] } = db;
+        const { tickets = [] } = db;
 
-        const userFromBd = users.find(
-            (user) => user.username === username && user.password === password,
-        );
-
-        if (userFromBd) {
+        if (tickets) {
             return res.json(tickets);
         }
 
-        return res.status(403).json({ message: 'User not found' });
+        return res.status(404).json({ message: 'Tickets not found' });
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: e.message });
@@ -67,31 +50,17 @@ server.get('/tickets/all', (req, res) => {
 
 server.get('/tickets/my', (req, res) => {
     try {
-        const authorizationData = req.headers;
-
-        const username =(JSON.parse(authorizationData.authorization).username)
-        const password =(JSON.parse(authorizationData.authorization).password)
-
         const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
-        const { users = [], tickets = [] } = db;
+        const { tickets = [] } = db;
+        const ticketItem = tickets.filter((ticketItem) => {
+            return ticketItem.responsibleId === userFromBd.id
+        })
 
-        const userFromBd = users.find(
-            (user) => user.username === username && user.password === password,
-        );
-
-        if (userFromBd) {
-            const ticketItem = tickets.filter((ticketItem) => {
-                return ticketItem.responsibleId === userFromBd.id
-            })
-
-            if (ticketItem) {
-                return res.json(ticketItem);
-            }
-
-            return res.status(404).json({ message: 'Ticket not found' });
+        if (ticketItem) {
+            return res.json(ticketItem);
         }
 
-        return res.status(403).json({ message: 'User not found' });
+        return res.status(404).json({ message: 'Tickets not found' });
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: e.message });
@@ -100,31 +69,17 @@ server.get('/tickets/my', (req, res) => {
 
 server.get('/tickets', (req, res) => {
     try {
-        const authorizationData = req.headers;
-
-        const username =(JSON.parse(authorizationData.authorization).username)
-        const password =(JSON.parse(authorizationData.authorization).password)
-
         const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
-        const { users = [], tickets = [] } = db;
+        const { tickets = [] } = db;
+        const ticketItem = tickets.find((ticketItem) => {
+            return ticketItem.id === String(req.query.id)
+        })
 
-        const userFromBd = users.find(
-            (user) => user.username === username && user.password === password,
-        );
-
-        if (userFromBd) {
-            const ticketItem = tickets.find((ticketItem) => {
-                return ticketItem.id === String(req.query.id)
-            })
-
-            if (ticketItem) {
-                return res.json(ticketItem);
-            }
-
-            return res.status(404).json({ message: 'Ticket not found' });
+        if (ticketItem) {
+            return res.json(ticketItem);
         }
 
-        return res.status(403).json({ message: 'User not found' });
+        return res.status(404).json({ message: 'Ticket not found' });
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: e.message });
