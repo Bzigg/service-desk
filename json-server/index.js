@@ -57,14 +57,16 @@ server.get('/tickets/my', (req, res) => {
         const db = getDB()
         const { tickets = [], users = [] } = db;
 
-        const userId = JSON.parse(req.headers.authorization).id
+        const user = JSON.parse(req.headers.authorization)
+        const userId = user.id
 
         const userFromBd = users.find(
             (user) => user.id === userId
         );
 
         const ticketItem = tickets.filter((ticketItem) => {
-            return ticketItem.responsibleId === userFromBd.id
+            return userFromBd.roles.includes('ADMIN') ?
+                ticketItem.responsibleId === userFromBd.id : ticketItem.customerId === userFromBd.id
         })
 
         if (ticketItem) {

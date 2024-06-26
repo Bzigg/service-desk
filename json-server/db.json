@@ -2,10 +2,20 @@
   "tickets": [
     {
       "id": "1",
-      "customerId": "1",
+      "customerId": "2",
       "responsibleId": "1",
       "title": "Принтер",
       "description": "Не печатает принтер",
+      "building": "3",
+      "cabinet": "201",
+      "phone": "89174802421"
+    },
+    {
+      "id": "2",
+      "customerId": "2",
+      "responsibleId": null,
+      "title": "Сканер",
+      "description": "Не сканирует сканер",
       "building": "3",
       "cabinet": "201",
       "phone": "89174802421"
