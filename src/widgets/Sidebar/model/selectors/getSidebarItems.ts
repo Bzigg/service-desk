@@ -17,9 +17,9 @@ export const getSidebarItems = createSelector(
                 text: 'Главная',
             },
             {
-                path: RoutePath.about,
+                path: RoutePath.all_tickets,
                 Icon: AboutIcon,
-                text: 'О сайте',
+                text: 'Все заявки',
             },
         ];
 

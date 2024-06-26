@@ -1,6 +1,6 @@
 import { RouteProps } from 'react-router-dom';
 import { MainPage } from 'pages/MainPage';
-import { AboutPage } from 'pages/AboutPage';
+import { AllTicketsPage } from 'pages/AllTicketsPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { ArticlesPage } from 'pages/ArticlesPage';
@@ -17,7 +17,8 @@ export type AppRoutesProps = RouteProps & {
 
 export enum AppRoutes {
     MAIN = 'main',
-    ABOUT = 'about',
+    // ABOUT = 'about',
+    ALL_TICKETS = 'all_tickets',
     PROFILE = 'profile',
     ARTICLES = 'articles',
     ARTICLE_DETAILS = 'article_details',
@@ -31,7 +32,8 @@ export enum AppRoutes {
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
-    [AppRoutes.ABOUT]: '/about',
+    // [AppRoutes.ABOUT]: '/about',
+    [AppRoutes.ALL_TICKETS]: '/all-tickets',
     [AppRoutes.PROFILE]: '/profile/', // + :id
     [AppRoutes.ARTICLES]: '/articles',
     [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + :id
@@ -48,9 +50,10 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.main,
         element: <MainPage />,
     },
-    [AppRoutes.ABOUT]: {
-        path: RoutePath.about,
-        element: <AboutPage />,
+    [AppRoutes.ALL_TICKETS]: {
+        path: RoutePath.all_tickets,
+        element: <AllTicketsPage />,
+        roles: [UserRole.ADMIN],
     },
     [AppRoutes.PROFILE]: {
         path: `${RoutePath.profile}:id`,
