@@ -58,14 +58,14 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
                         <ArticleTextBlockComponent block={textBlock} className={cls.textBlock} />
                     )}
                     <div className={cls.footer}>
-                        <AppLink
-                            target={target}
-                            to={RoutePath.article_details + article.id}
-                        >
-                            <Button theme={ButtonTheme.OUTLINE}>
-                                {t('Читать далее...')}
-                            </Button>
-                        </AppLink>
+                        {/*<AppLink*/}
+                        {/*    target={target}*/}
+                        {/*    to={RoutePath.article_details + article.id}*/}
+                        {/*>*/}
+                        {/*    <Button theme={ButtonTheme.OUTLINE}>*/}
+                        {/*        {t('Читать далее...')}*/}
+                        {/*    </Button>*/}
+                        {/*</AppLink>*/}
                         {views}
                     </div>
                 </Card>
@@ -76,7 +76,7 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
     return (
         <AppLink
             target={target}
-            to={RoutePath.article_details + article.id}
+            to={RoutePath.tickets_all_details  + article.id}
             className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}
         >
             <Card className={cls.card}>

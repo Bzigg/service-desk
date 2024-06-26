@@ -4,7 +4,7 @@ import { AllTicketsPage } from 'pages/AllTicketsPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { ArticlesPage } from 'pages/ArticlesPage';
-import { ArticleDetailsPage } from 'pages/ArticleDetailsPage';
+import { TicketDetailsPage } from 'pages/TicketDetailsPage';
 import { ArticleEditPage } from 'pages/ArticleEditPage';
 import { AdminPanelPage } from 'pages/AdminPanelPage';
 import { UserRole } from 'entities/User';
@@ -19,9 +19,10 @@ export enum AppRoutes {
     MAIN = 'main',
     // ABOUT = 'about',
     ALL_TICKETS = 'all_tickets',
+    TICKETS_ALL_DETAILS = 'tickets_all_details',
     PROFILE = 'profile',
     ARTICLES = 'articles',
-    ARTICLE_DETAILS = 'article_details',
+    // ARTICLE_DETAILS = 'article_details',
     ARTICLE_CREATE = 'article_create',
     ARTICLE_EDIT = 'article_edit',
     ADMIN_PANEL = 'admin_panel',
@@ -34,9 +35,10 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
     // [AppRoutes.ABOUT]: '/about',
     [AppRoutes.ALL_TICKETS]: '/tickets/all',
+    [AppRoutes.TICKETS_ALL_DETAILS]: '/tickets/all/:id',
     [AppRoutes.PROFILE]: '/profile/', // + :id
     [AppRoutes.ARTICLES]: '/articles',
-    [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + :id
+    // [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + :id
     [AppRoutes.ARTICLE_CREATE]: '/articles/new',
     [AppRoutes.ARTICLE_EDIT]: '/articles/:id/edit',
     [AppRoutes.ADMIN_PANEL]: '/admin',
@@ -55,6 +57,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <AllTicketsPage />,
         roles: [UserRole.ADMIN],
     },
+    [AppRoutes.TICKETS_ALL_DETAILS]: {
+        path: `${RoutePath.tickets_all_details}:id`,
+        element: <TicketDetailsPage />,
+        authOnly: true,
+    },
     [AppRoutes.PROFILE]: {
         path: `${RoutePath.profile}:id`,
         element: <ProfilePage />,
@@ -65,11 +72,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <ArticlesPage />,
         authOnly: true,
     },
-    [AppRoutes.ARTICLE_DETAILS]: {
-        path: `${RoutePath.article_details}:id`,
-        element: <ArticleDetailsPage />,
-        authOnly: true,
-    },
+    // [AppRoutes.ARTICLE_DETAILS]: {
+    //     path: `${RoutePath.article_details}:id`,
+    //     element: <TicketDetailsPage />,
+    //     authOnly: true,
+    // },
     [AppRoutes.ARTICLE_CREATE]: {
         path: `${RoutePath.article_create}`,
         element: <ArticleEditPage />,

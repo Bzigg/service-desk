@@ -13,7 +13,7 @@ import {
     ArticleDetailsCommentsSchema,
     ArticleDetailsPageSchema,
     ArticleDetailsRecommendationsSchema,
-} from 'pages/ArticleDetailsPage';
+} from 'pages/TicketDetailsPage';
 import { AddCommentFormSchema } from 'features/addCommentForm';
 import { ArticlesPageSchema } from 'pages/ArticlesPage';
 import { UISchema } from 'features/UI';

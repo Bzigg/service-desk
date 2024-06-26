@@ -1,6 +1,6 @@
 export {
-    ArticleDetailsPageAsync as ArticleDetailsPage,
-} from './ui/ArticleDetailsPage/ArticleDetailsPage.async';
+    TicketDetailsPageAsync as TicketDetailsPage,
+} from './ui/ArticleDetailsPage/TicketDetailsPage.async';
 
 export type { ArticleDetailsCommentsSchema } from './model/types/ArticleDetailsCommentsSchema';
 export type { ArticleDetailsRecommendationsSchema } from './model/types/ArticleDetailsRecommendationsSchema';
