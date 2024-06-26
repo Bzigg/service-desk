@@ -1,9 +1,14 @@
 {
-  "posts": [
+  "tickets": [
     {
       "id": "1",
-      "title": "json-server",
-      "userId": "1"
+      "customerId": "1",
+      "responsibleId": "1",
+      "title": "Принтер",
+      "description": "Не печатает принтер",
+      "building": "3",
+      "cabinet": "201",
+      "phone": "89174802421"
     }
   ],
   "users": [
