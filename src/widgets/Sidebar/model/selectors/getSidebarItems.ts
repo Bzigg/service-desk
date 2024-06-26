@@ -32,9 +32,9 @@ export const getSidebarItems = createSelector(
                     authOnly: true,
                 },
                 {
-                    path: RoutePath.articles,
+                    path: RoutePath.my_tickets,
                     Icon: ArticleIcon,
-                    text: 'Статьи',
+                    text: 'Мои заявки',
                     authOnly: true,
                 },
             );

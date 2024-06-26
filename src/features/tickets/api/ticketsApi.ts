@@ -9,6 +9,13 @@ export const ticketsApi = rtkApi.injectEndpoints({
 				params: {},
 			}),
 		}),
+		getMyTicketsList: build.query<any, any>({
+			query: () => ({
+				url: '/tickets/my',
+				method: 'GET',
+				params: {},
+			}),
+		}),
 		getTicket: build.query<any, string>({
 			query: (id) => ({
 				url: `/tickets`,

@@ -9,6 +9,7 @@ import { ArticleEditPage } from 'pages/ArticleEditPage';
 import { AdminPanelPage } from 'pages/AdminPanelPage';
 import { UserRole } from 'entities/User';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
+import { MyTicketsPage } from 'pages/MyTicketsPage'
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -18,6 +19,7 @@ export type AppRoutesProps = RouteProps & {
 export enum AppRoutes {
     MAIN = 'main',
     // ABOUT = 'about',
+    MY_TICKETS = 'my_tickets',
     ALL_TICKETS = 'all_tickets',
     TICKETS_ALL_DETAILS = 'tickets_all_details',
     PROFILE = 'profile',
@@ -34,6 +36,7 @@ export enum AppRoutes {
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
     // [AppRoutes.ABOUT]: '/about',
+    [AppRoutes.MY_TICKETS]: '/tickets/my',
     [AppRoutes.ALL_TICKETS]: '/tickets/all',
     [AppRoutes.TICKETS_ALL_DETAILS]: '/tickets/all/', // + :id
     [AppRoutes.PROFILE]: '/profile/', // + :id
@@ -51,6 +54,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
         element: <MainPage />,
+    },
+    [AppRoutes.MY_TICKETS]: {
+        path: RoutePath.my_tickets,
+        element: <MyTicketsPage />,
+        roles: [UserRole.ADMIN],
     },
     [AppRoutes.ALL_TICKETS]: {
         path: RoutePath.all_tickets,
