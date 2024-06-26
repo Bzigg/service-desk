@@ -20,6 +20,15 @@
         "ADMIN"
       ],
       "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBkJigufyq00dk5hZq_acK0ix6Gq5LMj59Kg&s"
+    },
+    {
+      "id": "2",
+      "username": "user",
+      "password": "123",
+      "roles": [
+        "USER"
+      ],
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBkJigufyq00dk5hZq_acK0ix6Gq5LMj59Kg&s"
     }
   ],
   "profile": [
@@ -27,11 +36,22 @@
       "id": "1",
       "first": "timur",
       "lastname": "ulbi",
-      "age": 465,
+      "age": 20,
       "currency": "RUB",
       "country": "Belarus",
       "city": "Moscow",
       "username": "admin213",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBkJigufyq00dk5hZq_acK0ix6Gq5LMj59Kg&s"
+    },
+    {
+      "id": "2",
+      "first": "Никита",
+      "lastname": "П",
+      "age": 19,
+      "currency": "RUB",
+      "country": "Belarus",
+      "city": "Moscow",
+      "username": "user213",
       "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBkJigufyq00dk5hZq_acK0ix6Gq5LMj59Kg&s"
     }
   ]

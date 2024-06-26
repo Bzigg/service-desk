@@ -5,6 +5,7 @@ import { Input } from 'shared/ui/Input/Input';
 import { Button } from 'shared/ui/Button/Button';
 import { Select } from 'shared/ui/Select/Select';
 import { classNames } from 'shared/lib/classNames/classNames'
+import { UserRole } from 'entities/User'
 
 export interface RegistrationFormProps {
 	onSuccess: () => void;
@@ -13,11 +14,11 @@ export interface RegistrationFormProps {
 
 const ROLES = [
 	{
-		value: 'admin',
+		value: UserRole.ADMIN,
 		content: 'Системный администратор',
 	},
 	{
-		value: 'user',
+		value: UserRole.USER,
 		content: 'Пользователь',
 	}
 ]
