@@ -12,7 +12,7 @@ const TicketsList: FC<IProps> = ({ tickets, target }) => {
 	return (
 		<div>
 			{tickets?.map((ticketItem) => {
-				return <div key={ticketItem.index}>
+				return <div key={ticketItem.id}>
 					{ticketItem.title}
 					<AppLink
 						target={target}
