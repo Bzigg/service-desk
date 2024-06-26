@@ -66,10 +66,6 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     direction="bottom left"
                     className={cls.dropdown}
                     items={[
-                        ...(isAdmin ? [{
-                            content: t('Админка'),
-                            href: RoutePath.admin_panel,
-                        }] : []),
                         {
                             content: t('Профиль'),
                             href: RoutePath.profile + authData.id,
