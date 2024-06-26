@@ -35,7 +35,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
     // [AppRoutes.ABOUT]: '/about',
     [AppRoutes.ALL_TICKETS]: '/tickets/all',
-    [AppRoutes.TICKETS_ALL_DETAILS]: '/tickets/all/:id',
+    [AppRoutes.TICKETS_ALL_DETAILS]: '/tickets/all/', // + :id
     [AppRoutes.PROFILE]: '/profile/', // + :id
     [AppRoutes.ARTICLES]: '/articles',
     // [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + :id
