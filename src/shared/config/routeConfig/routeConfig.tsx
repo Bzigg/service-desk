@@ -23,8 +23,6 @@ export enum AppRoutes {
     TICKET_CREATE = 'ticket_create',
     TICKET_EDIT = 'ticket_edit',
     PROFILE = 'profile',
-    ARTICLE_CREATE = 'article_create',
-    ARTICLE_EDIT = 'article_edit',
     ADMIN_PANEL = 'admin_panel',
     FORBIDDEN = 'forbidden',
     // last
@@ -39,8 +37,6 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.TICKET_CREATE]: '/tickets/create',
     [AppRoutes.TICKET_EDIT]: '/tickets/my/:id/edit',
     [AppRoutes.PROFILE]: '/profile/', // + :id
-    [AppRoutes.ARTICLE_CREATE]: '/articles/new',
-    [AppRoutes.ARTICLE_EDIT]: '/articles/:id/edit',
     [AppRoutes.ADMIN_PANEL]: '/admin',
     [AppRoutes.FORBIDDEN]: '/forbidden',
     // последний
@@ -85,18 +81,6 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: `${RoutePath.profile}:id`,
         element: <ProfilePage />,
         authOnly: true,
-    },
-    [AppRoutes.ARTICLE_CREATE]: {
-        path: `${RoutePath.article_create}`,
-        element: <TicketEditPage />,
-        authOnly: true,
-        roles: [UserRole.USER],
-    },
-    [AppRoutes.ARTICLE_EDIT]: {
-        path: `${RoutePath.article_edit}`,
-        element: <TicketEditPage />,
-        authOnly: true,
-        roles: [UserRole.USER],
     },
     [AppRoutes.ADMIN_PANEL]: {
         path: `${RoutePath.admin_panel}`,
