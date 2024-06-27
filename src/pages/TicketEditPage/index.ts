@@ -1,3 +1,3 @@
 export {
     TicketEditPageAsync as TicketEditPage,
-} from './ui/ArticleEditPage/TicketEditPage.async';
+} from 'pages/TicketEditPage/ui/TicketEditPage/TicketEditPage.async';

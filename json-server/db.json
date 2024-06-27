@@ -19,6 +19,16 @@
       "building": "3",
       "cabinet": "201",
       "phone": "89174802421"
+    },
+    {
+      "id": "3",
+      "customerId": "3",
+      "responsibleId": null,
+      "title": "ЭЦП",
+      "description": "Не подписывает ЭЦП",
+      "building": "2",
+      "cabinet": "202",
+      "phone": "89174179443"
     }
   ],
   "users": [

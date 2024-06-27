@@ -1,9 +1,12 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { Page } from 'widgets/Page/Page';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import cls from './TicketEditPage.module.scss';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig'
+import { Button, ButtonTheme } from 'shared/ui/Button/Button'
+import { AppLink } from 'shared/ui/AppLink/AppLink'
 
 interface ArticleEditPageProps {
     className?: string;
@@ -17,6 +20,13 @@ const TicketEditPage = memo((props: ArticleEditPageProps) => {
 
     return (
         <Page className={classNames(cls.ArticleEditPage, {}, [className])}>
+            {isEdit && (
+                <AppLink to={`${RoutePath.ticket_details}${id}`}>
+                    <Button theme={ButtonTheme.OUTLINE}>
+                        Отмена
+                    </Button>
+                </AppLink>
+            )}
             {isEdit
                 ? t('Редактирование заявки с ID = ') + id
                 : t('Создание новой заявки')}
