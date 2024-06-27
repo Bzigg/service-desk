@@ -21,7 +21,7 @@ export enum AppRoutes {
     // ABOUT = 'about',
     MY_TICKETS = 'my_tickets',
     ALL_TICKETS = 'all_tickets',
-    TICKETS_ALL_DETAILS = 'tickets_all_details',
+    TICKET_DETAILS = 'ticket_details',
     TICKET_CREATE = 'ticket_create',
     TICKET_EDIT = 'ticket_edit',
     PROFILE = 'profile',
@@ -40,7 +40,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     // [AppRoutes.ABOUT]: '/about',
     [AppRoutes.MY_TICKETS]: '/tickets/my',
     [AppRoutes.ALL_TICKETS]: '/tickets/all',
-    [AppRoutes.TICKETS_ALL_DETAILS]: '/tickets/all/', // + :id
+    [AppRoutes.TICKET_DETAILS]: '/tickets/', // + :id
     [AppRoutes.TICKET_CREATE]: '/tickets/create',
     [AppRoutes.TICKET_EDIT]: '/tickets/my/:id/edit',
     [AppRoutes.PROFILE]: '/profile/', // + :id
@@ -69,8 +69,8 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <AllTicketsPage />,
         roles: [UserRole.ADMIN],
     },
-    [AppRoutes.TICKETS_ALL_DETAILS]: {
-        path: `${RoutePath.tickets_all_details}:id`,
+    [AppRoutes.TICKET_DETAILS]: {
+        path: `${RoutePath.ticket_details}:id`,
         element: <TicketDetailsPage />,
         authOnly: true,
     },

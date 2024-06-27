@@ -16,7 +16,7 @@ const TicketsList: FC<IProps> = ({ tickets, target }) => {
 					{ticketItem.title}
 					<AppLink
 						target={target}
-						to={`${RoutePath.tickets_all_details}${ticketItem.id}`}
+						to={`${RoutePath.ticket_details}${ticketItem.id}`}
 						// to={RoutePath.tickets_all_details + ticketItem.id}
 					>
 						<Button theme={ButtonTheme.OUTLINE}>
