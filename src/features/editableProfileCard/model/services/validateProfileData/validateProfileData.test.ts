@@ -1,16 +1,14 @@
-import { Country } from 'entities/Country';
-import { Currency } from 'entities/Currency';
+// import { Country } from 'entities/Country';
+// import { Currency } from 'entities/Currency';
 import { ValidateProfileError } from '../../consts/consts';
 import { validateProfileData } from './validateProfileData';
 
 const data = {
     username: 'admin',
     age: 22,
-    country: Country.Ukraine,
     lastname: 'ulbi tv',
     first: 'asd',
     city: 'asf',
-    currency: Currency.USD,
 };
 
 describe('validateProfileData.test', () => {
@@ -33,14 +31,6 @@ describe('validateProfileData.test', () => {
 
         expect(result).toEqual([
             ValidateProfileError.INCORRECT_AGE,
-        ]);
-    });
-
-    test('incorrect country', async () => {
-        const result = validateProfileData({ ...data, country: undefined });
-
-        expect(result).toEqual([
-            ValidateProfileError.INCORRECT_COUNTRY,
         ]);
     });
 
