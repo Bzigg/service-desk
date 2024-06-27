@@ -55,11 +55,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.MY_TICKETS]: {
         path: RoutePath.my_tickets,
         element: <MyTicketsPage />,
-        roles: [UserRole.ADMIN],
+        authOnly: true,
+        roles: [UserRole.ADMIN, UserRole.USER],
     },
     [AppRoutes.ALL_TICKETS]: {
         path: RoutePath.all_tickets,
         element: <AllTicketsPage />,
+        authOnly: true,
         roles: [UserRole.ADMIN],
     },
     [AppRoutes.TICKET_DETAILS]: {
@@ -88,11 +90,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: `${RoutePath.article_create}`,
         element: <TicketEditPage />,
         authOnly: true,
+        roles: [UserRole.USER],
     },
     [AppRoutes.ARTICLE_EDIT]: {
         path: `${RoutePath.article_edit}`,
         element: <TicketEditPage />,
         authOnly: true,
+        roles: [UserRole.USER],
     },
     [AppRoutes.ADMIN_PANEL]: {
         path: `${RoutePath.admin_panel}`,
