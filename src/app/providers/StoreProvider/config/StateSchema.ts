@@ -15,7 +15,6 @@ import {
     ArticleDetailsRecommendationsSchema,
 } from 'pages/TicketDetailsPage';
 import { AddCommentFormSchema } from 'features/addCommentForm';
-import { ArticlesPageSchema } from 'pages/ArticlesPage';
 import { UISchema } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
 import { ProfileSchema } from 'features/editableProfileCard';
@@ -31,7 +30,6 @@ export interface StateSchema {
     profile?: ProfileSchema;
     articleDetails?: ArticleDetailsSchema;
     addCommentForm?: AddCommentFormSchema;
-    articlesPage?: ArticlesPageSchema;
     articleDetailsPage?: ArticleDetailsPageSchema;
 }
 
