@@ -5,7 +5,7 @@ import { NotFoundPage } from 'pages/NotFoundPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { ArticlesPage } from 'pages/ArticlesPage';
 import { TicketDetailsPage } from 'pages/TicketDetailsPage';
-import { ArticleEditPage } from 'pages/ArticleEditPage';
+import { TicketEditPage } from 'pages/TicketEditPage';
 import { AdminPanelPage } from 'pages/AdminPanelPage';
 import { UserRole } from 'entities/User';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
@@ -42,7 +42,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.ALL_TICKETS]: '/tickets/all',
     [AppRoutes.TICKETS_ALL_DETAILS]: '/tickets/all/', // + :id
     [AppRoutes.TICKET_CREATE]: '/tickets/create',
-    [AppRoutes.TICKET_EDIT]: '/tickets/:id/edit',
+    [AppRoutes.TICKET_EDIT]: '/tickets/my/:id/edit',
     [AppRoutes.PROFILE]: '/profile/', // + :id
     [AppRoutes.ARTICLES]: '/articles',
     // [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + :id
@@ -76,13 +76,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.TICKET_CREATE]: {
         path: `${RoutePath.ticket_create}`,
-        element: <ArticleEditPage />,
+        element: <TicketEditPage />,
         authOnly: true,
         roles: [UserRole.USER],
     },
     [AppRoutes.TICKET_EDIT]: {
         path: `${RoutePath.ticket_edit}`,
-        element: <ArticleEditPage />,
+        element: <TicketEditPage />,
         authOnly: true,
         roles: [UserRole.USER],
     },
@@ -103,12 +103,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     // },
     [AppRoutes.ARTICLE_CREATE]: {
         path: `${RoutePath.article_create}`,
-        element: <ArticleEditPage />,
+        element: <TicketEditPage />,
         authOnly: true,
     },
     [AppRoutes.ARTICLE_EDIT]: {
         path: `${RoutePath.article_edit}`,
-        element: <ArticleEditPage />,
+        element: <TicketEditPage />,
         authOnly: true,
     },
     [AppRoutes.ADMIN_PANEL]: {
