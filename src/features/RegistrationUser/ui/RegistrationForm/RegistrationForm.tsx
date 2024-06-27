@@ -30,10 +30,6 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 		console.log(values)
 	}, [])
 
-	const onChange = useCallback((values: any) => {
-		console.log(values)
-	}, [])
-
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={classNames(`${className}`)}>
 			<Input
@@ -85,7 +81,6 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				name="role"
 				options={ROLES}
 				label="Выберете роль"
-				onChange={onChange}
 			/>
 			<Button
 				className="mt8"
