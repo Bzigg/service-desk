@@ -13,11 +13,12 @@ const TicketsList: FC<IProps> = ({ tickets, target }) => {
 		<div>
 			{tickets?.map((ticketItem) => {
 				return <div key={ticketItem.id}>
-					{ticketItem.title}
+					<div>{ticketItem.title}</div>
+					<div>{ticketItem.description}</div>
+					<div>{ticketItem.status}</div>
 					<AppLink
 						target={target}
 						to={`${RoutePath.ticket_details}${ticketItem.id}`}
-						// to={RoutePath.tickets_all_details + ticketItem.id}
 					>
 						<Button theme={ButtonTheme.OUTLINE}>
 							Открыть

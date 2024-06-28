@@ -8,7 +8,8 @@
       "description": "Не печатает принтер",
       "building": "3",
       "cabinet": "201",
-      "phone": "89174802421"
+      "phone": "89174802421",
+      "status": "OPEN"
     },
     {
       "id": "2",
@@ -18,17 +19,30 @@
       "description": "Не сканирует сканер",
       "building": "3",
       "cabinet": "201",
-      "phone": "89174802421"
+      "phone": "89174802421",
+      "status": "IN_PROGRESS"
     },
     {
       "id": "3",
       "customerId": "3",
-      "responsibleId": null,
+      "responsibleId": "1",
       "title": "ЭЦП",
       "description": "Не подписывает ЭЦП",
       "building": "2",
       "cabinet": "202",
-      "phone": "89174179443"
+      "phone": "89174179443",
+      "status": "COMPLETED"
+    },
+    {
+      "id": "4",
+      "customerId": "3",
+      "responsibleId": "1",
+      "title": "ЭЦП",
+      "description": "Не подписывает ЭЦП",
+      "building": "2",
+      "cabinet": "202",
+      "phone": "89174179443",
+      "status": "REJECTED"
     }
   ],
   "users": [
