@@ -11,7 +11,9 @@ interface IProps {
 export const TicketItem: FC<IProps> = ({ ticket, target }) => {
 	return (
 		<div>
-			{ticket.title}
+			<div>{ticket.title}</div>
+			<div>{ticket.description}</div>
+			<div>{ticket.status}</div>
 			<AppLink
 				target={target}
 				to={`${RoutePath.ticket_details}${ticket.id}`}
