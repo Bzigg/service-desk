@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Page } from 'widgets/Page/Page';
-import TicketsFilters from '../TicketsFilters/TicketsFilters';
-import TicketsList from '../TicketsList/TicketsList';
+import TicketsFilters from 'features/TicketsFilters/TicketsFilters';
+import TicketsList from 'features/TicketsList/TicketsList';
 import { ticketsApi } from 'features/tickets/api/ticketsApi';
 
 const AllTicketsPage = () => {
