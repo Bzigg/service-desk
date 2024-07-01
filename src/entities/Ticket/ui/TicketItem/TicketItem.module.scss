@@ -1,0 +1,11 @@
+.Ticket {
+  border: 1px solid var(--primary-color);
+  background-color: var(--card-bg);
+  padding: 24px;
+  margin-top: 20px;
+  border-radius: 8px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}

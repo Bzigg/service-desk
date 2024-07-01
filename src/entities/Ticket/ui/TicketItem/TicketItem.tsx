@@ -2,6 +2,7 @@ import React, { FC, HTMLAttributeAnchorTarget } from 'react'
 import { AppLink } from 'shared/ui/AppLink/AppLink'
 import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
+import cls from './TicketItem.module.scss';
 
 interface IProps {
 	ticket: any,
@@ -10,7 +11,7 @@ interface IProps {
 
 export const TicketItem: FC<IProps> = ({ ticket, target }) => {
 	return (
-		<div>
+		<div className={cls.Ticket}>
 			<div>{ticket.title}</div>
 			<div>{ticket.description}</div>
 			<div>{ticket.status}</div>
