@@ -1,19 +1,17 @@
-import React, { FC, HTMLAttributeAnchorTarget } from 'react'
+import React, { FC } from 'react'
 import { TicketItem } from 'entities/Ticket'
 
 interface IProps {
 	tickets: any[],
-	target?: HTMLAttributeAnchorTarget;
 }
 
-const TicketsList: FC<IProps> = ({ tickets, target }) => {
+const TicketsList: FC<IProps> = ({ tickets }) => {
 	return (
 		<div className="mt8">
 			{tickets?.map((ticketItem) => {
 				return <TicketItem
 					key={ticketItem.id}
 					ticket={ticketItem}
-					target={target}
 				/>
 			})}
 		</div>
