@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     getUserAuthData, userActions, isUserSelector
 } from 'entities/User';
-import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Dropdown } from 'shared/ui/Dropdown/Dropdown';
@@ -15,6 +14,7 @@ import { Avatar } from 'shared/ui/Avatar/Avatar';
 import cls from './Navbar.module.scss';
 import { RegistrationModal } from 'features/RegistrationUser/ui/RegistrationModal/RegistrationModal'
 import { useNavigate } from 'react-router-dom'
+import { Logo } from 'shared/ui/Logo/Logo'
 
 interface NavbarProps {
     className?: string;
@@ -53,18 +53,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     if (authData) {
         return (
             <header className={classNames(cls.Navbar, {}, [className])}>
-                <Text
-                    className={cls.appName}
-                    title="Service-Desk"
-                    theme={TextTheme.INVERTED}
-                />
-                {/*<AppLink*/}
-                {/*    to={RoutePath.article_create}*/}
-                {/*    theme={AppLinkTheme.SECONDARY}*/}
-                {/*    className={cls.createBtn}*/}
-                {/*>*/}
-                {/*    {t('Создать статью')}*/}
-                {/*</AppLink>*/}
+                <Logo/>
                 {isUser &&
                     <AppLink
                         to={RoutePath.ticket_create}
@@ -95,9 +84,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
 
     return (
         <header className={classNames(cls.Navbar, {}, [className])}>
-            <AppLink to="/" className="logo">
-                Service-Desk
-            </AppLink>
+            <Logo/>
             <div className="buttons">
                 <Button
                     theme={ButtonTheme.CLEAR_INVERTED}
