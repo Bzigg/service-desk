@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Page } from 'widgets/Page/Page';
-import { TicketsFilters } from 'features/TicketsFilters'
-import TicketsList from 'features/TicketsList/TicketsList';
-import { ticketsApi } from 'features/tickets/api/ticketsApi';
+import { TicketsFilters } from 'features/tickets/ui/TicketsFilters'
+import TicketsList from 'features/tickets/ui/TicketsList/TicketsList';
+import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
 
 const AllTicketsPage = () => {
     const [filters, setFilters] = useState()

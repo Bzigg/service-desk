@@ -35,9 +35,7 @@ const TicketEditPage = memo((props: ArticleEditPageProps) => {
                     </Button>
                 </AppLink>
             )}
-            {isEdit
-                ? t('Редактирование заявки с ID = ') + id
-                : t('Создание новой заявки')}
+            <span>{isEdit ? 'Редактирование заявки' : 'Создание новой заявки'}</span>
             <form className={cls.Form} onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     label="Заголовок"

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { Select } from 'shared/ui/Select/Select'
 import { Button } from 'shared/ui/Button/Button'
-import { STATUS_OPTIONS, statusEnum } from 'features/TicketsFilters/model/consts/consts'
+import { STATUS_OPTIONS, statusEnum } from 'features/tickets/ui/TicketsFilters/model/consts/consts'
 import cls from './TicketsFilters.module.scss'
 
 interface IProps {

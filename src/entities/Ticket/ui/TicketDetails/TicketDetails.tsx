@@ -4,7 +4,7 @@ import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { useSelector } from 'react-redux'
 import { getUserAuthData } from 'entities/User'
-import { ticketsApi } from 'features/tickets/api/ticketsApi'
+import { ticketsApi } from 'features/tickets/model/api/ticketsApi'
 import cls from './TicketDetails.module.scss';
 
 interface IProps {
