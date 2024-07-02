@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
+import { useSelector } from 'react-redux'
 import { AppLink } from 'shared/ui/AppLink/AppLink'
 import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
-import { useSelector } from 'react-redux'
-import { getUserAuthData, isAdminSelector } from 'entities/User'
+import { getUserAuthData } from 'entities/User'
 import { ticketsApi } from 'features/tickets/model/api/ticketsApi'
-import cls from './TicketDetails.module.scss';
+import { AssignButton } from 'widgets/AssignButton'
+import cls from './TicketDetails.module.scss'
 
 interface IProps {
 	id: string;
@@ -13,7 +14,6 @@ interface IProps {
 
 export const TicketDetails: FC<IProps> = ({ id }) => {
 	const userData = useSelector(getUserAuthData);
-	const isAdmin = useSelector(isAdminSelector)
 
 	const { data } = ticketsApi.useGetTicketQuery(id as string)
 
@@ -27,11 +27,7 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
 				<div>{data?.description}</div>
 			</div>
 			<div className={cls.buttons}>
-				{isAdmin && !data?.responsibleId &&
-					<Button className="mr8" theme={ButtonTheme.OUTLINE}>
-						Назначить мне
-					</Button>
-				}
+				{data && <AssignButton className="mr8" responsibleId={data.responsibleId} />}
 				{data?.customerId === userData?.id &&
 					<AppLink to={`${RoutePath.my_tickets}/${id}/edit`}>
 						<Button theme={ButtonTheme.OUTLINE}>
