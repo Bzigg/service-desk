@@ -18,7 +18,6 @@ export const TicketItem: FC<IProps> = ({ ticket, target }) => {
 			<AppLink
 				target={target}
 				to={`${RoutePath.ticket_details}${ticket.id}`}
-				// to={RoutePath.tickets_all_details + ticketItem.id}
 			>
 				<Button theme={ButtonTheme.OUTLINE}>
 					Открыть

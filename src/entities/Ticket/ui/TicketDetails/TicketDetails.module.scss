@@ -1,0 +1,17 @@
+.TicketDetailsWrapper {
+  border: 1px solid var(--inverted-bg-color);
+  background-color: var(--card-bg);
+  padding: 24px;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
