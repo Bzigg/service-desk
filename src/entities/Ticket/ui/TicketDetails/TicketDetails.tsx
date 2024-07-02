@@ -22,7 +22,14 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
 			<div>
 				<div className={cls.header}>
 					<div>{data?.title}</div>
-					<div>{data?.status}</div>
+					<div>
+						{
+							data && data?.responsibleId === userData?.id ?
+								`можно редачить ${data?.status}`
+								:
+								data?.status
+						}
+					</div>
 				</div>
 				<div>{data?.description}</div>
 			</div>

@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { useSelector } from 'react-redux'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
-import { isAdminSelector } from 'entities/User'
+import { getUserAuthData, isAdminSelector } from 'entities/User'
 
 interface IProps {
 	className?: string
@@ -11,12 +11,13 @@ interface IProps {
 
 export const AssignButton: FC<IProps> = ({ className, id, responsibleId }) => {
 	const isAdmin = useSelector(isAdminSelector)
+	const userData = useSelector(getUserAuthData);
 
 	const assignMe = useCallback(() => {
 		console.log(id)
 	}, [])
 
-	if (!isAdmin || !responsibleId) {
+	if (!isAdmin || responsibleId || responsibleId === userData?.id) {
 		return null
 	}
 
