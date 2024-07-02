@@ -99,6 +99,20 @@ server.get('/tickets', (req, res) => {
     }
 });
 
+server.post('/tickets/assign', (req, res) => {
+    try {
+        // todo разобраться
+        const { ticketId, responsibleId } = req.body;
+        if (ticketId && responsibleId) {
+            res.json({status: 'OK'})
+        }
+        return res.status(406).json({ message: 'no valid data' });
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: e.message });
+    }
+});
+
 // проверяем, авторизован ли пользователь
 // eslint-disable-next-line
 server.use((req, res, next) => {
