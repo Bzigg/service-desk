@@ -22,7 +22,7 @@ export const TicketItem: FC<IProps> = ({ ticket }) => {
 			<div>{ticket.description}</div>
 			<div>{ticket.status}</div>
 			<div className={cls.buttons}>
-				<AssignButton className="mr8" responsibleId={ticket.responsibleId} />
+				<AssignButton className="mr8" id={ticket.id} responsibleId={ticket.responsibleId} />
 				<Button onClick={open} theme={ButtonTheme.CLEAR}>
 					Открыть
 				</Button>

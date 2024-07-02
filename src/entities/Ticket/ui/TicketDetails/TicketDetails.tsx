@@ -27,7 +27,7 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
 				<div>{data?.description}</div>
 			</div>
 			<div className={cls.buttons}>
-				{data && <AssignButton className="mr8" responsibleId={data.responsibleId} />}
+				{data && <AssignButton className="mr8" id={data.id} responsibleId={data.responsibleId} />}
 				{data?.customerId === userData?.id &&
 					<AppLink to={`${RoutePath.my_tickets}/${id}/edit`}>
 						<Button theme={ButtonTheme.OUTLINE}>
