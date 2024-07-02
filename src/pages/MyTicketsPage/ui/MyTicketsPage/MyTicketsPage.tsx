@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Page } from 'widgets/Page/Page';
 import { ticketsApi } from 'features/tickets/api/ticketsApi';
 import TicketsList from 'features/TicketsList/TicketsList'
-import TicketsFilters from 'features/TicketsFilters/TicketsFilters'
+import { TicketsFilters } from 'features/TicketsFilters'
 
 const MyTicketsPage = () => {
     const [filters, setFilters] = useState()
