@@ -2,9 +2,6 @@ import React, { memo } from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Page } from 'widgets/Page/Page'
 import { useParams } from 'react-router-dom'
-import { RoutePath } from 'shared/config/routeConfig/routeConfig'
-import { Button, ButtonTheme } from 'shared/ui/Button/Button'
-import { AppLink } from 'shared/ui/AppLink/AppLink'
 import { TicketEditForm } from 'features/tickets/ui/TicketEditForm/TicketEditForm'
 import cls from './TicketEditPage.module.scss'
 
@@ -19,14 +16,7 @@ const TicketEditPage = memo((props: ArticleEditPageProps) => {
 
     return (
         <Page className={classNames(cls.TicketEditPage, {}, [className])}>
-            {isEdit && (
-                <AppLink to={`${RoutePath.ticket_details}${id}`}>
-                    <Button theme={ButtonTheme.OUTLINE}>
-                        Отмена
-                    </Button>
-                </AppLink>
-            )}
-            <span>{isEdit ? 'Редактирование заявки' : 'Создание новой заявки'}</span>
+            <h2 className={cls.title}>{isEdit ? 'Редактирование заявки' : 'Создание новой заявки'}</h2>
             <TicketEditForm id={id as string} />
         </Page>
     );

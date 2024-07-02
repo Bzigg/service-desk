@@ -1,14 +1,24 @@
 import React, { FC, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import cls from 'pages/TicketEditPage/ui/TicketEditPage/TicketEditPage.module.scss'
 import { Input } from 'shared/ui/Input/Input'
+import cls from './TicketEditForm.module.scss'
+import { AppLink } from 'shared/ui/AppLink/AppLink'
+import { RoutePath } from 'shared/config/routeConfig/routeConfig'
+import { Button, ButtonTheme } from 'shared/ui/Button/Button'
+import { useNavigate } from 'react-router-dom'
 
 interface IProps {
 	id: string;
 }
 
 export const TicketEditForm: FC<IProps> = ({ id }) => {
+	const navigate = useNavigate();
+
 	const { control, handleSubmit } = useForm()
+
+	const cancel = useCallback(() => {
+		navigate(`${RoutePath.ticket_details}${id}`)
+	}, [])
 
 	const onSubmit = useCallback((values: any) => {
 		console.log(values)
@@ -66,6 +76,14 @@ export const TicketEditForm: FC<IProps> = ({ id }) => {
 				type="text"
 				placeholder="Введите телефон"
 			/>
+			<div className={cls.buttons}>
+				<Button type="submit" theme={ButtonTheme.OUTLINE}>
+					Сохранить
+				</Button>
+				<Button className="ml8" onClick={cancel} theme={ButtonTheme.CLEAR}>
+					Отмена
+				</Button>
+			</div>
 		</form>
 	)
 }
