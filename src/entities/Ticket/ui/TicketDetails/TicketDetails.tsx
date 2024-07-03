@@ -6,10 +6,11 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { getUserAuthData } from 'entities/User'
 import { ticketsApi } from 'features/tickets/model/api/ticketsApi'
 import { AssignButton } from 'widgets/AssignButton'
+import { TicketHeader } from 'widgets/TicketHeader'
 import cls from './TicketDetails.module.scss'
 
 interface IProps {
-	id: string;
+	id: string
 }
 
 export const TicketDetails: FC<IProps> = ({ id }) => {
@@ -20,18 +21,11 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
 	return (
 		<div className={cls.TicketDetailsWrapper}>
 			<div>
-				<div className={cls.header}>
-					<div>{data?.title}</div>
-					<div>
-						{
-							data && data?.responsibleId === userData?.id ?
-								`можно редачить ${data?.status}`
-								:
-								data?.status
-						}
-					</div>
-				</div>
+				<TicketHeader data={data} />
 				<div>{data?.description}</div>
+				<div>Корпус: {data?.building}</div>
+				<div>Кабинет: {data?.cabinet}</div>
+				<div>Телефон: {data?.phone}</div>
 			</div>
 			<div className={cls.buttons}>
 				{data && <AssignButton className="mr8" id={data.id} responsibleId={data.responsibleId} />}
