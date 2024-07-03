@@ -6,7 +6,35 @@ export enum statusEnum {
 	REJECTED = 'REJECTED',
 }
 
-export const STATUS_OPTIONS = [
+type TStatus = any
+
+export const StatusMapper: TStatus = {
+    [statusEnum.OPEN]: 'Открыто',
+    [statusEnum.IN_PROGRESS]: 'В работе',
+    [statusEnum.COMPLETED]: 'Выполнено',
+    [statusEnum.REJECTED]: 'Отклонено',
+}
+
+export const STATUS_OPTIONS_TICKET = [
+	{
+		value: statusEnum.OPEN,
+		content: StatusMapper[statusEnum.OPEN]
+	},
+	{
+		value: statusEnum.IN_PROGRESS,
+		content: StatusMapper[statusEnum.IN_PROGRESS]
+	},
+	{
+		value: statusEnum.COMPLETED,
+		content: StatusMapper[statusEnum.COMPLETED]
+	},
+	{
+		value: statusEnum.REJECTED,
+		content: StatusMapper[statusEnum.REJECTED]
+	},
+]
+
+export const STATUS_OPTIONS_FILTER = [
 	{
 		value: statusEnum.ALL,
 		content: 'Все заявки'
