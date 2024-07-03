@@ -5,6 +5,7 @@ import { Button } from 'shared/ui/Button/Button';
 import { Select } from 'shared/ui/Select/Select';
 import { UserRole } from 'entities/User'
 import cls from './RegistrationForm.module.scss';
+import { registrationApi } from 'features/RegistrationUser/model/api/registrationApi'
 
 export interface RegistrationFormProps {
 	onSuccess: () => void;
@@ -24,9 +25,15 @@ const ROLES = [
 const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
 	const { control, handleSubmit} = useForm()
 
+	const [registration] = registrationApi.useRegistrationRequestMutation()
+
 	const onSubmit = useCallback((values: any) => {
-		console.log(values)
-	}, [])
+		registration(values)
+			.unwrap()
+			.then(() => {
+				onSuccess()
+			})
+	}, [onSuccess, registration])
 
 	return (
 		<form

@@ -35,6 +35,22 @@ server.post('/login', (req, res) => {
     }
 });
 
+server.post('/registration', (req, res) => {
+    try {
+        const body = req.body;
+
+        if (body) {
+            res.json({status: 'OK'})
+            return
+        }
+
+        return res.status(403).json({ message: 'User not found' });
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: e.message });
+    }
+});
+
 // Эндпоинт для заявок
 server.get('/tickets/all', (req, res) => {
     try {
@@ -101,7 +117,6 @@ server.get('/tickets', (req, res) => {
 
 server.post('/tickets/assign', (req, res) => {
     try {
-        // todo разобраться
         const { ticketId, responsibleId } = req.body;
         if (ticketId && responsibleId) {
             res.json({status: 'OK'})
