@@ -1,15 +1,13 @@
 import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import cls from 'features/AuthByUsername/ui/LoginForm/LoginForm.module.scss';
 import { Input } from 'shared/ui/Input/Input';
 import { Button } from 'shared/ui/Button/Button';
 import { Select } from 'shared/ui/Select/Select';
-import { classNames } from 'shared/lib/classNames/classNames'
 import { UserRole } from 'entities/User'
+import cls from './RegistrationForm.module.scss';
 
 export interface RegistrationFormProps {
 	onSuccess: () => void;
-	className?: string;
 }
 
 const ROLES = [
@@ -23,7 +21,7 @@ const ROLES = [
 	}
 ]
 
-const RegistrationForm = ({ className }: RegistrationFormProps) => {
+const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
 	const { control, handleSubmit} = useForm()
 
 	const onSubmit = useCallback((values: any) => {
@@ -31,7 +29,10 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 	}, [])
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className={classNames(`${className}`)}>
+		<form
+			className={cls.RegistrationForm}
+			onSubmit={handleSubmit(onSubmit)}
+		>
 			<Input
 				label="Ваше имя"
 				rules={{
@@ -40,7 +41,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				control={control}
 				name="fName"
 				type="text"
-				className={cls.input}
+				className="mt8"
 				placeholder="Введите имя"
 			/>
 			<Input
@@ -48,7 +49,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				control={control}
 				name="lName"
 				type="text"
-				className={cls.input}
+				className="mt8"
 				placeholder="Введите фамилию"
 			/>
 			<Input
@@ -56,7 +57,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				control={control}
 				name="mName"
 				type="text"
-				className={cls.input}
+				className="mt8"
 				placeholder="Введите отчество"
 			/>
 			<Input
@@ -64,7 +65,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				control={control}
 				name="email"
 				type="text"
-				className={cls.input}
+				className="mt8"
 				placeholder="Введите email"
 			/>
 			<Input
@@ -72,7 +73,7 @@ const RegistrationForm = ({ className }: RegistrationFormProps) => {
 				control={control}
 				name="password"
 				type="text"
-				className={cls.input}
+				className="mt8"
 				placeholder="Введите пароль"
 			/>
 			<Select
