@@ -1,6 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common'
 import { CreateUserDto } from './dto/createUser.dto'
 import { UsersService } from './users.service'
+
+enum UserRole {
+	ADMIN = 'ADMIN',
+	USER = 'USER',
+}
 
 @Controller('/users')
 export class UsersController {
@@ -8,12 +13,13 @@ export class UsersController {
 	constructor(private usersService: UsersService) {}
 
 	@Post('/registration')
-	create(@Body() userDto: CreateUserDto) {
-		return this.usersService.createUser(userDto)
-	}
+	create(@Body() { role, ...user}) {
+		const userDto = {
+			...user,
+			isUser: role === UserRole.USER,
+			isAdmin: role === UserRole.ADMIN,
+		} as CreateUserDto
 
-	@Get()
-	getUsers(@Body() userDto: CreateUserDto) {
-		return [{id: 1}]
+		return this.usersService.createUser(userDto)
 	}
 }

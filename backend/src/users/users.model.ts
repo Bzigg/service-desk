@@ -3,6 +3,9 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript'
 interface UserCreationAtr {
 	email: string
 	password: string
+	firstName: string
+	lastName: string
+	surname: string
 }
 
 @Table({tableName: 'users'})
@@ -18,4 +21,19 @@ export class User extends Model<User, UserCreationAtr>{
 
 	@Column({ type: DataType.STRING })
 	password: string;
+
+	@Column({ type: DataType.STRING })
+	firstName: string;
+
+	@Column({ type: DataType.STRING })
+	lastName: string;
+
+	@Column({ type: DataType.STRING })
+	surname: string;
+
+	@Column({ type: DataType.BOOLEAN, defaultValue: true })
+	isUser: string;
+
+	@Column({ type: DataType.BOOLEAN, defaultValue: false })
+	isAdmin: string;
 }
