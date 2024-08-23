@@ -23,7 +23,11 @@ const ROLES = [
 ]
 
 const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
-	const { control, handleSubmit} = useForm()
+	const { control, handleSubmit} = useForm({
+		defaultValues: {
+			role: UserRole.USER
+		}
+	})
 
 	const [registration] = registrationApi.useRegistrationRequestMutation()
 
@@ -46,7 +50,7 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
 					required: 'Введите ваше имя'
 				}}
 				control={control}
-				name="fName"
+				name="firstName"
 				type="text"
 				className="mt8"
 				placeholder="Введите имя"
@@ -54,7 +58,7 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
 			<Input
 				label="Ваша фамилия"
 				control={control}
-				name="lName"
+				name="lastName"
 				type="text"
 				className="mt8"
 				placeholder="Введите фамилию"
@@ -62,7 +66,7 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
 			<Input
 				label="Ваше отчество"
 				control={control}
-				name="mName"
+				name="surname"
 				type="text"
 				className="mt8"
 				placeholder="Введите отчество"
