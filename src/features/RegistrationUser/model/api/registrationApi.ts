@@ -4,7 +4,7 @@ export const registrationApi = rtkApi.injectEndpoints({
 	endpoints: (build) => ({
 		registrationRequest: build.mutation<any, any>({
 			query: (arg) => ({
-				url: '/registration',
+				url: 'users/registration',
 				method: 'POST',
 				body: arg,
 			}),
