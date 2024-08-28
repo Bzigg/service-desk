@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript'
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript'
+import { Ticket } from '../tickets/tickets.model'
 
 interface UserCreationAtr {
 	email: string
@@ -32,8 +33,11 @@ export class User extends Model<User, UserCreationAtr>{
 	surname: string;
 
 	@Column({ type: DataType.BOOLEAN, defaultValue: true })
-	isUser: string;
+	isUser: boolean;
 
 	@Column({ type: DataType.BOOLEAN, defaultValue: false })
-	isAdmin: string;
+	isAdmin: boolean;
+
+	@HasMany(() => Ticket)
+	tickets: Ticket[]
 }

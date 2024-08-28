@@ -4,11 +4,17 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config'
 import { User } from './users/users.model'
 import { AuthModule } from './auth/auth.module';
+import { TicketsService } from './tickets/tickets.service';
+import { TicketsController } from './tickets/tickets.controller';
+import { TicketsModule } from './tickets/tickets.module';
+import { Ticket } from "./tickets/tickets.model";
 
 @Module({
 	controllers: [
+		TicketsController
 	],
 	providers: [
+		TicketsService
 	],
 	imports: [
 		ConfigModule.forRoot({
@@ -21,11 +27,12 @@ import { AuthModule } from './auth/auth.module';
 			username: process.env.POSTGRES_USER,
 			password: process.env.POSTGRES_PASSWORD,
 			database: process.env.POSTGRES_DB,
-			models: [User],
+			models: [User, Ticket],
 			autoLoadModels: true
 		}),
 		UsersModule,
 		AuthModule,
+		TicketsModule,
 	],
 })
 export class AppModule {}

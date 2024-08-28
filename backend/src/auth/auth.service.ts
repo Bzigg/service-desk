@@ -15,7 +15,15 @@ export class AuthService {
 
   async login(userDto: CreateUserDto) {
     const user = await this.validateUser(userDto)
-    return this.generateToken(user)
+    const token = await this.generateToken(user)
+    // todo доделать нормально
+    return {
+      token,
+      id: user.id,
+      roles: [
+        "USER"
+      ]
+    }
   }
 
   async registration(userDto: CreateUserDto) {
@@ -32,7 +40,15 @@ export class AuthService {
       password: hashPassword
     })
 
-    return this.generateToken(user)
+    // todo доделать нормально
+    const token = await this.generateToken(user)
+    return {
+      token,
+      id: user.id,
+      roles: [
+        "USER"
+      ]
+    }
   }
 
   private async generateToken(user: User) {
@@ -42,9 +58,7 @@ export class AuthService {
       // roles
     }
 
-    return {
-      token: this.jwtService.sign(payload)
-    }
+    return this.jwtService.sign(payload)
   }
 
   private async validateUser(userDto: CreateUserDto) {
