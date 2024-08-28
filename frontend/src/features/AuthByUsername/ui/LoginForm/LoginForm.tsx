@@ -41,7 +41,8 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
     }, [dispatch]);
 
     const onLoginClick = useCallback(async () => {
-        const result = await dispatch(loginByUsername({ username, password }));
+        // Todo переделать на rtkq
+        const result = await dispatch(loginByUsername({ email: username, password }));
         if (result.meta.requestStatus === 'fulfilled') {
             onSuccess();
         }

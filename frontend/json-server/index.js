@@ -14,14 +14,14 @@ const getDB = () => {
 }
 
 // Эндпоинт для логина
-server.post('/login', (req, res) => {
+server.post('/auth/login', (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
         const db = getDB()
         const { users = [] } = db;
 
         const userFromBd = users.find(
-            (user) => user.username === username && user.password === password,
+            (user) => user.username === email && user.password === password,
         );
 
         if (userFromBd) {

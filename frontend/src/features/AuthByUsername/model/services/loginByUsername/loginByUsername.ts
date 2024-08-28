@@ -5,10 +5,12 @@ import { USER_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
 import { ThunkConfig } from 'app/providers/StoreProvider';
 
 interface LoginByUsernameProps {
-    username: string;
+    // Todo разобраться с контрактами,
+    email: string;
     password: string;
 }
 
+// Todo переделать на rtkq
 export const loginByUsername = createAsyncThunk<
     User,
     LoginByUsernameProps,
@@ -19,7 +21,7 @@ export const loginByUsername = createAsyncThunk<
         const { extra, dispatch, rejectWithValue } = thunkApi;
 
         try {
-            const response = await extra.api.post<User>('/login', authData);
+            const response = await extra.api.post<User>('/auth/login', authData);
 
             if (!response.data) {
                 throw new Error();
