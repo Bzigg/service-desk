@@ -3,6 +3,7 @@ import { CreateUserDto } from "../users/dto/createUser.dto";
 import { UsersService } from "../users/users.service";
 import { JwtService } from "@nestjs/jwt";
 import { User } from "../users/users.model";
+import { UserRole } from "../../dist/auth/constants";
 const bcrypt = require('bcryptjs')
 
 @Injectable()
@@ -16,14 +17,7 @@ export class AuthService {
   async login(userDto: CreateUserDto) {
     const user = await this.validateUser(userDto)
     const token = await this.generateToken(user)
-    // todo доделать нормально
-    return {
-      token,
-      id: user.id,
-      roles: [
-        "USER"
-      ]
-    }
+    return this.getAuthData(token, user)
   }
 
   async registration(userDto: CreateUserDto) {
@@ -40,15 +34,8 @@ export class AuthService {
       password: hashPassword
     })
 
-    // todo доделать нормально
     const token = await this.generateToken(user)
-    return {
-      token,
-      id: user.id,
-      roles: [
-        "USER"
-      ]
-    }
+    return this.getAuthData(token, user)
   }
 
   private async generateToken(user: User) {
@@ -70,5 +57,23 @@ export class AuthService {
     }
 
     throw new UnauthorizedException({message: 'неверный логин или пароль'})
+  }
+
+  private getAuthData(token: string, user: User) {
+    return {
+      token,
+      id: user.id,
+      roles: this.getUserRoles(user)
+    }
+  }
+
+  private getUserRoles(user: User) {
+    const roles = []
+    if (user.isUser) {
+      roles.push(UserRole.USER)
+    } else {
+      roles.push(UserRole.ADMIN)
+    }
+    return roles
   }
 }
