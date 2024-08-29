@@ -4,18 +4,12 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config'
 import { User } from './users/users.model'
 import { AuthModule } from './auth/auth.module';
-import { TicketsService } from './tickets/tickets.service';
-import { TicketsController } from './tickets/tickets.controller';
 import { TicketsModule } from './tickets/tickets.module';
 import { Ticket } from "./tickets/tickets.model";
 
 @Module({
-	controllers: [
-		TicketsController
-	],
-	providers: [
-		TicketsService
-	],
+	controllers: [],
+	providers: [],
 	imports: [
 		ConfigModule.forRoot({
 			envFilePath: '.env'
