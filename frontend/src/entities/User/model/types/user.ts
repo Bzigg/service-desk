@@ -2,6 +2,7 @@ import { UserRole } from '../consts/userConsts';
 
 export interface User {
     id: string;
+    token: string;
     username: string;
     avatar?: string;
     roles?: UserRole[];
