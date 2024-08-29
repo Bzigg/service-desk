@@ -3,7 +3,7 @@ import { CreateUserDto } from "../users/dto/createUser.dto";
 import { UsersService } from "../users/users.service";
 import { JwtService } from "@nestjs/jwt";
 import { User } from "../users/users.model";
-import { UserRole } from "../../dist/auth/constants";
+import { UserRole } from "./constants";
 const bcrypt = require('bcryptjs')
 
 @Injectable()
