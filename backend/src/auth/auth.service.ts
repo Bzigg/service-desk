@@ -38,6 +38,11 @@ export class AuthService {
     return this.getAuthData(token, user)
   }
 
+  async getUserIdByToken(token: string) {
+    const data = this.jwtService.decode(token)
+    return data.id
+  }
+
   private async generateToken(user: User) {
     const payload = {
       id: user.id,

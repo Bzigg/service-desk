@@ -4,12 +4,14 @@ import { TicketsController } from "./tickets.controller";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { User } from "../users/users.model";
 import { Ticket } from "./tickets.model";
+import { AuthModule } from "../auth/auth.module";
 
 @Module({
   providers: [TicketsService],
   controllers: [TicketsController],
   imports: [
-    SequelizeModule.forFeature([User, Ticket])
+    SequelizeModule.forFeature([User, Ticket]),
+    AuthModule
   ],
 })
 export class TicketsModule {}
