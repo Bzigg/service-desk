@@ -22,6 +22,10 @@ export class TicketsService {
     })
   }
 
+  async getAllTickets() {
+    return await this.ticketRepository.findAll()
+  }
+
   async getUserTickets(token) {
     const userId = await this.authService.getUserIdByToken(token);
     const user = await this.userService.getUserById(userId);
