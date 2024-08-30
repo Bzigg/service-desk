@@ -27,4 +27,9 @@ export class TicketsController {
   getUserTickets(@Headers('authorization') token: string) {
     return this.ticketsService.getUserTickets(token)
   }
+
+  @Post('/assign')
+  assignTicket(@Body() data, @Headers('authorization') token: string) {
+    return this.ticketsService.assignTicket(data.ticketId, token)
+  }
 }

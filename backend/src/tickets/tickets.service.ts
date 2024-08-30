@@ -37,6 +37,17 @@ export class TicketsService {
     })
   }
 
+  async assignTicket(ticketId, token: string) {
+    const userId = await this.authService.getUserIdByToken(token);
+    const ticket = await this.getTicketById(ticketId)
+
+    await ticket.update({
+      responsibleId: userId
+    })
+
+    return await ticket.save()
+  }
+
   async getTicketById(id: string) {
     return await this.ticketRepository.findOne({
       where: {
