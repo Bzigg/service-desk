@@ -18,4 +18,21 @@ export class TicketsService {
       customerId: userId
     })
   }
+
+  async getUserTickets(token) {
+    const userId = await this.authService.getUserIdByToken(token);
+    return await this.ticketRepository.findAll({
+      where: {
+        customerId: userId
+      }
+    })
+  }
+
+  async getTicketById(id: string) {
+    return await this.ticketRepository.findOne({
+      where: {
+        id: id,
+      }
+    })
+  }
 }

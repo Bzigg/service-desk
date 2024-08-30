@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   async getUserIdByToken(token: string) {
-    const data = this.jwtService.decode(token)
+    const data = await this.jwtService.decode(token)
     return data.id
   }
 
