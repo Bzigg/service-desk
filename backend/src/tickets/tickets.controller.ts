@@ -10,6 +10,6 @@ export class TicketsController {
 
   @Post('/create')
   createTicket(@Body() ticketDto: CreateTicketDto, @Headers('authorization') token: string) {
-    this.ticketsService.create(ticketDto, token)
+    return this.ticketsService.create(ticketDto, token)
   }
 }
