@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Headers, Patch, Post, Query } from "@nestjs/common";
 import { CreateTicketDto } from './dto/createTicket.dto'
 import { TicketsService } from './tickets.service'
 
@@ -29,7 +29,12 @@ export class TicketsController {
   }
 
   @Post('/assign')
-  assignTicket(@Body() data, @Headers('authorization') token: string) {
+  assignTicket(@Body() data: { ticketId: string }, @Headers('authorization') token: string) {
     return this.ticketsService.assignTicket(data.ticketId, token)
+  }
+
+  @Patch('/status')
+  updateStatus(@Body() data, @Headers('authorization') token: string) {
+    return this.ticketsService.updateStatus(data, token)
   }
 }
