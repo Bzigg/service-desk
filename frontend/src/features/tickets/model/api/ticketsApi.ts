@@ -15,10 +15,10 @@ export const ticketsApi = rtkApi
 	.injectEndpoints({
 		endpoints: (build) => ({
 			getTicketsList: build.query<any, any>({
-				query: () => ({
+				query: (arg) => ({
 					url: '/tickets/all',
 					method: 'GET',
-					params: {},
+					params: arg,
 				}),
 			}),
 			getMyTicketsList: build.query<any, any>({
@@ -43,6 +43,7 @@ export const ticketsApi = rtkApi
 					body: arg
 				}),
 				async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+					//todo тикитсы лежат в дате
 					const getTicketsListPatchResult = dispatch(
 						ticketsApi.util.updateQueryData('getTicketsList', undefined, updateTicket(arg))
 					)
