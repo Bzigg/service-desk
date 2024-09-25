@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable, UnauthorizedException } from "@n
 import { InjectModel } from "@nestjs/sequelize";
 import { AuthService } from "../auth/auth.service";
 import { Ticket } from "./tickets.model";
-import { UserRole } from "../auth/constants";
 import { UsersService } from "../users/users.service";
 import { statusEnum } from "./constants";
 
@@ -23,8 +22,20 @@ export class TicketsService {
     })
   }
 
-  async getAllTickets() {
-    return await this.ticketRepository.findAll()
+  async getAllTickets(data: any) {
+    const { count, rows } = await this.ticketRepository.findAndCountAll()
+
+    if (data) {
+      return {
+        total: count,
+        data: await this.ticketRepository.findAll({
+          limit: data.limit,
+          offset: data.limit * (data.page - 1)
+        })
+      }
+    }
+
+    return { total: count, data: rows }
   }
 
   async getUserTickets(token) {

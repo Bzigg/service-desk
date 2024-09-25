@@ -14,8 +14,8 @@ export class TicketsController {
   }
 
   @Get('/all')
-  getAll(@Query() query) {
-    return this.ticketsService.getAllTickets()
+  getAll(@Query() query: any) {
+    return this.ticketsService.getAllTickets(Object.keys(query).length ? query : null )
   }
 
   @Post('/create')
