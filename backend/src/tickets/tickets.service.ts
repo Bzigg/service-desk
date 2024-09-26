@@ -23,14 +23,21 @@ export class TicketsService {
   }
 
   async getAllTickets(data: any) {
-    const { count, rows } = await this.ticketRepository.findAndCountAll()
+    const where = data?.status ? {
+      status: data.status as string,
+    } : undefined
+
+    const { count, rows } = await this.ticketRepository.findAndCountAll({
+      where: where
+    })
 
     if (data) {
       return {
         total: count,
         data: await this.ticketRepository.findAll({
           limit: data.limit,
-          offset: data.limit * (data.page - 1)
+          offset: data.limit * (data.page - 1),
+          where: where
         })
       }
     }
