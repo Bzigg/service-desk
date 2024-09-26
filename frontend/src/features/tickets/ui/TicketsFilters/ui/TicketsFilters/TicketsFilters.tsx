@@ -6,7 +6,7 @@ import { STATUS_OPTIONS_FILTER, statusEnum } from 'features/tickets/ui/TicketsFi
 import cls from './TicketsFilters.module.scss'
 
 interface IProps {
-	setFilters: any
+	setFilters: (value: any) => void
 }
 
 export const TicketsFilters: FC<IProps> = ({ setFilters }) => {
