@@ -1,34 +1,49 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react'
 import { Page } from 'widgets/Page/Page'
-import { statusEnum, TicketsFilters } from 'features/tickets/ui/TicketsFilters';
+import { Pagination } from 'widgets/Pagination'
+import { statusEnum, TicketsFilters } from 'features/tickets/ui/TicketsFilters'
 import TicketsList from 'features/tickets/ui/TicketsList/TicketsList'
 import { ticketsApi } from 'features/tickets/model/api/ticketsApi'
 
+const LIMIT = 3
+const DEFAULT_PAGE = 1
+//todo мб пагинацию в хук или хелпер
+
 const AllTicketsPage = () => {
-    //todo фильтрация и пагинация
     const [filters, setFilters] = useState<any>()
-    const [pagination, setPagination] = useState({ limit: 3, page: 1 })
+    const [page, setPage] = useState(DEFAULT_PAGE)
 
     const query = useMemo(() => {
         if (!filters || filters?.status === statusEnum.ALL) {
-            return pagination
+            return {
+                limit: LIMIT,
+                page,
+            }
         }
 
         return {
             ...filters,
-            ...pagination,
+            limit: LIMIT,
+            page,
         }
-    }, [filters, pagination])
+    }, [filters, page])
 
-    //todo есть поле count. пригодится в пагинации
     const { data } = ticketsApi.useGetTicketsListQuery(query)
 
     return (
         <Page>
             <TicketsFilters setFilters={setFilters} />
             <TicketsList tickets={data?.data} />
+            {data?.total > LIMIT && (
+                <Pagination
+                    limit={LIMIT}
+                    count={data.total}
+                    currentPage={page}
+                    setCurrentPage={setPage}
+                />
+            )}
         </Page>
-    );
-};
+    )
+}
 
-export default AllTicketsPage;
+export default AllTicketsPage
