@@ -14,10 +14,10 @@ export class TicketsService {
     private userService: UsersService
   ) {}
 
-  async create(ticketDto, token) {
+  async create(ticket, token) {
     const userId = await this.authService.getUserIdByToken(token);
     return await this.ticketRepository.create({
-      ...ticketDto,
+      ...ticket,
       customerId: userId
     })
   }

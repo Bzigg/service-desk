@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Headers, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Headers, Patch, Post, Query } from '@nestjs/common'
 import { CreateTicketDto } from './dto/createTicket.dto'
 import { TicketsService } from './tickets.service'
+import { statusEnum } from './constants'
 
 @Controller('tickets')
 export class TicketsController {
@@ -20,7 +21,7 @@ export class TicketsController {
 
   @Post('/create')
   createTicket(@Body() ticketDto: CreateTicketDto, @Headers('authorization') token: string) {
-    return this.ticketsService.create(ticketDto, token)
+    return this.ticketsService.create({ ...ticketDto, status: statusEnum.OPEN }, token)
   }
 
   @Get('/my')
