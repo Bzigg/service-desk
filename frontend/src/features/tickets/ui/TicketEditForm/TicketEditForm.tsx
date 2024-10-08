@@ -2,10 +2,10 @@ import React, { FC, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { Input } from 'shared/ui/Input/Input'
 import cls from './TicketEditForm.module.scss'
-import { AppLink } from 'shared/ui/AppLink/AppLink'
 import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { useNavigate } from 'react-router-dom'
+import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
 
 interface IProps {
 	id: string;
@@ -20,9 +20,19 @@ export const TicketEditForm: FC<IProps> = ({ id }) => {
 		navigate(`${RoutePath.ticket_details}${id}`)
 	}, [])
 
+	const [createTicket] = ticketsApi.useCreateTicketMutation()
+
 	const onSubmit = useCallback((values: any) => {
-		console.log(values)
-	}, [])
+		if (id) {
+			cancel()
+			return
+		}
+		createTicket(values)
+			.unwrap()
+			.then((response) => {
+				navigate(`${RoutePath.ticket_details}${response.id}`)
+			})
+	}, [id])
 
 	return (
 		<form className={cls.Form} onSubmit={handleSubmit(onSubmit)}>
@@ -80,9 +90,11 @@ export const TicketEditForm: FC<IProps> = ({ id }) => {
 				<Button type="submit" theme={ButtonTheme.OUTLINE}>
 					Сохранить
 				</Button>
-				<Button className="ml8" onClick={cancel} theme={ButtonTheme.CLEAR}>
-					Отмена
-				</Button>
+				{Boolean(id) && (
+					<Button className="ml8" onClick={cancel} theme={ButtonTheme.CLEAR}>
+						Отмена
+					</Button>
+				)}
 			</div>
 		</form>
 	)

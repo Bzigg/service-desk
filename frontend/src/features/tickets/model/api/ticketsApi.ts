@@ -14,6 +14,13 @@ export const ticketsApi = rtkApi
 	.enhanceEndpoints({addTagTypes: ['Ticket']})
 	.injectEndpoints({
 		endpoints: (build) => ({
+			createTicket: build.mutation<any, any>({
+				query: (arg) => ({
+					url: '/tickets/create',
+					method: 'POST',
+					body: arg,
+				}),
+			}),
 			getTicketsList: build.query<any, any>({
 				query: (arg) => ({
 					url: '/tickets/all',
