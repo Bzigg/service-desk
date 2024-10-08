@@ -45,15 +45,28 @@ export class TicketsService {
     return { total: count, data: rows }
   }
 
-  async getUserTickets(token) {
+  // todo подумать над тем когда не передают data
+  async getUserTickets(data, token) {
     const userId = await this.authService.getUserIdByToken(token);
     const user = await this.userService.getUserById(userId);
 
-    return await this.ticketRepository.findAll({
-      where: {
-        [user.isUser ? 'customerId' :'responsibleId']: user.id
-      }
+    const where = {
+      [user.isUser ? 'customerId' :'responsibleId']: user.id
+    }
+
+    if (data?.status) {
+      where.status = data.status
+    }
+
+    const { count } = await this.ticketRepository.findAndCountAll({
+      where: where
     })
+
+    return { total: count, data: await this.ticketRepository.findAll({
+        limit: data.limit,
+        offset: data.limit * (data.page - 1),
+        where: where
+      }) }
   }
 
   async assignTicket(ticketId, token: string) {
