@@ -14,16 +14,33 @@ interface IProps {
 export const TicketEditForm: FC<IProps> = ({ id }) => {
 	const navigate = useNavigate();
 
-	const { control, handleSubmit } = useForm()
+	const { data } = ticketsApi.useGetTicketQuery(id, {
+		skip: !id
+	})
+
+	const { control, handleSubmit } = useForm({
+		values: {
+			title: data?.title || '',
+			description: data?.description || '',
+			building: data?.building || '',
+			cabinet: data?.cabinet || '',
+			phone: data?.phone || '',
+		}
+	})
 
 	const cancel = useCallback(() => {
 		navigate(`${RoutePath.ticket_details}${id}`)
 	}, [])
 
 	const [createTicket] = ticketsApi.useCreateTicketMutation()
+	const [changeTicket] = ticketsApi.useChangeTicketMutation()
 
 	const onSubmit = useCallback((values: any) => {
 		if (id) {
+			changeTicket({
+				...values,
+				ticketId: id,
+			})
 			cancel()
 			return
 		}

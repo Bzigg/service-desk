@@ -21,6 +21,14 @@ export const ticketsApi = rtkApi
 					body: arg,
 				}),
 			}),
+			changeTicket: build.mutation<any, any>({
+				query: (arg) => ({
+					url: '/tickets/change',
+					method: 'PUT',
+					body: arg,
+				}),
+				invalidatesTags: ['Ticket'],
+			}),
 			getTicketsList: build.query<any, any>({
 				query: (arg) => ({
 					url: '/tickets/all',
