@@ -37,10 +37,10 @@ export const ticketsApi = rtkApi
 				}),
 			}),
 			getMyTicketsList: build.query<any, any>({
-				query: () => ({
+				query: (arg) => ({
 					url: '/tickets/my',
 					method: 'GET',
-					params: {},
+					params: arg,
 				}),
 			}),
 			getTicket: build.query<any, string>({

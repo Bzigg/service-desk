@@ -1,32 +1,13 @@
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 import { Page } from 'widgets/Page/Page'
 import { Pagination } from 'widgets/Pagination'
-import { statusEnum, TicketsFilters } from 'features/tickets/ui/TicketsFilters'
+import { TicketsFilters } from 'features/tickets/ui/TicketsFilters'
 import TicketsList from 'features/tickets/ui/TicketsList/TicketsList'
 import { ticketsApi } from 'features/tickets/model/api/ticketsApi'
-
-const LIMIT = 3
-const DEFAULT_PAGE = 1
-//todo мб пагинацию в хук или хелпер
+import { LIMIT, useNavigationList } from 'widgets/hooks/useNavigationList/useNavigationList'
 
 const AllTicketsPage = () => {
-    const [filters, setFilters] = useState<any>()
-    const [page, setPage] = useState(DEFAULT_PAGE)
-
-    const query = useMemo(() => {
-        if (!filters || filters?.status === statusEnum.ALL) {
-            return {
-                limit: LIMIT,
-                page,
-            }
-        }
-
-        return {
-            ...filters,
-            limit: LIMIT,
-            page,
-        }
-    }, [filters, page])
+    const { setFilters, page, setPage, query } = useNavigationList()
 
     const { data } = ticketsApi.useGetTicketsListQuery(query)
 
