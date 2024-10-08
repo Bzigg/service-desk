@@ -14,7 +14,7 @@ const MyTicketsPage = () => {
     return (
         <Page>
             <TicketsFilters setFilters={setFilters} />
-            <TicketsList tickets={data} />
+            <TicketsList tickets={data?.data} />
             {data?.total > LIMIT && (
                 <Pagination
                     limit={LIMIT}
