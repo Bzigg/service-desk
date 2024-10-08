@@ -67,6 +67,29 @@ export class TicketsService {
     return await ticket.save()
   }
 
+  async changeTicket(data, token: string) {
+    const userId = await this.authService.getUserIdByToken(token);
+    const ticket = await this.getTicketById(data.ticketId)
+
+    if (!data) {
+      throw new HttpException('Ошибка', HttpStatus.BAD_REQUEST)
+    }
+
+    if (userId === ticket.customerId) {
+      await ticket.update({
+        title: data.title,
+        description: data.description,
+        building: data.building,
+        cabinet: data.cabinet,
+        phone: data.phone,
+      })
+
+      return await ticket.save()
+    }
+
+    throw new UnauthorizedException({ message: 'неверный логин или пароль' })
+  }
+
   async updateStatus(data, token: string) {
     const userId = await this.authService.getUserIdByToken(token);
     const ticket = await this.getTicketById(data.ticketId)
