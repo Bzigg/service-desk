@@ -1,15 +1,5 @@
 import { rtkApi } from 'shared/api/rtkApi';
 
-const updateTicket = (arg: any) => {
-	return (draft: any[]) => {
-		draft.forEach((ticketItem) => {
-			if (ticketItem.id === arg.ticketId) {
-				Object.assign(ticketItem, { status: arg.status })
-			}
-		})
-	}
-}
-
 export const ticketsApi = rtkApi
 	.enhanceEndpoints({addTagTypes: ['Ticket']})
 	.injectEndpoints({
@@ -35,6 +25,7 @@ export const ticketsApi = rtkApi
 					method: 'GET',
 					params: arg,
 				}),
+				providesTags: ['Ticket'],
 			}),
 			getMyTicketsList: build.query<any, any>({
 				query: (arg) => ({
@@ -42,6 +33,7 @@ export const ticketsApi = rtkApi
 					method: 'GET',
 					params: arg,
 				}),
+				providesTags: ['Ticket'],
 			}),
 			getTicket: build.query<any, string>({
 				query: (id) => ({
@@ -57,21 +49,6 @@ export const ticketsApi = rtkApi
 					method: 'PATCH',
 					body: arg
 				}),
-				async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-					//todo тикитсы лежат в дате
-					const getTicketsListPatchResult = dispatch(
-						ticketsApi.util.updateQueryData('getTicketsList', undefined, updateTicket(arg))
-					)
-					const getMyTicketsListPatchResult = dispatch(
-						ticketsApi.util.updateQueryData('getMyTicketsList', undefined, updateTicket(arg))
-					)
-					try {
-						await queryFulfilled
-					} catch (e) {
-						getTicketsListPatchResult.undo()
-						getMyTicketsListPatchResult.undo()
-					}
-				},
 				invalidatesTags: ['Ticket'],
 			}),
 		}),
