@@ -2,7 +2,7 @@ import React, { FC, useCallback } from 'react';
 import { useSelector } from 'react-redux'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { getUserAuthData, isAdminSelector } from 'entities/User'
-import { assignApi } from 'widgets/AssignButton/model/api/assignApi'
+import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
 
 interface IProps {
 	className?: string
@@ -14,7 +14,7 @@ export const AssignButton: FC<IProps> = ({ className, id, responsibleId }) => {
 	const isAdmin = useSelector(isAdminSelector)
 	const userData = useSelector(getUserAuthData)
 
-	const [assignTicket] = assignApi.useAssignTicketMutation()
+	const [assignTicket] = ticketsApi.useAssignTicketMutation()
 
 	const assignMe = useCallback(() => {
 		assignTicket({ ticketId: id, responsibleId: userData?.id })

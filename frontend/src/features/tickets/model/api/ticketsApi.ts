@@ -51,5 +51,13 @@ export const ticketsApi = rtkApi
 				}),
 				invalidatesTags: ['Ticket'],
 			}),
+			assignTicket: build.mutation<any, any>({
+				query: (arg) => ({
+					url: '/tickets/assign',
+					method: 'POST',
+					body: arg,
+				}),
+				invalidatesTags: ['Ticket'],
+			}),
 		}),
 	});
