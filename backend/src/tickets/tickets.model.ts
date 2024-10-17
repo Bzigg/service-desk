@@ -14,8 +14,8 @@ interface TicketCreationAtr {
 
 @Table({tableName: 'tickets'})
 export class Ticket extends Model<Ticket, TicketCreationAtr>{
-  set: any;
-  setAttributes: any;
+  set;
+  setAttributes;
 
   @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
   id: number;
