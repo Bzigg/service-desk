@@ -1,0 +1,13 @@
+.Pagination {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+
+  button {
+    margin-left: 16px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
