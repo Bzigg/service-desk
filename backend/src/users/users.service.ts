@@ -17,14 +17,14 @@ export class UsersService {
 			where: {
 				email: email
 			}
-		})
+		} as any)
 	}
 
-	async getUserById(id: string) {
+	async getUserById(id: number) {
 		return await this.userRepository.findOne({
 			where: {
 				id: id
 			}
-		})
+		} as any)
 	}
 }
