@@ -1,11 +1,13 @@
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
 import { SequelizeModule } from '@nestjs/sequelize'
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './users/users.module'
 import { ConfigModule } from '@nestjs/config'
 import { User } from './users/users.model'
-import { AuthModule } from './auth/auth.module';
-import { TicketsModule } from './tickets/tickets.module';
-import { Ticket } from "./tickets/tickets.model";
+import { AuthModule } from './auth/auth.module'
+import { TicketsModule } from './tickets/tickets.module'
+import { Ticket } from './tickets/tickets.model'
+import { BuildingsModule } from './buildings/buildings.module'
+import { Building } from './buildings/buildings.model'
 
 @Module({
 	controllers: [],
@@ -21,12 +23,13 @@ import { Ticket } from "./tickets/tickets.model";
 			username: process.env.POSTGRES_USER,
 			password: process.env.POSTGRES_PASSWORD,
 			database: process.env.POSTGRES_DB,
-			models: [User, Ticket],
+			models: [User, Ticket, Building],
 			autoLoadModels: true
 		}),
 		UsersModule,
 		AuthModule,
 		TicketsModule,
+		BuildingsModule,
 	],
 })
 export class AppModule {}

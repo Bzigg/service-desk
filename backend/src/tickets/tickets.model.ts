@@ -1,5 +1,5 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
-import { User } from "../users/users.model";
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript'
+import { User } from '../users/users.model'
 
 interface TicketCreationAtr {
   customerId: number
