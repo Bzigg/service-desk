@@ -13,18 +13,22 @@ export class UsersService {
 	}
 
 	async getUserByEmail(email: string) {
+		const where = {
+			email: email
+		}
+
 		return await this.userRepository.findOne({
-			where: {
-				email: email
-			}
-		} as any)
+			where: where
+		})
 	}
 
 	async getUserById(id: number) {
+		const where = {
+			id: id
+		}
+
 		return await this.userRepository.findOne({
-			where: {
-				id: id
-			}
-		} as any)
+			where: where
+		})
 	}
 }

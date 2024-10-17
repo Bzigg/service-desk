@@ -128,10 +128,12 @@ export class TicketsService {
   }
 
   async getTicketById(id: string) {
+    const where = {
+      id: id,
+    }
+
     return await this.ticketRepository.findOne({
-      where: {
-        id: id,
-      }
-    } as any)
+      where: where
+    })
   }
 }
