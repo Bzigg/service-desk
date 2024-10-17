@@ -15,7 +15,7 @@ export class TicketsController {
   }
 
   @Get('/all')
-  getAll(@Query() query: any) {
+  getAll(@Query() query: IParams) {
     return this.ticketsService.getAllTickets(Object.keys(query).length ? query : null )
   }
 
@@ -25,7 +25,7 @@ export class TicketsController {
   }
 
   @Get('/my')
-  getUserTickets(@Query() query: any, @Headers('authorization') token: string) {
+  getUserTickets(@Query() query: IParams, @Headers('authorization') token: string) {
     return this.ticketsService.getUserTickets(Object.keys(query).length ? query : null, token)
   }
 

@@ -22,9 +22,9 @@ export class TicketsService {
     })
   }
 
-  async getAllTickets(data: any) {
+  async getAllTickets(data: IParams) {
     const where = data?.status ? {
-      status: data.status as string,
+      status: data.status,
     } : undefined
 
     const { count, rows } = await this.ticketRepository.findAndCountAll({
@@ -45,12 +45,12 @@ export class TicketsService {
     return { total: count, data: rows }
   }
 
-  async getUserTickets(data, token) {
+  async getUserTickets(data: IParams, token: string) {
     const userId = await this.authService.getUserIdByToken(token);
     const user = await this.userService.getUserById(userId);
 
-    const where = {
-      [user.isUser ? 'customerId' :'responsibleId']: user.id
+    let where = {
+      [user.isUser ? 'customerId' :'responsibleId']: user.id,
     }
 
     if (data?.status) {
@@ -131,6 +131,6 @@ export class TicketsService {
       where: {
         id: id,
       }
-    })
+    } as any)
   }
 }
