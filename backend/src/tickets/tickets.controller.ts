@@ -2,6 +2,7 @@ import { Body, Controller, Get, Headers, Patch, Post, Put, Query } from '@nestjs
 import { CreateTicketDto } from './dto/createTicket.dto'
 import { TicketsService } from './tickets.service'
 import { statusEnum } from './constants'
+import { IParams } from './models'
 
 @Controller('tickets')
 export class TicketsController {

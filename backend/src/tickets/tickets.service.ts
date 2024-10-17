@@ -1,9 +1,10 @@
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/sequelize";
-import { AuthService } from "../auth/auth.service";
-import { Ticket } from "./tickets.model";
-import { UsersService } from "../users/users.service";
-import { statusEnum } from "./constants";
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common'
+import { InjectModel } from '@nestjs/sequelize'
+import { AuthService } from '../auth/auth.service'
+import { Ticket } from './tickets.model'
+import { UsersService } from '../users/users.service'
+import { statusEnum } from './constants'
+import { IParams, TWhere } from './models'
 
 @Injectable()
 export class TicketsService {
@@ -49,7 +50,7 @@ export class TicketsService {
     const userId = await this.authService.getUserIdByToken(token);
     const user = await this.userService.getUserById(userId);
 
-    let where = {
+    let where: TWhere = {
       [user.isUser ? 'customerId' :'responsibleId']: user.id,
     }
 
