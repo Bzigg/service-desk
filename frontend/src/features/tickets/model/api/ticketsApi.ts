@@ -1,4 +1,4 @@
-import { rtkApi } from 'shared/api/rtkApi';
+import { rtkApi } from 'shared/api/rtkApi'
 
 export const ticketsApi = rtkApi
 	.enhanceEndpoints({addTagTypes: ['Ticket']})
