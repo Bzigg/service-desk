@@ -24,6 +24,9 @@ export class Building extends Model<Building, BuildingCreationAtr>{
 	@Column({ type: DataType.STRING, })
 	name: string;
 
+	@Column({ type: DataType.STRING, })
+	userId: string;
+
 	@Column({ type: DataType.BOOLEAN, defaultValue: true })
 	isActive: boolean;
 }
