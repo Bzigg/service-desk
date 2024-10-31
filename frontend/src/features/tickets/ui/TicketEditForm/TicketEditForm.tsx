@@ -73,6 +73,7 @@ export const TicketEditForm: FC<IProps> = ({ id }) => {
 				type="text"
 				placeholder="Введите описание"
 			/>
+			{/*todo заменить на селектор*/}
 			<Input
 				label="Здание"
 				rules={{

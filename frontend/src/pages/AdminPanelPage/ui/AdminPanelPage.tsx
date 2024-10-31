@@ -21,6 +21,7 @@ const AdminPanelPage = () => {
 
     return (
         <Page>
+            {/*todo распилить по компонентам*/}
             <form onSubmit={handleSubmit(save)}>
                 <Input
                     label="Улица"
