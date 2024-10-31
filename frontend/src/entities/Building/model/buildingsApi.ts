@@ -15,6 +15,7 @@ export const buildingsApi = rtkApi.injectEndpoints({
                 method: 'GET',
             }),
         }),
+        //todo обновлять список при добавлении
         addBuilding: build.mutation<any, void>({
             query: (args) => ({
                 url: `/buildings/add`,
