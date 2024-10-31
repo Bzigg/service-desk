@@ -54,13 +54,21 @@ export const Navbar = memo(({ className }: NavbarProps) => {
         return (
             <header className={classNames(cls.Navbar, {}, [className])}>
                 <Logo/>
-                {isUser &&
+                {isUser ?
                     <AppLink
                         to={RoutePath.ticket_create}
                         theme={AppLinkTheme.SECONDARY}
-                        className={cls.createBtn}
+                        className={cls.headerButton}
                     >
                         Создать заявку
+                    </AppLink>
+                    :
+                    <AppLink
+                        to={RoutePath.admin_panel}
+                        theme={AppLinkTheme.SECONDARY}
+                        className={cls.headerButton}
+                    >
+                        Администрирование корпусов
                     </AppLink>
                 }
                 <Dropdown
