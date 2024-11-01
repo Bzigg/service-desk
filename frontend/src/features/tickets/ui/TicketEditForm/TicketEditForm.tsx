@@ -6,6 +6,8 @@ import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { useNavigate } from 'react-router-dom'
 import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
+import { Select } from 'shared/ui/Select/Select';
+import { buildingsApi } from 'entities/Building/model/buildingsApi';
 
 interface IProps {
 	id: string;
@@ -18,11 +20,13 @@ export const TicketEditForm: FC<IProps> = ({ id }) => {
 		skip: !id
 	})
 
+	const { data: buildings } = buildingsApi.useGetBuildingsQuery()
+
 	const { control, handleSubmit } = useForm({
 		values: {
 			title: data?.title || '',
 			description: data?.description || '',
-			building: data?.building || '',
+			building: data?.building || buildings?.[1]?.id,
 			cabinet: data?.cabinet || '',
 			phone: data?.phone || '',
 		}
@@ -73,16 +77,14 @@ export const TicketEditForm: FC<IProps> = ({ id }) => {
 				type="text"
 				placeholder="Введите описание"
 			/>
-			{/*todo заменить на селектор*/}
-			<Input
-				label="Здание"
-				rules={{
-					required: 'Введите номер здания'
-				}}
+			<Select
+				className="mt8"
 				control={control}
 				name="building"
-				type="text"
-				placeholder="Введите номер здания"
+				options={buildings}
+				label="Выберете строение"
+				keyName="id"
+				labelName={(option: any) => (`${option?.name} (${option?.street}, ${option?.building})`)}
 			/>
 			<Input
 				label="Кабинет"

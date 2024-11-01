@@ -4,8 +4,7 @@ import cls from './Select.module.scss';
 import { Controller } from 'react-hook-form'
 
 export interface SelectOption {
-    value: string;
-    content: string;
+    [key: string]: string | number;
 }
 
 interface SelectProps {
@@ -18,6 +17,8 @@ interface SelectProps {
     value?: string;
     onChange?: (value: string) => void;
     readonly?: boolean;
+    keyName?: ((value: any) => string) | string;
+    labelName?: ((value: any) => string) | string;
 }
 
 export const Select = memo((props: SelectProps) => {
@@ -31,6 +32,8 @@ export const Select = memo((props: SelectProps) => {
         control,
         name,
         placeholder,
+        keyName = 'value',
+        labelName = 'content',
     } = props;
 
     const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -39,13 +42,13 @@ export const Select = memo((props: SelectProps) => {
         }
     };
 
-    const optionsList = useMemo(() => options?.map((opt) => (
+    const optionsList = useMemo(() => options?.map((opt: SelectOption) => (
         <option
             className={cls.option}
-            value={opt.value}
-            key={opt.value}
+            value={typeof keyName === 'string' ? opt[keyName] : keyName(opt)}
+            key={typeof keyName === 'string' ? opt[keyName] : keyName(opt)}
         >
-            {opt.content}
+            {typeof labelName === 'string' ? opt[labelName] : labelName(opt)}
         </option>
     )), [options]);
 
