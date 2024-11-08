@@ -7,8 +7,6 @@ import { Button } from 'shared/ui/Button/Button'
 
 const AdminPanelPage = () => {
     // todo выпилить useTranslation
-    // const { t } = useTranslation('about');
-
     const { data } = buildingsApi.useGetBuildingsQuery()
 
     const [addBuilding] = buildingsApi.useAddBuildingMutation()

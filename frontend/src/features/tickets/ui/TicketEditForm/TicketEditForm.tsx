@@ -5,9 +5,9 @@ import cls from './TicketEditForm.module.scss'
 import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { useNavigate } from 'react-router-dom'
-import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
-import { Select } from 'shared/ui/Select/Select';
-import { buildingsApi } from 'entities/Building/model/buildingsApi';
+import { ticketsApi } from 'features/tickets/model/api/ticketsApi'
+import { Select } from 'shared/ui/Select/Select'
+import { buildingsApi } from 'entities/Building/model/buildingsApi'
 
 interface IProps {
 	id: string;
