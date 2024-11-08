@@ -1,9 +1,7 @@
-import { classNames } from 'shared/lib/classNames/classNames'
 import { memo, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
-import { HStack } from 'shared/ui/Stack'
 import { Text } from 'shared/ui/Text/Text'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { getUserAuthData } from 'entities/User'
@@ -40,7 +38,7 @@ export const EditableProfileCardHeader = memo((props: EditableProfileCardHeaderP
     }, [dispatch]);
 
     return (
-        <HStack max justify="between" className={classNames('', {}, [className])}>
+        <>
             <Text title="Профиль" />
             {canEdit && (
                 <div>
@@ -55,7 +53,7 @@ export const EditableProfileCardHeader = memo((props: EditableProfileCardHeaderP
                             </Button>
                         )
                         : (
-                            <HStack gap="8">
+                            <>
                                 <Button
                                     theme={ButtonTheme.OUTLINE_RED}
                                     onClick={onCancelEdit}
@@ -70,10 +68,10 @@ export const EditableProfileCardHeader = memo((props: EditableProfileCardHeaderP
                                 >
                                     Сохранить
                                 </Button>
-                            </HStack>
+                            </>
                         )}
                 </div>
             )}
-        </HStack>
+        </>
     );
 });

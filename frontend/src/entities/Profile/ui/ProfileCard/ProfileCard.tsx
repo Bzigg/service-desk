@@ -3,7 +3,6 @@ import { Text, TextAlign, TextTheme } from 'shared/ui/Text/Text'
 import { Input } from 'shared/ui/Input/Input'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { Avatar } from 'shared/ui/Avatar/Avatar'
-import { HStack, VStack } from 'shared/ui/Stack'
 import cls from './ProfileCard.module.scss'
 import { Profile } from '../../model/types/profile'
 
@@ -38,35 +37,25 @@ export const ProfileCard = (props: ProfileCardProps) => {
 
     if (isLoading) {
         return (
-            <HStack justify="center" max className={classNames(cls.ProfileCard, { [cls.loading]: true }, [className])}>
-                <Loader />
-            </HStack>
+            <Loader />
         );
     }
 
     if (error) {
         return (
-            <HStack justify="center" max className={classNames(cls.ProfileCard, {}, [className, cls.error])}>
-                <Text
-                    theme={TextTheme.ERROR}
-                    title="Произошла ошибка при загрузке профиля"
-                    text="Попробуйте обновить страницу"
-                    align={TextAlign.CENTER}
-                />
-            </HStack>
+            <Text
+                theme={TextTheme.ERROR}
+                title="Произошла ошибка при загрузке профиля"
+                text="Попробуйте обновить страницу"
+                align={TextAlign.CENTER}
+            />
         );
     }
 
-    const mods: Mods = {
-        [cls.editing]: !readonly,
-    };
-
     return (
-        <VStack gap="8" max className={classNames(cls.ProfileCard, mods, [className])}>
+        <>
             {data?.avatar && (
-                <HStack justify="center" max className={cls.avatarWrapper}>
-                    <Avatar src={data?.avatar} />
-                </HStack>
+                <Avatar src={data?.avatar} />
             )}
             <Input
                 value={data?.first}
@@ -112,6 +101,6 @@ export const ProfileCard = (props: ProfileCardProps) => {
                 onChange={onChangeAvatar}
                 readonly={readonly}
             />
-        </VStack>
+        </>
     );
 };

@@ -4,8 +4,6 @@ import { ThemeSwitcher } from 'widgets/ThemeSwitcher';
 import { LangSwitcher } from 'widgets/LangSwitcher/LangSwitcher';
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button';
 import { useSelector } from 'react-redux';
-import { getUserAuthData } from 'entities/User';
-import { VStack } from 'shared/ui/Stack/VStack/VStack';
 import cls from './Sidebar.module.scss';
 import { SidebarItem } from '../SidebarItem/SidebarItem';
 import { getSidebarItems } from '../../model/selectors/getSidebarItems';
@@ -45,9 +43,10 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
             >
                 {collapsed ? '>' : '<'}
             </Button>
-            <VStack role="navigation" gap="8" className={cls.items}>
+            {/*todo вынести в верстку*/}
+            <div className={cls.items} style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
                 {itemsList}
-            </VStack>
+            </div>
             <div className={cls.switchers}>
                 <ThemeSwitcher />
                 <LangSwitcher
