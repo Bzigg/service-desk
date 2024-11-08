@@ -10,10 +10,14 @@ const AdminPanelPage = () => {
 
     const [addBuilding] = buildingsApi.useAddBuildingMutation()
 
-    const { control, handleSubmit} = useForm()
+    const { control, handleSubmit, reset} = useForm()
 
     const save = useCallback((values: any) => {
-        addBuilding(values);
+        addBuilding(values)
+            .unwrap()
+            .then(() => {
+                reset()
+            })
     }, [addBuilding])
 
     return (

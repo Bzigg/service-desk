@@ -1,6 +1,8 @@
 import { rtkApi } from 'shared/api/rtkApi'
 
-export const buildingsApi = rtkApi.injectEndpoints({
+export const buildingsApi = rtkApi
+    .enhanceEndpoints({addTagTypes: ['Building']})
+    .injectEndpoints({
     endpoints: (build) => ({
         getBuilding: build.query<any, string>({
             query: (id) => ({
@@ -14,14 +16,15 @@ export const buildingsApi = rtkApi.injectEndpoints({
                 url: `/buildings/all`,
                 method: 'GET',
             }),
+            providesTags: ['Building'],
         }),
-        //todo обновлять список при добавлении
         addBuilding: build.mutation<any, void>({
             query: (args) => ({
                 url: `/buildings/add`,
                 method: 'POST',
                 body: args
             }),
+            invalidatesTags: ['Building'],
         }),
     })
 })
