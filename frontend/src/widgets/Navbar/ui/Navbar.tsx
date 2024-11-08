@@ -1,17 +1,16 @@
-import { classNames } from 'shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
-import React, { memo, useCallback, useState } from 'react';
-import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { LoginModal } from 'features/AuthByUsername';
-import { useDispatch, useSelector } from 'react-redux';
+import { classNames } from 'shared/lib/classNames/classNames'
+import React, { memo, useCallback, useState } from 'react'
+import { Button, ButtonTheme } from 'shared/ui/Button/Button'
+import { LoginModal } from 'features/AuthByUsername'
+import { useDispatch, useSelector } from 'react-redux'
 import {
     getUserAuthData, userActions, isUserSelector
-} from 'entities/User';
-import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
-import { Dropdown } from 'shared/ui/Dropdown/Dropdown';
-import { Avatar } from 'shared/ui/Avatar/Avatar';
-import cls from './Navbar.module.scss';
+} from 'entities/User'
+import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink'
+import { RoutePath } from 'shared/config/routeConfig/routeConfig'
+import { Dropdown } from 'shared/ui/Dropdown/Dropdown'
+import { Avatar } from 'shared/ui/Avatar/Avatar'
+import cls from './Navbar.module.scss'
 import { RegistrationModal } from 'features/RegistrationUser/ui/RegistrationModal/RegistrationModal'
 import { useNavigate } from 'react-router-dom'
 import { Logo } from 'shared/ui/Logo/Logo'
@@ -21,7 +20,6 @@ interface NavbarProps {
 }
 
 export const Navbar = memo(({ className }: NavbarProps) => {
-    const { t } = useTranslation();
     const [isAuthModal, setIsAuthModal] = useState(false);
     const [isRegistrationModal, setIsRegistrationModal] = useState(false);
     const authData = useSelector(getUserAuthData);
@@ -76,11 +74,11 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     className={cls.dropdown}
                     items={[
                         {
-                            content: t('Профиль'),
+                            content: 'Профиль',
                             href: RoutePath.profile + authData.id,
                         },
                         {
-                            content: t('Выйти'),
+                            content: 'Выйти',
                             onClick: onLogout,
                         },
                     ]}
@@ -99,14 +97,14 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     className={cls.links}
                     onClick={onShowAuthModal}
                 >
-                    {t('Войти')}
+                    Войти
                 </Button>
                 <Button
                     theme={ButtonTheme.CLEAR_INVERTED}
                     className={`${cls.links} ml8`}
                     onClick={onShowRegistrationModal}
                 >
-                    {t('Регистрация')}
+                    Регистрация
                 </Button>
             </div>
             {isAuthModal && (
