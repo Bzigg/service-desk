@@ -43,8 +43,7 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
             >
                 {collapsed ? '>' : '<'}
             </Button>
-            {/*todo вынести в верстку*/}
-            <div className={cls.items} style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+            <div className={cls.items}>
                 {itemsList}
             </div>
             <div className={cls.switchers}>
