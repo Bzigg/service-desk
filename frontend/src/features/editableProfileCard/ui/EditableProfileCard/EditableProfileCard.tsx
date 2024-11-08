@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
@@ -26,8 +25,7 @@ const reducers: ReducersList = {
 };
 
 export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
-    const { className, id } = props;
-    const { t } = useTranslation('profile');
+    const { id } = props;
 
     const dispatch = useAppDispatch();
     const formData = useSelector(getProfileForm);
@@ -37,11 +35,11 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
     const validateErrors = useSelector(getProfileValidateErrors);
 
     const validateErrorTranslates = {
-        [ValidateProfileError.SERVER_ERROR]: t('Серверная ошибка при сохранении'),
-        [ValidateProfileError.INCORRECT_COUNTRY]: t('Некорректный регион'),
-        [ValidateProfileError.NO_DATA]: t('Данные не указаны'),
-        [ValidateProfileError.INCORRECT_USER_DATA]: t('Имя и фамилия обязательны'),
-        [ValidateProfileError.INCORRECT_AGE]: t('Некорректный возраст'),
+        [ValidateProfileError.SERVER_ERROR]: 'Серверная ошибка при сохранении',
+        [ValidateProfileError.INCORRECT_COUNTRY]: 'Некорректный регион',
+        [ValidateProfileError.NO_DATA]: 'Данные не указаны',
+        [ValidateProfileError.INCORRECT_USER_DATA]: 'Имя и фамилия обязательны',
+        [ValidateProfileError.INCORRECT_AGE]: 'Некорректный возраст',
     };
 
     useInitialEffect(() => {

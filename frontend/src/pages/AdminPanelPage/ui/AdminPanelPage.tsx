@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form'
 import { Button } from 'shared/ui/Button/Button'
 
 const AdminPanelPage = () => {
-    // todo выпилить useTranslation
     const { data } = buildingsApi.useGetBuildingsQuery()
 
     const [addBuilding] = buildingsApi.useAddBuildingMutation()
