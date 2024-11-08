@@ -7,7 +7,6 @@ module.exports = {
     extends: [
         'plugin:react/recommended',
         'airbnb',
-        'plugin:i18next/recommended',
         'plugin:storybook/recommended',
         'prettier',
     ],
@@ -22,7 +21,6 @@ module.exports = {
     plugins: [
         'react',
         '@typescript-eslint',
-        'i18next',
         'react-hooks',
         'ulbi-tv-plugin',
         'unused-imports',
@@ -46,29 +44,6 @@ module.exports = {
         'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',
         'no-underscore-dangle': 'off',
-        'i18next/no-literal-string': [
-            'error',
-            {
-                markupOnly: true,
-                ignoreAttribute: [
-                    'as',
-                    'role',
-                    'data-testid',
-                    'to',
-                    'target',
-                    'justify',
-                    'align',
-                    'border',
-                    'direction',
-                    'gap',
-                    'feature',
-                    'color',
-                    'variant',
-                    'size',
-                    'wrap',
-                ],
-            },
-        ],
         'max-len': [
             'error',
             {
@@ -122,7 +97,6 @@ module.exports = {
         {
             files: ['**/src/**/*.{test,stories}.{ts,tsx}'],
             rules: {
-                'i18next/no-literal-string': 'off',
                 'max-len': 'off',
             },
         },
