@@ -7,7 +7,7 @@ import { CombinedState } from 'redux';
 import { AxiosInstance } from 'axios';
 import { UISchema } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
-import { ProfileSchema } from 'features/editableProfileCard';
+// import { ProfileSchema } from 'features/editableProfileCard';
 
 export interface StateSchema {
     user: UserSchema;
@@ -16,7 +16,7 @@ export interface StateSchema {
 
     // Асинхронные редюсеры
     loginForm?: LoginSchema;
-    profile?: ProfileSchema;
+    // profile?: ProfileSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
