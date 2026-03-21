@@ -14,7 +14,7 @@ export class UsersController {
 			return user
 		}
 
-		const userData = typeof user.toJSON === 'function' ? user.toJSON() : user
+		const userData = user?.toJSON()
 		const { password, ...safeUser } = userData
 		return safeUser
 	}
