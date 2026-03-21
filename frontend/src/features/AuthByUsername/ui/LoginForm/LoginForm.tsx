@@ -2,8 +2,8 @@ import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
 import { useSelector } from 'react-redux'
-import { memo, useCallback } from 'react'
-import { Text, TextTheme } from 'shared/ui/Text/Text'
+import { memo, useCallback, useState } from 'react'
+import { Text } from 'shared/ui/Text/Text'
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername'
@@ -17,34 +17,74 @@ import cls from './LoginForm.module.scss'
 export interface LoginFormProps {
     className?: string;
     onSuccess: () => void;
+    onRegistrationClick?: () => void;
 }
 
 const initialReducers: ReducersList = {
     loginForm: loginReducer,
 };
 
-const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
+const LoginForm = memo(({ className, onSuccess, onRegistrationClick }: LoginFormProps) => {
     const dispatch = useAppDispatch();
     const username = useSelector(getLoginUsername);
     const password = useSelector(getLoginPassword);
     const isLoading = useSelector(getLoginIsLoading);
     const error = useSelector(getLoginError);
+    const [usernameError, setUsernameError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [showAuthError, setShowAuthError] = useState(false);
 
     const onChangeUsername = useCallback((value: string) => {
+        if (usernameError) {
+            setUsernameError('');
+        }
+        setShowAuthError(false);
         dispatch(loginActions.setUsername(value));
-    }, [dispatch]);
+    }, [dispatch, usernameError]);
 
     const onChangePassword = useCallback((value: string) => {
+        if (passwordError) {
+            setPasswordError('');
+        }
+        setShowAuthError(false);
         dispatch(loginActions.setPassword(value));
-    }, [dispatch]);
+    }, [dispatch, passwordError]);
 
     const onLoginClick = useCallback(async () => {
+        const normalizedUsername = username.trim();
+        const normalizedPassword = password.trim();
+        const emailRegex = /\S+@\S+\.\S+/;
+
+        let hasError = false;
+
+        if (!normalizedUsername) {
+            setUsernameError('Заполните обязательное поле');
+            hasError = true;
+        } else if (!emailRegex.test(normalizedUsername)) {
+            setUsernameError('Введите корректный email');
+            hasError = true;
+        }
+
+        if (!normalizedPassword) {
+            setPasswordError('Заполните обязательное поле');
+            hasError = true;
+        }
+
+        if (hasError) {
+            setShowAuthError(false);
+            return;
+        }
+
         // Todo переделать на rtkq
         const result = await dispatch(loginByUsername({ email: username, password }));
         if (result.meta.requestStatus === 'fulfilled') {
             onSuccess();
+            return;
         }
+        setShowAuthError(true);
     }, [onSuccess, dispatch, password, username]);
+
+    const passwordErrorText = passwordError || (showAuthError && error ? 'Неверный email или пароль' : '');
 
     return (
         <DynamicModuleLoader
@@ -52,32 +92,38 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
             reducers={initialReducers}
         >
             <div className={classNames(cls.LoginForm, {}, [className])}>
-                <Text title="Форма авторизации" />
-                {error && <Text text="Вы ввели неверный логин или пароль" theme={TextTheme.ERROR} />}
+                <Text title="Введите ваш Email и пароль" className={cls.title} />
                 <Input
-                    label="Email"
                     autofocus
                     type="text"
-                    className="mt8"
-                    placeholder="Введите email"
+                    className={classNames(cls.input, { [cls.inputError]: Boolean(usernameError) })}
+                    placeholder="username@gmail.com"
                     onChange={onChangeUsername}
                     value={username}
                 />
+                <div className={cls.errorText}>{usernameError || '\u00A0'}</div>
                 <Input
-                    label="Пароль"
-                    type="text"
-                    className="mt8"
-                    placeholder="Введите пароль"
+                    type="password"
+                    className={classNames(cls.input, { [cls.inputError]: Boolean(passwordErrorText) })}
+                    placeholder="Пароль"
                     onChange={onChangePassword}
                     value={password}
                 />
+                <div className={cls.errorText}>{passwordErrorText || '\u00A0'}</div>
                 <Button
-                    theme={ButtonTheme.OUTLINE}
+                    theme={ButtonTheme.BACKGROUND}
                     className={cls.loginBtn}
                     onClick={onLoginClick}
                     disabled={isLoading}
                 >
-                    Войти
+                    Далее
+                </Button>
+                <Button
+                    theme={ButtonTheme.CLEAR}
+                    className={cls.registrationBtn}
+                    onClick={onRegistrationClick}
+                >
+                    Регистрация
                 </Button>
             </div>
         </DynamicModuleLoader>
