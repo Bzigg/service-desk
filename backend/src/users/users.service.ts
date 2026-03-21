@@ -6,6 +6,17 @@ import { existsSync } from "fs";
 import { unlink } from "fs/promises";
 import { join } from "path";
 
+type UpdateUserData = {
+	id: number
+	email?: string
+	firstName?: string
+	lastName?: string
+	surname?: string
+	photo?: string
+	isUser?: boolean
+	isAdmin?: boolean
+}
+
 @Injectable()
 export class UsersService {
 
@@ -25,7 +36,7 @@ export class UsersService {
 		})
 	}
 
-	async getUserById(id: number) {
+	async getUserById(id: string) {
 		const where = {
 			id: id
 		}
@@ -35,7 +46,7 @@ export class UsersService {
 		})
 	}
 
-	async updateUserById(data: any) {
+	async updateUserById(data: UpdateUserData): Promise<User | null> {
 		const user = await this.userRepository.findOne({
 			where: {
 				id: data?.id
@@ -53,7 +64,7 @@ export class UsersService {
 		return user
 	}
 
-	async updateUserPhoto(data: { id: number, photo: string }) {
+	async updateUserPhoto(data: { id: number, photo: string }): Promise<User | null> {
 		const user = await this.userRepository.findOne({
 			where: {
 				id: data?.id

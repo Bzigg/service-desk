@@ -1,39 +1,61 @@
 import { BadRequestException, Body, Controller, Get, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { diskStorage } from 'multer'
+import { diskStorage, FileFilterCallback } from 'multer'
 import { extname, join } from 'path'
 import { existsSync, mkdirSync } from 'fs'
 import { UsersService } from './users.service'
+import { User } from './users.model'
+
+type UserDataQuery = {
+	id: string
+}
+
+type UpdateUserDataBody = {
+	id: number
+	email?: string
+	firstName?: string
+	lastName?: string
+	surname?: string
+	photo?: string
+}
+
+type UpdateUserPhotoBody = {
+	id: string
+}
+
+type SafeUser = Omit<ReturnType<User['toJSON']>, 'password'>
 
 @Controller('/users')
 export class UsersController {
 
 	constructor(private usersService: UsersService) {}
 
+	private sanitizeUser(user: User): SafeUser {
+		const userData = user.toJSON()
+		const { password, ...safeUser } = userData
+		return safeUser
+	}
+
 	@Get('/data')
-	async getData(@Query() query: any): Promise<any> {
+	async getData(@Query() query: UserDataQuery): Promise<SafeUser | null> {
 		const user = await this.usersService.getUserById(query.id)
 
 		if (!user) {
 			return user
 		}
 
-		const userData = user?.toJSON()
-		const { password, ...safeUser } = userData
-		return safeUser
+		return this.sanitizeUser(user)
 	}
 
 	@Put('/data')
-	async updateData(@Body() data: any): Promise<any> {
+	async updateData(@Body() data: UpdateUserDataBody): Promise<SafeUser | null> {
 		const user = await this.usersService.updateUserById(data)
 
 		if (!user) {
 			return user
 		}
 
-		const userData = user?.toJSON()
-		const { password, ...safeUser } = userData
-		return safeUser
+		return this.sanitizeUser(user)
 	}
 
 	@Put('/photo')
@@ -41,12 +63,12 @@ export class UsersController {
 		limits: {
 			fileSize: 5 * 1024 * 1024
 		},
-		fileFilter: (_req, file, cb) => {
+		fileFilter: (_req, file, cb: FileFilterCallback) => {
 			const allowedMimeTypes = ['image/jpeg', 'image/png']
 			const extension = extname(file.originalname).toLowerCase()
 			const allowedExtensions = ['.jpg', '.jpeg', '.png']
 			if (!allowedMimeTypes.includes(file.mimetype) || !allowedExtensions.includes(extension)) {
-				return cb(new BadRequestException('Only jpg and png files are allowed') as any, false)
+				return cb(new BadRequestException('Only jpg and png files are allowed'))
 			}
 			cb(null, true)
 		},
@@ -64,7 +86,7 @@ export class UsersController {
 			}
 		})
 	}))
-	async updatePhoto(@Body() data: { id: string }, @UploadedFile() file: any): Promise<any> {
+	async updatePhoto(@Body() data: UpdateUserPhotoBody, @UploadedFile() file: Express.Multer.File): Promise<SafeUser | null> {
 		if (!file) {
 			throw new BadRequestException('Photo file is required')
 		}
@@ -81,8 +103,6 @@ export class UsersController {
 			return user
 		}
 
-		const userData = user?.toJSON()
-		const { password, ...safeUser } = userData
-		return safeUser
+		return this.sanitizeUser(user)
 	}
 }
