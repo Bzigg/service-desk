@@ -4,6 +4,7 @@ export class CreateUserDto {
 	readonly firstName: string
 	readonly lastName: string
 	readonly surname: string
+	readonly photo?: string
 	readonly isUser: boolean
 	readonly isAdmin: boolean
 }

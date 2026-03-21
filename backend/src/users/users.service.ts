@@ -49,4 +49,21 @@ export class UsersService {
 
 		return user
 	}
+
+	async updateUserPhoto(data: { id: number, photo: string }) {
+		const user = await this.userRepository.findOne({
+			where: {
+				id: data?.id
+			}
+		})
+
+		if (!user) {
+			return null
+		}
+
+		user.set({ photo: data?.photo })
+		await user.save()
+
+		return user
+	}
 }

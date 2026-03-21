@@ -31,4 +31,17 @@ export class UsersController {
 		const { password, ...safeUser } = userData
 		return safeUser
 	}
+
+	@Put('/photo')
+	async updatePhoto(@Body() data: { id: number, photo: string }): Promise<any> {
+		const user = await this.usersService.updateUserPhoto(data)
+
+		if (!user) {
+			return user
+		}
+
+		const userData = user?.toJSON()
+		const { password, ...safeUser } = userData
+		return safeUser
+	}
 }

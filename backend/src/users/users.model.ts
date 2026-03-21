@@ -7,6 +7,7 @@ interface UserCreationAtr {
 	firstName: string
 	lastName: string
 	surname: string
+	photo?: string
 }
 
 @Table({tableName: 'users'})
@@ -31,6 +32,9 @@ export class User extends Model<User, UserCreationAtr>{
 
 	@Column({ type: DataType.STRING })
 	surname: string;
+
+	@Column({ type: DataType.STRING, allowNull: true })
+	photo: string;
 
 	@Column({ type: DataType.BOOLEAN, defaultValue: true })
 	isUser: boolean;
