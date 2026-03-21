@@ -5,7 +5,7 @@ export const profileApi = rtkApi
 		endpoints: (build) => ({
 			getUserData: build.query<any, string>({
 				query: (arg) => ({
-					url: '/user/data',
+					url: '/users/data',
 					method: 'GET',
 					params: {
 						id: arg
