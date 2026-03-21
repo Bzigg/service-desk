@@ -2,6 +2,9 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "./users.model";
 import { CreateUserDto } from "./dto/createUser.dto";
+import { existsSync } from "fs";
+import { unlink } from "fs/promises";
+import { join } from "path";
 
 @Injectable()
 export class UsersService {
@@ -61,9 +64,28 @@ export class UsersService {
 			return null
 		}
 
+		const previousPhoto = user.photo
 		user.set({ photo: data?.photo })
 		await user.save()
+		await this.removeUserPhoto(previousPhoto)
 
 		return user
+	}
+
+	private async removeUserPhoto(photoPath?: string) {
+		if (!photoPath || !photoPath.startsWith('/uploads/users/')) {
+			return
+		}
+
+		const absolutePath = join(process.cwd(), photoPath.replace(/^\//, ''))
+		if (!existsSync(absolutePath)) {
+			return
+		}
+
+		try {
+			await unlink(absolutePath)
+		} catch {
+			// Ignore file deletion errors, user data is already updated.
+		}
 	}
 }
