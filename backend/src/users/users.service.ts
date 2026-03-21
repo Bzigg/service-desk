@@ -12,9 +12,6 @@ type UpdateUserData = {
 	firstName?: string
 	lastName?: string
 	surname?: string
-	photo?: string
-	isUser?: boolean
-	isAdmin?: boolean
 }
 
 @Injectable()
@@ -57,7 +54,7 @@ export class UsersService {
 			return null
 		}
 
-		const { id, password, createdAt, updatedAt, ...nextData } = data
+		const { id, ...nextData } = data
 		user.set(nextData)
 		await user.save()
 
