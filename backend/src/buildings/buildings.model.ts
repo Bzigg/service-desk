@@ -4,7 +4,8 @@ interface BuildingCreationAtr {
 	street: string
 	building: string
 	name: string
-	isActive: string
+	userId: string
+	isActive?: boolean
 }
 
 @Table({ tableName: 'buildings' })
