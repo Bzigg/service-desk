@@ -31,4 +31,22 @@ export class UsersService {
 			where: where
 		})
 	}
+
+	async updateUserById(data: any) {
+		const user = await this.userRepository.findOne({
+			where: {
+				id: data?.id
+			}
+		})
+
+		if (!user) {
+			return null
+		}
+
+		const { id, password, createdAt, updatedAt, ...nextData } = data
+		user.set(nextData)
+		await user.save()
+
+		return user
+	}
 }
