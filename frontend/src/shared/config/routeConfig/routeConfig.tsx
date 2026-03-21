@@ -9,6 +9,8 @@ import { AdminPanelPage } from 'pages/AdminPanelPage';
 import { UserRole } from 'entities/User';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
 import { MyTicketsPage } from 'pages/MyTicketsPage'
+import { AuthPage } from 'pages/AuthPage';
+import { RegistrationPage } from 'pages/RegistrationPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -16,6 +18,8 @@ export type AppRoutesProps = RouteProps & {
 }
 
 export enum AppRoutes {
+    AUTH = 'auth',
+    REGISTRATION = 'registration',
     MAIN = 'main',
     MY_TICKETS = 'my_tickets',
     ALL_TICKETS = 'all_tickets',
@@ -30,6 +34,8 @@ export enum AppRoutes {
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
+    [AppRoutes.AUTH]: '/auth',
+    [AppRoutes.REGISTRATION]: '/registration',
     [AppRoutes.MAIN]: '/',
     [AppRoutes.MY_TICKETS]: '/tickets/my',
     [AppRoutes.ALL_TICKETS]: '/tickets/all',
@@ -44,9 +50,18 @@ export const RoutePath: Record<AppRoutes, string> = {
 };
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
+    [AppRoutes.AUTH]: {
+        path: RoutePath.auth,
+        element: <AuthPage />,
+    },
+    [AppRoutes.REGISTRATION]: {
+        path: RoutePath.registration,
+        element: <RegistrationPage />,
+    },
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
         element: <MainPage />,
+        authOnly: true,
     },
     [AppRoutes.MY_TICKETS]: {
         path: RoutePath.my_tickets,
@@ -91,10 +106,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.FORBIDDEN]: {
         path: `${RoutePath.forbidden}`,
         element: <ForbiddenPage />,
+        authOnly: true,
     },
     // last
     [AppRoutes.NOT_FOUND]: {
         path: RoutePath.not_found,
         element: <NotFoundPage />,
+        authOnly: true,
     },
 };

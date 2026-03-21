@@ -2,12 +2,10 @@ module.exports = {
     env: {
         browser: true,
         es2021: true,
-        jest: true,
     },
     extends: [
         'plugin:react/recommended',
         'airbnb',
-        'plugin:storybook/recommended',
         'prettier',
     ],
     parser: '@typescript-eslint/parser',
@@ -78,11 +76,7 @@ module.exports = {
             'error',
             {
                 alias: '@',
-                testFilesPatterns: [
-                    '**/*.test.*',
-                    '**/*.story.*',
-                    '**/StoreDecorator.tsx',
-                ],
+                testFilesPatterns: [],
             },
         ],
         'react/jsx-max-props-per-line': ['error', { maximum: 4 }],
@@ -93,12 +87,5 @@ module.exports = {
         __API__: true,
         __PROJECT__: true,
     },
-    overrides: [
-        {
-            files: ['**/src/**/*.{test,stories}.{ts,tsx}'],
-            rules: {
-                'max-len': 'off',
-            },
-        },
-    ],
+    overrides: [],
 };

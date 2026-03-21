@@ -1,0 +1,49 @@
+.AuthPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: #e5e7eb;
+}
+
+.AuthCard {
+    width: 100%;
+    max-width: 680px;
+    background: #f3f4f6;
+    border-radius: 28px;
+    padding: 48px 36px 32px;
+}
+
+.Brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.LogoIcon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+}
+
+.BrandText {
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+@media (max-width: 768px) {
+    .AuthCard {
+        padding: 32px 20px 24px;
+        border-radius: 20px;
+    }
+
+    .BrandText {
+        font-size: 28px;
+    }
+}
