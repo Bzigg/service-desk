@@ -5,39 +5,24 @@ import { extname, join } from 'path'
 import { existsSync, mkdirSync } from 'fs'
 import { UsersService } from './users.service'
 import { User } from './users.model'
-
-type UserDataQuery = {
-	id: string
-}
-
-type UpdateUserDataBody = {
-	id: number
-	email?: string
-	firstName?: string
-	lastName?: string
-	surname?: string
-	photo?: string
-}
-
-type UpdateUserPhotoBody = {
-	id: string
-}
-
-type SafeUser = Omit<ReturnType<User['toJSON']>, 'password'>
+import { GetUserDataDto } from './dto/getUserData.dto'
+import { UpdateUserDataDto } from './dto/updateUserData.dto'
+import { UpdateUserPhotoDto } from './dto/updateUserPhoto.dto'
+import { SafeUserDto } from './dto/safeUser.dto'
 
 @Controller('/users')
 export class UsersController {
 
 	constructor(private usersService: UsersService) {}
 
-	private sanitizeUser(user: User): SafeUser {
+	private sanitizeUser(user: User): SafeUserDto {
 		const userData = user.toJSON()
 		const { password, ...safeUser } = userData
 		return safeUser
 	}
 
 	@Get('/data')
-	async getData(@Query() query: UserDataQuery): Promise<SafeUser | null> {
+	async getData(@Query() query: GetUserDataDto): Promise<SafeUserDto | null> {
 		const user = await this.usersService.getUserById(query.id)
 
 		if (!user) {
@@ -48,7 +33,7 @@ export class UsersController {
 	}
 
 	@Put('/data')
-	async updateData(@Body() data: UpdateUserDataBody): Promise<SafeUser | null> {
+	async updateData(@Body() data: UpdateUserDataDto): Promise<SafeUserDto | null> {
 		const user = await this.usersService.updateUserById(data)
 
 		if (!user) {
@@ -86,7 +71,7 @@ export class UsersController {
 			}
 		})
 	}))
-	async updatePhoto(@Body() data: UpdateUserPhotoBody, @UploadedFile() file: Express.Multer.File): Promise<SafeUser | null> {
+	async updatePhoto(@Body() data: UpdateUserPhotoDto, @UploadedFile() file: Express.Multer.File): Promise<SafeUserDto | null> {
 		if (!file) {
 			throw new BadRequestException('Photo file is required')
 		}

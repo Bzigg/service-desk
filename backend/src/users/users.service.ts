@@ -2,17 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "./users.model";
 import { CreateUserDto } from "./dto/createUser.dto";
+import { UpdateUserDataDto } from "./dto/updateUserData.dto";
 import { existsSync } from "fs";
 import { unlink } from "fs/promises";
 import { join } from "path";
-
-type UpdateUserData = {
-	id: number
-	email?: string
-	firstName?: string
-	lastName?: string
-	surname?: string
-}
 
 @Injectable()
 export class UsersService {
@@ -43,7 +36,7 @@ export class UsersService {
 		})
 	}
 
-	async updateUserById(data: UpdateUserData): Promise<User | null> {
+	async updateUserById(data: UpdateUserDataDto): Promise<User | null> {
 		const user = await this.userRepository.findOne({
 			where: {
 				id: data?.id
