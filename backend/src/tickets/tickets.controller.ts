@@ -1,5 +1,9 @@
 import { Body, Controller, Get, Headers, Patch, Post, Put, Query } from '@nestjs/common'
 import { CreateTicketDto } from './dto/createTicket.dto'
+import { AssignTicketDto } from './dto/assignTicket.dto'
+import { ChangeTicketDto } from './dto/changeTicket.dto'
+import { GetTicketDto } from './dto/getTicket.dto'
+import { UpdateStatusDto } from './dto/updateStatus.dto'
 import { TicketsService } from './tickets.service'
 import { statusEnum } from './constants'
 import { IParams } from './models'
@@ -11,7 +15,7 @@ export class TicketsController {
   }
 
   @Get()
-  getTicket(@Query() query) {
+  getTicket(@Query() query: GetTicketDto) {
     return this.ticketsService.getTicketById(query.id)
   }
 
@@ -31,17 +35,17 @@ export class TicketsController {
   }
 
   @Post('/assign')
-  assignTicket(@Body() data: { ticketId: string }, @Headers('authorization') token: string) {
+  assignTicket(@Body() data: AssignTicketDto, @Headers('authorization') token: string) {
     return this.ticketsService.assignTicket(data.ticketId, token)
   }
 
   @Put('/change')
-  changeTicket(@Body() data, @Headers('authorization') token: string) {
+  changeTicket(@Body() data: ChangeTicketDto, @Headers('authorization') token: string) {
     return this.ticketsService.changeTicket(data, token)
   }
 
   @Patch('/status')
-  updateStatus(@Body() data, @Headers('authorization') token: string) {
+  updateStatus(@Body() data: UpdateStatusDto, @Headers('authorization') token: string) {
     return this.ticketsService.updateStatus(data, token)
   }
 }

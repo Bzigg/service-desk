@@ -3,5 +3,5 @@ export class CreateTicketDto {
   readonly description: string
   readonly building: string
   readonly cabinet: string
-  readonly phone: boolean
+  readonly phone: string
 }

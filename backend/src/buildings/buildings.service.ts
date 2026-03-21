@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { AuthService } from '../auth/auth.service'
 import { Building } from './buildings.model'
+import { AddBuildingDto } from './dto/addBuilding.dto'
 
 @Injectable()
 export class BuildingsService {
@@ -11,7 +12,7 @@ export class BuildingsService {
     private authService: AuthService,
   ) {}
 
-  async getBuildingById(id) {
+  async getBuildingById(id?: string): Promise<Building | null> {
     if (!id) {
       throw new HttpException('Ошибка', HttpStatus.BAD_REQUEST)
     }
@@ -19,16 +20,14 @@ export class BuildingsService {
       id: id
     }
 
-    return await this.buildingRepository.findOne({
-      where: where
-    })
+    return await this.buildingRepository.findOne({ where })
   }
 
-  async getAllBuildings() {
+  async getAllBuildings(): Promise<Building[]> {
     return await this.buildingRepository.findAll()
   }
 
-  async addBuilding(data, token) {
+  async addBuilding(data: AddBuildingDto, token: string): Promise<Building> {
     const userId = await this.authService.getUserIdByToken(token)
 
     return await this.buildingRepository.create({

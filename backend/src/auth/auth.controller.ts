@@ -2,6 +2,7 @@ import { Body, Controller, Post } from "@nestjs/common";
 import { CreateUserDto } from "../users/dto/createUser.dto";
 import { AuthService } from "./auth.service";
 import { UserRole } from "./constants";
+import { RegistrationDto } from "./dto/registration.dto";
 
 @Controller('auth')
 export class AuthController {
@@ -15,7 +16,7 @@ export class AuthController {
   }
 
   @Post('/registration')
-  registration(@Body() { role, ...user }) {
+  registration(@Body() { role, ...user }: RegistrationDto) {
     const userDto = {
       ...user,
       isUser: role === UserRole.USER,

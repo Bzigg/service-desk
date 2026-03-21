@@ -5,6 +5,9 @@ import { Ticket } from './tickets.model'
 import { UsersService } from '../users/users.service'
 import { statusEnum } from './constants'
 import { IParams, TWhere } from './models'
+import { CreateTicketDto } from './dto/createTicket.dto'
+import { ChangeTicketDto } from './dto/changeTicket.dto'
+import { UpdateStatusDto } from './dto/updateStatus.dto'
 
 @Injectable()
 export class TicketsService {
@@ -15,7 +18,7 @@ export class TicketsService {
     private userService: UsersService
   ) {}
 
-  async create(ticket, token) {
+  async create(ticket: CreateTicketDto & { status: string }, token: string): Promise<Ticket> {
     const userId = await this.authService.getUserIdByToken(token);
     return await this.ticketRepository.create({
       ...ticket,
@@ -74,7 +77,7 @@ export class TicketsService {
     return { total: count, data: rows }
   }
 
-  async assignTicket(ticketId, token: string) {
+  async assignTicket(ticketId: string, token: string): Promise<Ticket> {
     const userId = await this.authService.getUserIdByToken(token);
     const ticket = await this.getTicketById(ticketId)
 
@@ -85,7 +88,7 @@ export class TicketsService {
     return await ticket.save()
   }
 
-  async changeTicket(data, token: string) {
+  async changeTicket(data: ChangeTicketDto, token: string): Promise<Ticket> {
     const userId = await this.authService.getUserIdByToken(token);
     const ticket = await this.getTicketById(data.ticketId)
 
@@ -108,7 +111,7 @@ export class TicketsService {
     throw new UnauthorizedException({ message: 'неверный логин или пароль' })
   }
 
-  async updateStatus(data, token: string) {
+  async updateStatus(data: UpdateStatusDto, token: string): Promise<Ticket> {
     const userId = await this.authService.getUserIdByToken(token);
     const ticket = await this.getTicketById(data.ticketId)
 

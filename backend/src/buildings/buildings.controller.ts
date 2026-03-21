@@ -1,5 +1,7 @@
 import { Body, Controller, Get, Headers, Post, Query } from '@nestjs/common'
 import { BuildingsService } from './buildings.service'
+import { GetBuildingByIdDto } from './dto/getBuildingById.dto'
+import { AddBuildingDto } from './dto/addBuilding.dto'
 
 @Controller('buildings')
 export class BuildingsController {
@@ -8,7 +10,7 @@ export class BuildingsController {
   }
 
   @Get()
-  getBuildingById(@Query() query) {
+  getBuildingById(@Query() query: GetBuildingByIdDto) {
     return this.buildingsService.getBuildingById(query?.id)
   }
 
@@ -18,7 +20,7 @@ export class BuildingsController {
   }
 
   @Post('/add')
-  addBuilding(@Body() dto, @Headers('authorization') token: string) {
+  addBuilding(@Body() dto: AddBuildingDto, @Headers('authorization') token: string) {
     return this.buildingsService.addBuilding(dto, token)
   }
 }
