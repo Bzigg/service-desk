@@ -1,6 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames'
 import { memo, useMemo, useState } from 'react'
-import { ThemeSwitcher } from 'widgets/ThemeSwitcher'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { useSelector } from 'react-redux'
 import cls from './Sidebar.module.scss'
@@ -44,9 +43,6 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
             </Button>
             <div className={cls.items}>
                 {itemsList}
-            </div>
-            <div className={cls.switchers}>
-                <ThemeSwitcher />
             </div>
         </aside>
     );

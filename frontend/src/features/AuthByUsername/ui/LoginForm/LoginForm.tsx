@@ -2,132 +2,145 @@ import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
 import { useSelector } from 'react-redux'
-import { memo, useCallback, useState } from 'react'
+import { memo, useCallback } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { Text } from 'shared/ui/Text/Text'
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
-import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername'
-import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword'
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading'
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError'
 import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername'
-import { loginActions, loginReducer } from '../../model/slice/loginSlice'
+import { loginReducer } from '../../model/slice/loginSlice'
 import cls from './LoginForm.module.scss'
 
 export interface LoginFormProps {
-    className?: string;
-    onSuccess: () => void;
-    onRegistrationClick?: () => void;
+	className?: string;
+	onSuccess: () => void;
+	onRegistrationClick?: () => void;
 }
 
 const initialReducers: ReducersList = {
-    loginForm: loginReducer,
+	loginForm: loginReducer,
 };
 
+interface LoginFormValues {
+	email: string;
+	password: string;
+}
+
 const LoginForm = memo(({ className, onSuccess, onRegistrationClick }: LoginFormProps) => {
-    const dispatch = useAppDispatch();
-    const username = useSelector(getLoginUsername);
-    const password = useSelector(getLoginPassword);
-    const isLoading = useSelector(getLoginIsLoading);
-    const error = useSelector(getLoginError);
-    const [usernameError, setUsernameError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [showAuthError, setShowAuthError] = useState(false);
+	const dispatch = useAppDispatch();
+	const isLoading = useSelector(getLoginIsLoading);
+	const error = useSelector(getLoginError);
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+		clearErrors,
+		setError,
+	} = useForm<LoginFormValues>({
+		defaultValues: {
+			email: '',
+			password: '',
+		},
+	});
 
-    const onChangeUsername = useCallback((value: string) => {
-        if (usernameError) {
-            setUsernameError('');
-        }
-        setShowAuthError(false);
-        dispatch(loginActions.setUsername(value));
-    }, [dispatch, usernameError]);
+	const onSubmit = useCallback(async (values: LoginFormValues) => {
+		// Todo переделать на rtkq
+		const result = await dispatch(loginByUsername({
+			email: values.email.trim(),
+			password: values.password.trim(),
+		}));
+		if (result.meta.requestStatus === 'fulfilled') {
+			onSuccess();
+			return;
+		}
+		if (error) {
+			setError('password', {
+				type: 'manual',
+				message: 'Неверный email или пароль',
+			});
+		}
+	}, [dispatch, error, onSuccess, setError]);
 
-    const onChangePassword = useCallback((value: string) => {
-        if (passwordError) {
-            setPasswordError('');
-        }
-        setShowAuthError(false);
-        dispatch(loginActions.setPassword(value));
-    }, [dispatch, passwordError]);
-
-    const onLoginClick = useCallback(async () => {
-        const normalizedUsername = username.trim();
-        const normalizedPassword = password.trim();
-        const emailRegex = /\S+@\S+\.\S+/;
-
-        let hasError = false;
-
-        if (!normalizedUsername) {
-            setUsernameError('Заполните обязательное поле');
-            hasError = true;
-        } else if (!emailRegex.test(normalizedUsername)) {
-            setUsernameError('Введите корректный email');
-            hasError = true;
-        }
-
-        if (!normalizedPassword) {
-            setPasswordError('Заполните обязательное поле');
-            hasError = true;
-        }
-
-        if (hasError) {
-            setShowAuthError(false);
-            return;
-        }
-
-        // Todo переделать на rtkq
-        const result = await dispatch(loginByUsername({ email: username, password }));
-        if (result.meta.requestStatus === 'fulfilled') {
-            onSuccess();
-            return;
-        }
-        setShowAuthError(true);
-    }, [onSuccess, dispatch, password, username]);
-
-    const passwordErrorText = passwordError || (showAuthError && error ? 'Неверный email или пароль' : '');
-
-    return (
-        <DynamicModuleLoader
-            removeAfterUnmount
-            reducers={initialReducers}
-        >
-            <div className={classNames(cls.LoginForm, {}, [className])}>
-                <Text title="Введите ваш Email и пароль" className={cls.title} />
-                <Input
-                    autofocus
-                    type="text"
-                    className={classNames(cls.input, { [cls.inputError]: Boolean(usernameError) })}
-                    placeholder="username@gmail.com"
-                    onChange={onChangeUsername}
-                    value={username}
-                />
-                <div className={cls.errorText}>{usernameError || '\u00A0'}</div>
-                <Input
-                    type="password"
-                    className={classNames(cls.input, { [cls.inputError]: Boolean(passwordErrorText) })}
-                    placeholder="Пароль"
-                    onChange={onChangePassword}
-                    value={password}
-                />
-                <div className={cls.errorText}>{passwordErrorText || '\u00A0'}</div>
-                <Button
-                    theme={ButtonTheme.BACKGROUND}
-                    className={cls.loginBtn}
-                    onClick={onLoginClick}
-                    disabled={isLoading}
-                >
-                    Далее
-                </Button>
-                <Button
-                    theme={ButtonTheme.CLEAR}
-                    className={cls.registrationBtn}
-                    onClick={onRegistrationClick}
-                >
-                    Регистрация
-                </Button>
-            </div>
-        </DynamicModuleLoader>
-    );
+	return (
+		<DynamicModuleLoader
+			removeAfterUnmount
+			reducers={initialReducers}
+		>
+			<form className={classNames(cls.LoginForm, {}, [className])} onSubmit={handleSubmit(onSubmit)}>
+				<Text title="Введите ваш Email и пароль" className={cls.title}/>
+				<Controller
+					control={control}
+					name="email"
+					rules={{
+						required: 'Заполните обязательное поле',
+						pattern: {
+							value: /\S+@\S+\.\S+/,
+							message: 'Введите корректный email',
+						},
+					}}
+					render={({ field }) => (
+						<>
+							<Input
+								autofocus
+								type="text"
+								className={classNames(cls.input, { [cls.inputError]: Boolean(errors.email?.message) })}
+								placeholder="username@gmail.com"
+								value={field.value}
+								onChange={(value) => {
+									if (errors.password?.type === 'manual') {
+										clearErrors('password');
+									}
+									field.onChange(value);
+								}}
+							/>
+							<div className={cls.errorText}>{errors.email?.message || '\u00A0'}</div>
+						</>
+					)}
+				/>
+				<Controller
+					control={control}
+					name="password"
+					rules={{
+						required: 'Заполните обязательное поле',
+					}}
+					render={({ field }) => (
+						<>
+							<Input
+								type="password"
+								className={classNames(cls.input, { [cls.inputError]: Boolean(errors.password?.message) })}
+								placeholder="Пароль"
+								value={field.value}
+								onChange={(value) => {
+									if (errors.password?.type === 'manual') {
+										clearErrors('password');
+									}
+									field.onChange(value);
+								}}
+							/>
+							<div className={cls.errorText}>{errors.password?.message || '\u00A0'}</div>
+						</>
+					)}
+				/>
+				<Button
+					theme={ButtonTheme.BACKGROUND}
+					className={cls.loginBtn}
+					type="submit"
+					disabled={isLoading}
+				>
+					Далее
+				</Button>
+				<Button
+					theme={ButtonTheme.CLEAR}
+					className={cls.registrationBtn}
+					onClick={onRegistrationClick}
+				>
+					Регистрация
+				</Button>
+			</form>
+		</DynamicModuleLoader>
+	);
 });
 
 export default LoginForm;

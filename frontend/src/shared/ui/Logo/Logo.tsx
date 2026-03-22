@@ -1,12 +1,11 @@
 import React from 'react'
-import { Text, TextTheme } from 'shared/ui/Text/Text'
 import { AppLink } from 'shared/ui/AppLink/AppLink'
+import logoIcon from 'shared/icons/Logo.png'
+import cls from './Logo.module.scss';
 
 export const Logo = () => (
-	<AppLink to="/">
-		<Text
-			title="Service-Desk"
-			theme={TextTheme.INVERTED}
-		/>
+	<AppLink to="/" className={cls.Brand}>
+		<img className={cls.LogoIcon} src={logoIcon} alt="БГПУ Поддержка" />
+		<span className={cls.BrandText}>БГПУ Поддержка</span>
 	</AppLink>
 )

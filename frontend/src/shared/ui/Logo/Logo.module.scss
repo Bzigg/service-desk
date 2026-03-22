@@ -1,0 +1,20 @@
+.Brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.LogoIcon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+}
+
+.BrandText {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #d5d5d7;
+}
