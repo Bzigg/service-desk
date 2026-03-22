@@ -38,11 +38,8 @@ const LoginForm = memo(({ className, onSuccess, onRegistrationClick }: LoginForm
 				password: values.password.trim(),
 			}).unwrap();
 			onSuccess();
-		} catch {
-			setError('password', {
-				type: 'manual',
-				message: 'Неверный email или пароль',
-			});
+		} catch(e) {
+			console.log(e)
 		}
 	}, [login, onSuccess, setError]);
 

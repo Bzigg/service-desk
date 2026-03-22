@@ -1,1 +1,1 @@
-export { registrationApi } from './model/api/registrationApi'
+export { useRegistrationRequestMutation } from './model/api/registrationApi'

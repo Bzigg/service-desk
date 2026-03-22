@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { UserRole } from 'entities/User'
 import cls from './RegistrationForm.module.scss';
-import { registrationApi } from 'features/RegistrationUser'
+import { useRegistrationRequestMutation } from 'features/RegistrationUser'
 import { Input } from 'shared/ui/Input/Input'
 import { Select } from 'shared/ui/Select/Select'
-import { Text } from 'shared/ui/Text/Text'
+import { Text, TextTheme } from 'shared/ui/Text/Text'
 import { useNavigate } from 'react-router-dom'
 import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 
@@ -51,13 +51,16 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
 		}
 	})
 
-	const [registration] = registrationApi.useRegistrationRequestMutation()
+	const [registration, { isError }] = useRegistrationRequestMutation()
 
 	const onSubmit = useCallback((values: RegistrationValues) => {
 		registration(values)
 			.unwrap()
-			.then(() => {
+			?.then(() => {
 				onSuccess?.()
+			})
+			.catch((e) => {
+				console.log(e)
 			})
 	}, [onSuccess, registration])
 
@@ -66,6 +69,7 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<Text title="Регистрация"/>
+			{isError && <Text text="Ошибка при регистрации" theme={TextTheme.ERROR} />}
 
 			<Input
 				control={control}

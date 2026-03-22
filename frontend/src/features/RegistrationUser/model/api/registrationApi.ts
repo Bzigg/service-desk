@@ -11,3 +11,6 @@ export const registrationApi = rtkApi.injectEndpoints({
 		}),
 	}),
 });
+
+
+export const { useRegistrationRequestMutation } = registrationApi;
