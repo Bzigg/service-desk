@@ -1,70 +1,26 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Page } from 'widgets/Page/Page';
 import { buildingsApi } from 'entities/Building/model/buildingsApi';
-import { Input } from 'shared/ui/Input/Input';
-import { useForm } from 'react-hook-form';
-import { Button } from 'shared/ui/Button/Button';
+import { BuildingModal } from 'features/BuildingModal'
+import { Button } from 'shared/ui/Button/Button'
+import { Text } from 'shared/ui/Text/Text'
+import cls from './AdminPanelPage.module.scss';
 
 const AdminPanelPage = () => {
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+
     const { data } = buildingsApi.useGetBuildingsQuery();
 
     const [addBuilding] = buildingsApi.useAddBuildingMutation();
 
-    const { control, handleSubmit, reset } = useForm();
-
-    const save = useCallback(
-        (values: any) => {
-            addBuilding(values)
-                .unwrap()
-                .then(() => {
-                    reset();
-                });
-        },
-        [addBuilding],
-    );
-
     return (
         <Page>
-            {/*todo распилить по компонентам*/}
-            <form onSubmit={handleSubmit(save)}>
-                <Input
-                    label="Улица"
-                    rules={{
-                        required: 'Введите улицу',
-                    }}
-                    control={control}
-                    name="street"
-                    type="text"
-                    className="mt8"
-                    placeholder="Введите улицу"
-                />
-                <Input
-                    label="Номер строения"
-                    rules={{
-                        required: 'Введите номер строения',
-                    }}
-                    control={control}
-                    name="building"
-                    type="text"
-                    className="mt8"
-                    placeholder="Введите номер строения"
-                />
-                <Input
-                    label="Название строения"
-                    rules={{
-                        required: 'Введите название строения',
-                    }}
-                    control={control}
-                    name="name"
-                    type="text"
-                    className="mt8"
-                    placeholder="Корпус, административное здание и тд"
-                />
-                <Button className="mt8" type="submit">
-                    Добавить
+            <div className={cls.header}>
+                <Text title="Администрирование корпусов" text="Настройки и управление строениями" />
+                <Button onClick={() => setIsOpen(true)}>
+                    Добавить корпус
                 </Button>
-            </form>
-
+            </div>
             {data?.map((building: any) => {
                 return (
                     <div key={building.id}>
@@ -72,6 +28,7 @@ const AdminPanelPage = () => {
                     </div>
                 );
             })}
+            <BuildingModal isOpen={isOpen} onClose={() => setIsOpen(false)} onSubmit={addBuilding} />
         </Page>
     );
 };

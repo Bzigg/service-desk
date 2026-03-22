@@ -10,7 +10,7 @@ import React, {
 import { Portal } from '../Portal/Portal';
 import cls from './Modal.module.scss';
 
-interface ModalProps {
+export interface ModalProps {
     className?: string;
     children?: ReactNode;
     isOpen?: boolean;
