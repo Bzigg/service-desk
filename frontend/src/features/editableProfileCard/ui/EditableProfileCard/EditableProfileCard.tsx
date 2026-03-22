@@ -176,7 +176,7 @@ export const EditableProfileCard = memo(
                             />
                         ) : (
                             <div className={cls.photoPlaceholder} aria-hidden>
-                                <UserIcon className={cls.icon} />
+                                <UserIcon />
                             </div>
                         )}
                         <input

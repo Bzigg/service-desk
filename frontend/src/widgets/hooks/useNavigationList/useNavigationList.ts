@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { statusEnum } from 'features/tickets/ui/TicketsFilters';
 
-export const LIMIT = 3;
+export const LIMIT = 10;
 export const DEFAULT_PAGE = 1;
 
 export const useNavigationList = () => {
