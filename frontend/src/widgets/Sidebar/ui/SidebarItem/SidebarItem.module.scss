@@ -1,6 +1,7 @@
 .item {
     display: flex;
     align-items: center;
+    height: 48px;
 }
 
 .link {
@@ -9,13 +10,5 @@
 }
 
 .icon {
-    fill: var(--inverted-primary-color);
-}
-
-.collapsed {
-    .link {
-        opacity: 0;
-        transition: 0.2s opacity;
-        width: 0;
-    }
+    fill: var(--primary-content-color);
 }

@@ -34,7 +34,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                 {isUser ?
                     <AppLink
                         to={RoutePath.ticket_create}
-                        theme={AppLinkTheme.SECONDARY}
+                        theme={AppLinkTheme.PRIMARY}
                         className={cls.headerButton}
                     >
                         Создать заявку
@@ -42,7 +42,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     :
                     <AppLink
                         to={RoutePath.admin_panel}
-                        theme={AppLinkTheme.SECONDARY}
+                        theme={AppLinkTheme.PRIMARY}
                         className={cls.headerButton}
                     >
                         Администрирование корпусов
