@@ -1,5 +1,4 @@
 import { UserSchema } from 'entities/User';
-import { LoginSchema } from 'features/AuthByUsername';
 import {
     AnyAction, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
@@ -13,10 +12,6 @@ export interface StateSchema {
     user: UserSchema;
     ui: UISchema;
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
-
-    // Асинхронные редюсеры
-    loginForm?: LoginSchema;
-    // profile?: ProfileSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

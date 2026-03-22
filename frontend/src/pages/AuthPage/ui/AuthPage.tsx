@@ -4,7 +4,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { getUserAuthData } from 'entities/User';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Loader } from 'shared/ui/Loader/Loader';
-import { LoginFormAsync } from 'features/AuthByUsername/ui/LoginForm/LoginForm.async';
+import { LoginForm } from 'features/AuthByUsername';
 import logoIcon from 'shared/icons/Logo.png';
 import cls from './AuthPage.module.scss';
 
@@ -40,7 +40,7 @@ const AuthPage = memo(() => {
                     <span className={cls.BrandText}>БГПУ Поддержка</span>
                 </div>
                 <Suspense fallback={<Loader />}>
-                    <LoginFormAsync onSuccess={onSuccess} onRegistrationClick={onOpenRegistrationModal} />
+                    <LoginForm onSuccess={onSuccess} onRegistrationClick={onOpenRegistrationModal} />
                 </Suspense>
             </div>
         </div>
