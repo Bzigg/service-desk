@@ -1,0 +1,49 @@
+import cls from './BuildingCard.module.scss';
+import { Text } from 'shared/ui/Text/Text';
+import BuildingIcon from 'shared/assets/icons/building-20-20.svg';
+import LocationIcon from 'shared/assets/icons/location-20-20.svg';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { BuildingModal } from 'features/BuildingModal';
+import React, { useState } from 'react';
+
+export const BuildingCard = ({ street, building, name }: any) => {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const onSubmit = () => {};
+
+    return (
+        <div className={cls.BuildingCard}>
+            <div className={cls.info}>
+                <BuildingIcon className={cls.icon} />
+                <div>
+                    <Text title={name} />
+                    <Text
+                        text={
+                            <div className={cls.locatio}>
+                                <LocationIcon /> ул. {street}, дом {building}
+                            </div>
+                        }
+                    />
+                </div>
+            </div>
+            <div>
+                <Button
+                    onClick={() => setIsOpen(true)}
+                    theme={ButtonTheme.OUTLINE}
+                >
+                    Редактировать
+                </Button>
+            </div>
+            <BuildingModal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                onSubmit={onSubmit}
+                defaultValues={{
+                    street,
+                    building,
+                    name,
+                }}
+            />
+        </div>
+    );
+};

@@ -1,1 +1,1 @@
-export { BuildingModal } from './ui/BuildingModal'
+export { BuildingModal } from './ui/BuildingModal';

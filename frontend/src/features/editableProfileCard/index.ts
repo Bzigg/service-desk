@@ -1,2 +1,2 @@
 export { EditableProfileCard } from './ui/EditableProfileCard/EditableProfileCard';
-export * from './model/api/profileApi'
+export * from './model/api/profileApi';

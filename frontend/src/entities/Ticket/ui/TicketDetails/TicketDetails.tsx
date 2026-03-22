@@ -5,7 +5,7 @@ import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { getUserAuthData } from 'entities/User';
 import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
-import { buildingsApi } from 'entities/Building/model/buildingsApi';
+import { buildingsApi } from 'entities/Building';
 import { AssignButton } from 'widgets/AssignButton';
 import { TicketHeader } from 'widgets/TicketHeader';
 import cls from './TicketDetails.module.scss';
