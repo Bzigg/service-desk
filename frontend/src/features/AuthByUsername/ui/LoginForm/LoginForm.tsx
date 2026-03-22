@@ -84,23 +84,25 @@ const LoginForm = memo(({ className, onSuccess, onRegistrationClick }: LoginForm
 					control={control}
 					name="password"
 					label="Пароль"
-					type="text"
 					className="mt8"
 					placeholder="Введите пароль"
+					type="password"
 				/>
-				<Button
-					theme={ButtonTheme.BACKGROUND}
-					type="submit"
-					disabled={isLoading}
-				>
-					Далее
-				</Button>
-				<Button
-					theme={ButtonTheme.CLEAR}
-					onClick={onRegistrationClick}
-				>
-					Регистрация
-				</Button>
+				<div className={cls.buttonWrapper}>
+					<Button
+						theme={ButtonTheme.BACKGROUND}
+						type="submit"
+						disabled={isLoading}
+					>
+						Далее
+					</Button>
+					<Button
+						theme={ButtonTheme.CLEAR}
+						onClick={onRegistrationClick}
+					>
+						Регистрация
+					</Button>
+				</div>
 			</form>
 		</DynamicModuleLoader>
 	);

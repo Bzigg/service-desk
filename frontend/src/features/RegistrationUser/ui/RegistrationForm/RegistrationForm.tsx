@@ -5,6 +5,12 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { UserRole } from 'entities/User'
 import cls from './RegistrationForm.module.scss';
 import { registrationApi } from 'features/RegistrationUser/model/api/registrationApi'
+import { Input } from 'shared/ui/Input/Input'
+import { STATUS_OPTIONS_FILTER } from 'features/tickets/ui/TicketsFilters/model/consts/consts'
+import { Select } from 'shared/ui/Select/Select'
+import { Text } from 'shared/ui/Text/Text'
+import { useNavigate } from 'react-router-dom'
+import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 
 export interface RegistrationFormProps {
 	onSuccess: () => void;
@@ -31,10 +37,11 @@ const ROLES = [
 ]
 
 const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
+	const navigate = useNavigate();
+
 	const {
 		control,
 		handleSubmit,
-		formState: { errors },
 	} = useForm<RegistrationValues>({
 		defaultValues: {
 			firstName: '',
@@ -58,138 +65,80 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
 
 	return (
 		<form
-			className={cls.RegistrationForm}
 			onSubmit={handleSubmit(onSubmit)}
 		>
-			<h1 className={cls.title}>Регистрация</h1>
+			<Text title="Регистрация"/>
 
-			<Controller
+			<Input
 				control={control}
 				name="lastName"
-				render={({ field }) => (
-					<div className={cls.fieldBlock}>
-						<input
-							{...field}
-							className={cls.input}
-							placeholder="Фамилия"
-						/>
-						<div className={cls.errorText}>&nbsp;</div>
-					</div>
-				)}
+				label="Фамилия"
+				type="text"
+				className="mt8"
+				placeholder="Иванов"
 			/>
 
 			<div className={cls.row}>
-				<Controller
+				<Input
 					control={control}
 					name="firstName"
-					rules={{
-						required: 'Заполните обязательное поле'
-					}}
-					render={({ field }) => (
-						<div className={cls.fieldBlock}>
-							<input
-								{...field}
-								className={`${cls.input} ${errors.firstName ? cls.inputError : ''}`}
-								placeholder="Имя"
-							/>
-							<div className={cls.errorText}>{errors.firstName?.message || '\u00A0'}</div>
-						</div>
-					)}
+					label="Имя"
+					type="text"
+					className="mt8"
+					placeholder="Иван"
 				/>
-				<Controller
+				<Input
 					control={control}
 					name="surname"
-					render={({ field }) => (
-						<div className={cls.fieldBlock}>
-							<input
-								{...field}
-								className={cls.input}
-								placeholder="Отчество"
-							/>
-							<div className={cls.errorText}>&nbsp;</div>
-						</div>
-					)}
+					label="Отчество"
+					type="text"
+					className="mt8"
+					placeholder="Иванович"
 				/>
 			</div>
 
-			<Controller
+			<Select
 				control={control}
+				className="mt8 w180p"
 				name="role"
-				render={({ field }) => (
-					<div className={cls.fieldBlock}>
-						<Listbox value={field.value} onChange={field.onChange}>
-							<div className={cls.selector}>
-								<Listbox.Button className={cls.selectorButton}>
-									<span>{ROLES.find((role) => role.value === field.value)?.content}</span>
-									<span className={cls.selectorArrow}>⌃</span>
-								</Listbox.Button>
-								<Listbox.Options className={cls.selectorMenu}>
-									{ROLES.map((role) => (
-										<Listbox.Option key={role.value} value={role.value} className={cls.selectorOption}>
-											{({ selected }) => (
-												<>
-													<span className={cls.optionCheck}>{selected ? '✓' : ''}</span>
-													<span>{role.content}</span>
-												</>
-											)}
-										</Listbox.Option>
-									))}
-								</Listbox.Options>
-							</div>
-						</Listbox>
-						<div className={cls.errorText}>&nbsp;</div>
-					</div>
-				)}
+				options={ROLES}
+				label="Роль"
 			/>
 
-			<Controller
+			<Input
 				control={control}
 				name="email"
-				rules={{
-					required: 'Заполните обязательное поле',
-					pattern: {
-						value: /\S+@\S+\.\S+/,
-						message: 'Введите корректный email',
-					},
-				}}
-				render={({ field }) => (
-					<div className={cls.fieldBlock}>
-						<input
-							{...field}
-							className={`${cls.input} ${errors.email ? cls.inputError : ''}`}
-							placeholder="username@gmail.com"
-						/>
-						<div className={cls.errorText}>{errors.email?.message || '\u00A0'}</div>
-					</div>
-				)}
+				label="Email"
+				type="text"
+				className="mt8"
+				placeholder="user@email.ru"
 			/>
 
-			<Controller
+			<Input
 				control={control}
 				name="password"
-				rules={{
-					required: 'Заполните обязательное поле'
-				}}
-				render={({ field }) => (
-					<div className={cls.fieldBlock}>
-						<input
-							{...field}
-							type="password"
-							className={`${cls.input} ${errors.password ? cls.inputError : ''}`}
-							placeholder="Пароль"
-						/>
-						<div className={cls.errorText}>{errors.password?.message || '\u00A0'}</div>
-					</div>
-				)}
+				label="Пароль"
+				className="mt8"
+				placeholder="Введите пароль"
+				type="password"
 			/>
 
+			<div className={cls.buttonWrapper}>
 			<Button
-				className={cls.submitBtn}
 				theme={ButtonTheme.BACKGROUND}
 				type="submit"
 			>
-				Далее
+				Зарегистрироваться
 			</Button>
+			<Button
+				theme={ButtonTheme.CLEAR}
+				onClick={() => {
+					navigate(RoutePath.auth)
+				}}
+			>
+				Вход
+			</Button>
+			</div>
 		</form>
 	);
 };

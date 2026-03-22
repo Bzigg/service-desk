@@ -1,11 +1,12 @@
 import RegistrationForm from 'features/RegistrationUser/ui/RegistrationForm/RegistrationForm';
-import { memo, useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { getUserAuthData } from 'entities/User';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import logoIcon from 'shared/icons/Logo.png';
 import cls from './RegistrationPage.module.scss';
+import { Text } from 'shared/ui/Text/Text'
 
 const RegistrationPage = memo(() => {
     const authData = useSelector(getUserAuthData);
@@ -24,7 +25,7 @@ const RegistrationPage = memo(() => {
             <div className={cls.RegistrationCard}>
                 <div className={cls.Brand}>
                     <img className={cls.LogoIcon} src={logoIcon} alt="БГПУ Поддержка" />
-                    <span className={cls.BrandText}>БГПУ Поддержка</span>
+                    <Text title="БГПУ Поддержка"/>
                 </div>
                 <RegistrationForm onSuccess={onSuccess} />
             </div>
