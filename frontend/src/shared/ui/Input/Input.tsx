@@ -1,7 +1,7 @@
 import { Controller } from 'react-hook-form'
-import { classNames, Mods } from 'shared/lib/classNames/classNames';
+import { classNames } from 'shared/lib/classNames/classNames';
 import React, {
-    InputHTMLAttributes, memo, useEffect, useRef, useState,
+    InputHTMLAttributes, memo,
 } from 'react';
 import cls from './Input.module.scss';
 
@@ -19,54 +19,24 @@ interface InputProps extends HTMLInputProps {
     [key: string]: any;
 }
 
-export const Input = memo((props: InputProps) => {
-    const {
-        className,
-        label,
-        value,
-        onChange,
-        type = 'text',
-        placeholder,
-        autofocus,
-        readonly,
-        name,
-        control,
-        rules,
-        ...otherProps
-    } = props;
-    const ref = useRef<HTMLInputElement>(null);
-    const [isFocused, setIsFocused] = useState(false);
-    const [caretPosition, setCaretPosition] = useState(0);
-
-    const isCaretVisible = isFocused && !readonly;
-
-    useEffect(() => {
-        if (autofocus) {
-            setIsFocused(true);
-            ref.current?.focus();
-        }
-    }, [autofocus]);
-
+export const Input = memo(({
+    className,
+    label,
+    value,
+    onChange,
+    type = 'text',
+    placeholder,
+    autofocus,
+    readonly,
+    name,
+    control,
+    rules,
+    ...otherProps
+}: InputProps) => {
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange?.(e.target.value);
-        setCaretPosition(e.target.value.length);
     };
 
-    const onBlur = () => {
-        setIsFocused(false);
-    };
-
-    const onFocus = () => {
-        setIsFocused(true);
-    };
-
-    const onSelect = (e: any) => {
-        setCaretPosition(e?.target?.selectionStart || 0);
-    };
-
-    const mods: Mods = {
-        [cls.readonly]: readonly,
-    };
 
     if (control && name) {
         return (
@@ -76,7 +46,7 @@ export const Input = memo((props: InputProps) => {
                 name={name}
                 rules={rules}
                 render={({ field: { onChange, onBlur, value, ref }, fieldState }) => (
-                    <div className={classNames(cls.Input, {}, [className])}>
+                    <div className={classNames(cls.InputField, {}, [className])}>
                         {label && (
                             <div className={cls.placeholder}>
                                 {`${label}:`}
@@ -94,18 +64,10 @@ export const Input = memo((props: InputProps) => {
                                     onChange && onChange(...values);
                                 }}
                                 className={classNames(cls.input, {[cls.error]: Boolean(fieldState?.error?.message)})}
-                                onFocus={onFocus}
                                 onBlur={onBlur}
-                                onSelect={onSelect}
                                 readOnly={readonly}
                                 {...otherProps}
                             />
-                            {isCaretVisible && (
-                                <span
-                                    className={cls.caret}
-                                    style={{ left: `${caretPosition * 9}px` }}
-                                />
-                            )}
                         </div>
                     </div>
                 )}
@@ -114,7 +76,7 @@ export const Input = memo((props: InputProps) => {
     }
 
     return (
-        <div className={classNames(cls.Input, {}, [className])}>
+        <div className={classNames(cls.InputField, {}, [className])}>
             {label && (
                 <div className={cls.placeholder}>
                     {`${label}:`}
@@ -123,14 +85,10 @@ export const Input = memo((props: InputProps) => {
             <div className={cls.inputWrapper}>
                 <input
                     placeholder={placeholder}
-                    ref={ref}
                     type={type}
                     value={value}
                     onChange={onChangeHandler}
                     className={cls.input}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
-                    onSelect={onSelect}
                     readOnly={readonly}
                     {...otherProps}
                 />

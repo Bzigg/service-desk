@@ -30,9 +30,39 @@
     --modal-z-index: 10;
 
     // Цвета
+
+    // accent
+    --primary-color: #1284FF;
+    --secondary-color: #F3F5F7;
+    --tertiary-color: #D3E3FD;
+    --inverted-primary-color: #04ff04;
+    --inverted-secondary-color: #049604;
+
+    // background
+    --primary-bg-color: #e8e8ea;
+    --secondary-bg-color: #F3F5F7;
+    --inverted-bg-color: #090949;
+    --bg-color-error: #fcd7d7;
+
+    // border
+    --primary-border-color: #1284FF;
+    --secondary-border-color: #A3ACBA;
+    --tertiary-border-color: #D7DAE1;
+
+    // text
+    --text-primary-color: #1E2228;
+    --text-secondary-color: #4E5867;
+    --text-tertiary-color: #7A879D;
+
+    // card
+    --card-bg: #d5d5d7;
+
+    // listbox
+    --listbox-bg: #d5d5d7;
+
     --overlay-color: rgba(0 0 0 / 60%);
     --red-light: #f00;
     --red-dark: #ce0505;
-    --bg-color-error: #fcd7d7;
+
     --border-color-error: #d73f3f;
 }

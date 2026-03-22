@@ -1,6 +1,5 @@
 @import "reset";
 @import "variables/global";
-@import "themes/normal";
 
 .app,
 .app_modal {
@@ -9,7 +8,7 @@
 }
 
 .app {
-    background: var(--bg-color);
+    background: var(--primary-bg-color);
     min-height: 100vh;
 }
 

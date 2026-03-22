@@ -4,7 +4,7 @@ import { Input } from 'shared/ui/Input/Input'
 import { useSelector } from 'react-redux'
 import { memo, useCallback } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Text } from 'shared/ui/Text/Text'
+import { Text, TextTheme } from 'shared/ui/Text/Text'
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading'
@@ -69,59 +69,24 @@ const LoginForm = memo(({ className, onSuccess, onRegistrationClick }: LoginForm
 			reducers={initialReducers}
 		>
 			<form className={classNames(cls.LoginForm, {}, [className])} onSubmit={handleSubmit(onSubmit)}>
-				<Text title="Введите ваш Email и пароль" className={cls.title}/>
-				<Controller
+				<Text title="Введите ваш Email и пароль"/>
+				{error && <Text text="Вы ввели неверный логин или пароль" theme={TextTheme.ERROR} />}
+				<Input
 					control={control}
 					name="email"
-					rules={{
-						required: 'Заполните обязательное поле',
-						pattern: {
-							value: /\S+@\S+\.\S+/,
-							message: 'Введите корректный email',
-						},
-					}}
-					render={({ field }) => (
-						<>
-							<Input
-								autofocus
-								type="text"
-								className={classNames(cls.input, { [cls.inputError]: Boolean(errors.email?.message) })}
-								placeholder="username@gmail.com"
-								value={field.value}
-								onChange={(value) => {
-									if (errors.password?.type === 'manual') {
-										clearErrors('password');
-									}
-									field.onChange(value);
-								}}
-							/>
-							<div className={cls.errorText}>{errors.email?.message || '\u00A0'}</div>
-						</>
-					)}
+					label="Email"
+					autofocus
+					type="text"
+					className="mt8"
+					placeholder="user@email.ru"
 				/>
-				<Controller
+				<Input
 					control={control}
 					name="password"
-					rules={{
-						required: 'Заполните обязательное поле',
-					}}
-					render={({ field }) => (
-						<>
-							<Input
-								type="password"
-								className={classNames(cls.input, { [cls.inputError]: Boolean(errors.password?.message) })}
-								placeholder="Пароль"
-								value={field.value}
-								onChange={(value) => {
-									if (errors.password?.type === 'manual') {
-										clearErrors('password');
-									}
-									field.onChange(value);
-								}}
-							/>
-							<div className={cls.errorText}>{errors.password?.message || '\u00A0'}</div>
-						</>
-					)}
+					label="Пароль"
+					type="text"
+					className="mt8"
+					placeholder="Введите пароль"
 				/>
 				<Button
 					theme={ButtonTheme.BACKGROUND}

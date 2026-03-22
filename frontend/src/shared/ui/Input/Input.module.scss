@@ -1,4 +1,4 @@
-.Input {
+.InputField {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -12,7 +12,10 @@
     outline: none;
     width: 100%;
     padding: 0 8px;
-    color: var(--secondary-color);
+    border-radius: 18px;
+    height: 48px;
+    background-color: var(--secondary-bg-color);
+    border: 1px var(--tertiary-border-color) solid;
 
     &:focus {
         outline: none;
@@ -50,8 +53,4 @@
 .inputWrapper {
     flex-grow: 1;
     position: relative;
-}
-
-.readonly {
-    opacity: 0.7;
 }
