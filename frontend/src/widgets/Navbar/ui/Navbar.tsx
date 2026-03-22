@@ -1,8 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import React, { memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserAuthData, userActions, isUserSelector } from 'entities/User';
-import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
+import { getUserAuthData, userActions } from 'entities/User';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Dropdown } from 'shared/ui/Dropdown/Dropdown';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
@@ -17,7 +16,6 @@ interface NavbarProps {
 export const Navbar = memo(({ className }: NavbarProps) => {
     const authData = useSelector(getUserAuthData);
     const dispatch = useDispatch();
-    const isUser = useSelector(isUserSelector);
     const navigate = useNavigate();
 
     const onLogout = useCallback(() => {
@@ -29,23 +27,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
         return (
             <header className={classNames(cls.Navbar, {}, [className])}>
                 <Logo />
-                {isUser ? (
-                    <AppLink
-                        to={RoutePath.ticket_create}
-                        theme={AppLinkTheme.PRIMARY}
-                        className={cls.headerButton}
-                    >
-                        Создать заявку
-                    </AppLink>
-                ) : (
-                    <AppLink
-                        to={RoutePath.admin_panel}
-                        theme={AppLinkTheme.PRIMARY}
-                        className={cls.headerButton}
-                    >
-                        Администрирование корпусов
-                    </AppLink>
-                )}
+
                 <Dropdown
                     direction="bottom left"
                     className={cls.dropdown}
