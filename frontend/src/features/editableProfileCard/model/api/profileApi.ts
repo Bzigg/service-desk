@@ -30,7 +30,9 @@ export const profileApi = rtkApi
                     method: 'GET',
                     params: { id },
                 }),
-                providesTags: (_result, _error, id) => [{ type: 'Profile', id }],
+                providesTags: (_result, _error, id) => [
+                    { type: 'Profile', id },
+                ],
             }),
             updateUserData: build.mutation<
                 UserProfileData | null,

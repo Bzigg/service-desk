@@ -8,6 +8,8 @@ import { Avatar } from 'shared/ui/Avatar/Avatar';
 import cls from './Navbar.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { Logo } from 'shared/ui/Logo/Logo';
+import { useGetUserDataQuery } from 'features/editableProfileCard/model/api/profileApi';
+import { Text, TextSize } from 'shared/ui/Text/Text';
 
 interface NavbarProps {
     className?: string;
@@ -22,6 +24,10 @@ export const Navbar = memo(({ className }: NavbarProps) => {
         navigate(RoutePath.main);
         dispatch(userActions.logout());
     }, [dispatch, navigate]);
+
+    const { data } = useGetUserDataQuery(authData?.id || '', {
+        skip: !authData?.id,
+    });
 
     if (authData) {
         return (
@@ -41,7 +47,22 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                             onClick: onLogout,
                         },
                     ]}
-                    trigger={<Avatar size={30} src={authData.avatar} />}
+                    trigger={
+                        <div className={cls.trigger}>
+                            {data && (
+                                <Text
+                                    size={TextSize.S}
+                                    title={`${data?.firstName} ${data?.lastName?.[0]}.`}
+                                    text={
+                                        data?.isUser
+                                            ? 'Пользователь'
+                                            : 'Администратор'
+                                    }
+                                />
+                            )}
+                            <Avatar size={30} src={data?.photo || ''} />
+                        </div>
+                    }
                 />
             </header>
         );

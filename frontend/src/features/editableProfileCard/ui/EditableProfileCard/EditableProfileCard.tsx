@@ -26,22 +26,22 @@ interface ProfileFormValues {
 
 export const EditableProfileCard = memo(
     ({ className, id }: EditableProfileCardProps) => {
-        const {
-            data,
-            isLoading,
-            isError,
-            isFetching,
-        } = useGetUserDataQuery(id as string, {
-            skip: !id,
-        });
+        const { data, isLoading, isError, isFetching } = useGetUserDataQuery(
+            id as string,
+            {
+                skip: !id,
+            },
+        );
 
         const [updateUser, { isLoading: isSaving, isError: isSaveError }] =
             useUpdateUserDataMutation();
 
-        const [updatePhoto, { isLoading: isPhotoUploading, isError: isPhotoError }] =
-            useUpdateUserPhotoMutation();
+        const [
+            updatePhoto,
+            { isLoading: isPhotoUploading, isError: isPhotoError },
+        ] = useUpdateUserPhotoMutation();
 
-        const fileInputRef = useRef<HTMLInputElement>(null);
+        const fileInputRef = useRef<HTMLInputElement | null>(null);
         const [photoClientError, setPhotoClientError] = useState<string | null>(
             null,
         );
@@ -161,19 +161,13 @@ export const EditableProfileCard = memo(
 
         return (
             <form
-                className={classNames(cls.EditableProfileCard, {}, [
-                    className,
-                ])}
+                className={classNames(cls.EditableProfileCard, {}, [className])}
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <div className={cls.header}>
                     <div className={cls.photoBlock}>
                         {photoSrc ? (
-                            <img
-                                className={cls.photo}
-                                src={photoSrc}
-                                alt=""
-                            />
+                            <img className={cls.photo} src={photoSrc} alt="" />
                         ) : (
                             <div className={cls.photoPlaceholder} aria-hidden>
                                 <UserIcon />
@@ -192,9 +186,7 @@ export const EditableProfileCard = memo(
                             disabled={isPhotoUploading}
                             onClick={openPhotoPicker}
                         >
-                            {isPhotoUploading
-                                ? 'Загрузка…'
-                                : 'Сменить фото'}
+                            {isPhotoUploading ? 'Загрузка…' : 'Сменить фото'}
                         </Button>
                         <span className={cls.photoHint}>
                             JPG или PNG, до 5 МБ
