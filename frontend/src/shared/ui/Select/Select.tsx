@@ -1,7 +1,7 @@
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import React, { ChangeEvent, memo, useMemo } from 'react';
 import cls from './Select.module.scss';
-import { Controller } from 'react-hook-form'
+import { Controller } from 'react-hook-form';
 
 export interface SelectOption {
     [key: string]: string | number;
@@ -42,15 +42,29 @@ export const Select = memo((props: SelectProps) => {
         }
     };
 
-    const optionsList = useMemo(() => options?.map((opt: SelectOption) => (
-        <option
-            className={cls.option}
-            value={typeof keyName === 'string' ? opt[keyName] : keyName(opt)}
-            key={typeof keyName === 'string' ? opt[keyName] : keyName(opt)}
-        >
-            {typeof labelName === 'string' ? opt[labelName] : labelName(opt)}
-        </option>
-    )), [options]);
+    const optionsList = useMemo(
+        () =>
+            options?.map((opt: SelectOption) => (
+                <option
+                    className={cls.option}
+                    value={
+                        typeof keyName === 'string'
+                            ? opt[keyName]
+                            : keyName(opt)
+                    }
+                    key={
+                        typeof keyName === 'string'
+                            ? opt[keyName]
+                            : keyName(opt)
+                    }
+                >
+                    {typeof labelName === 'string'
+                        ? opt[labelName]
+                        : labelName(opt)}
+                </option>
+            )),
+        [options],
+    );
 
     const mods: Mods = {};
 
@@ -63,9 +77,7 @@ export const Select = memo((props: SelectProps) => {
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                     <div className={classNames(cls.Wrapper, mods, [className])}>
                         {label && (
-                            <span className={cls.label}>
-                                {`${label}:`}
-                            </span>
+                            <span className={cls.label}>{`${label}:`}</span>
                         )}
                         <select
                             disabled={readonly}
@@ -84,16 +96,12 @@ export const Select = memo((props: SelectProps) => {
                     </div>
                 )}
             />
-        )
+        );
     }
 
     return (
         <div className={classNames(cls.Wrapper, mods, [className])}>
-            {label && (
-                <span className={cls.label}>
-                    {`${label}:`}
-                </span>
-            )}
+            {label && <span className={cls.label}>{`${label}:`}</span>}
             <select
                 disabled={readonly}
                 className={cls.select}

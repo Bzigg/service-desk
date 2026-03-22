@@ -8,14 +8,14 @@ import { TicketEditPage } from 'pages/TicketEditPage';
 import { AdminPanelPage } from 'pages/AdminPanelPage';
 import { UserRole } from 'entities/User';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
-import { MyTicketsPage } from 'pages/MyTicketsPage'
+import { MyTicketsPage } from 'pages/MyTicketsPage';
 import { AuthPage } from 'pages/AuthPage';
 import { RegistrationPage } from 'pages/RegistrationPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
     roles?: UserRole[];
-}
+};
 
 export enum AppRoutes {
     AUTH = 'auth',

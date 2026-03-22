@@ -1,16 +1,15 @@
-import { rtkApi } from 'shared/api/rtkApi'
+import { rtkApi } from 'shared/api/rtkApi';
 
 export const registrationApi = rtkApi.injectEndpoints({
-	endpoints: (build) => ({
-		registrationRequest: build.mutation<any, any>({
-			query: (arg) => ({
-				url: 'auth/registration',
-				method: 'POST',
-				body: arg,
-			}),
-		}),
-	}),
+    endpoints: (build) => ({
+        registrationRequest: build.mutation<any, any>({
+            query: (arg) => ({
+                url: 'auth/registration',
+                method: 'POST',
+                body: arg,
+            }),
+        }),
+    }),
 });
-
 
 export const { useRegistrationRequestMutation } = registrationApi;

@@ -1,24 +1,27 @@
-import React, { useCallback } from 'react'
-import { Page } from 'widgets/Page/Page'
-import { buildingsApi } from 'entities/Building/model/buildingsApi'
-import { Input } from 'shared/ui/Input/Input'
-import { useForm } from 'react-hook-form'
-import { Button } from 'shared/ui/Button/Button'
+import React, { useCallback } from 'react';
+import { Page } from 'widgets/Page/Page';
+import { buildingsApi } from 'entities/Building/model/buildingsApi';
+import { Input } from 'shared/ui/Input/Input';
+import { useForm } from 'react-hook-form';
+import { Button } from 'shared/ui/Button/Button';
 
 const AdminPanelPage = () => {
-    const { data } = buildingsApi.useGetBuildingsQuery()
+    const { data } = buildingsApi.useGetBuildingsQuery();
 
-    const [addBuilding] = buildingsApi.useAddBuildingMutation()
+    const [addBuilding] = buildingsApi.useAddBuildingMutation();
 
-    const { control, handleSubmit, reset} = useForm()
+    const { control, handleSubmit, reset } = useForm();
 
-    const save = useCallback((values: any) => {
-        addBuilding(values)
-            .unwrap()
-            .then(() => {
-                reset()
-            })
-    }, [addBuilding])
+    const save = useCallback(
+        (values: any) => {
+            addBuilding(values)
+                .unwrap()
+                .then(() => {
+                    reset();
+                });
+        },
+        [addBuilding],
+    );
 
     return (
         <Page>
@@ -27,7 +30,7 @@ const AdminPanelPage = () => {
                 <Input
                     label="Улица"
                     rules={{
-                        required: 'Введите улицу'
+                        required: 'Введите улицу',
                     }}
                     control={control}
                     name="street"
@@ -38,7 +41,7 @@ const AdminPanelPage = () => {
                 <Input
                     label="Номер строения"
                     rules={{
-                        required: 'Введите номер строения'
+                        required: 'Введите номер строения',
                     }}
                     control={control}
                     name="building"
@@ -49,7 +52,7 @@ const AdminPanelPage = () => {
                 <Input
                     label="Название строения"
                     rules={{
-                        required: 'Введите название строения'
+                        required: 'Введите название строения',
                     }}
                     control={control}
                     name="name"
@@ -57,21 +60,18 @@ const AdminPanelPage = () => {
                     className="mt8"
                     placeholder="Корпус, административное здание и тд"
                 />
-                <Button
-                    className="mt8"
-                    type="submit"
-                >
+                <Button className="mt8" type="submit">
                     Добавить
                 </Button>
             </form>
 
-            {
-                data?.map((building: any) => {
-                    return <div key={building.id}>
+            {data?.map((building: any) => {
+                return (
+                    <div key={building.id}>
                         {`ул. ${building.street}, дом ${building.building} - ${building.name}`}
                     </div>
-                })
-            }
+                );
+            })}
         </Page>
     );
 };

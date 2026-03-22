@@ -1,5 +1,3 @@
-import Pagination from './ui/Pagination'
+import Pagination from './ui/Pagination';
 
-export {
-    Pagination,
-}
+export { Pagination };

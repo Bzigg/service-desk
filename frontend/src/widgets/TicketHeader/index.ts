@@ -1,1 +1,1 @@
-export { TicketHeader } from './ui/TicketHeader'
+export { TicketHeader } from './ui/TicketHeader';

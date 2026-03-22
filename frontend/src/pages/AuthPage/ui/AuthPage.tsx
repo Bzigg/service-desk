@@ -36,11 +36,18 @@ const AuthPage = memo(() => {
         <div className={cls.AuthPage}>
             <div className={cls.AuthCard}>
                 <div className={cls.Brand}>
-                    <img className={cls.LogoIcon} src={logoIcon} alt="БГПУ Поддержка" />
+                    <img
+                        className={cls.LogoIcon}
+                        src={logoIcon}
+                        alt="БГПУ Поддержка"
+                    />
                     <span className={cls.BrandText}>БГПУ Поддержка</span>
                 </div>
                 <Suspense fallback={<Loader />}>
-                    <LoginForm onSuccess={onSuccess} onRegistrationClick={onOpenRegistrationModal} />
+                    <LoginForm
+                        onSuccess={onSuccess}
+                        onRegistrationClick={onOpenRegistrationModal}
+                    />
                 </Suspense>
             </div>
         </div>

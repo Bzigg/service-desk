@@ -6,7 +6,7 @@ import { getUserAuthData } from 'entities/User';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import logoIcon from 'shared/icons/Logo.png';
 import cls from './RegistrationPage.module.scss';
-import { Text } from 'shared/ui/Text/Text'
+import { Text } from 'shared/ui/Text/Text';
 
 const RegistrationPage = memo(() => {
     const authData = useSelector(getUserAuthData);
@@ -24,8 +24,12 @@ const RegistrationPage = memo(() => {
         <div className={cls.RegistrationPage}>
             <div className={cls.RegistrationCard}>
                 <div className={cls.Brand}>
-                    <img className={cls.LogoIcon} src={logoIcon} alt="БГПУ Поддержка" />
-                    <Text title="БГПУ Поддержка"/>
+                    <img
+                        className={cls.LogoIcon}
+                        src={logoIcon}
+                        alt="БГПУ Поддержка"
+                    />
+                    <Text title="БГПУ Поддержка" />
                 </div>
                 <RegistrationForm onSuccess={onSuccess} />
             </div>

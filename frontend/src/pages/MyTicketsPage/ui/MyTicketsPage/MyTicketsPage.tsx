@@ -1,15 +1,18 @@
-import React from 'react'
-import { Page } from 'widgets/Page/Page'
-import { ticketsApi } from 'features/tickets/model/api/ticketsApi'
-import TicketsList from 'features/tickets/ui/TicketsList/TicketsList'
-import { TicketsFilters } from 'features/tickets/ui/TicketsFilters'
-import { LIMIT, useNavigationList } from 'widgets/hooks/useNavigationList/useNavigationList'
-import { Pagination } from 'widgets/Pagination'
+import React from 'react';
+import { Page } from 'widgets/Page/Page';
+import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
+import TicketsList from 'features/tickets/ui/TicketsList/TicketsList';
+import { TicketsFilters } from 'features/tickets/ui/TicketsFilters';
+import {
+    LIMIT,
+    useNavigationList,
+} from 'widgets/hooks/useNavigationList/useNavigationList';
+import { Pagination } from 'widgets/Pagination';
 
 const MyTicketsPage = () => {
-    const { setFilters, page, setPage, query } = useNavigationList()
+    const { setFilters, page, setPage, query } = useNavigationList();
 
-    const { data } = ticketsApi.useGetMyTicketsListQuery(query)
+    const { data } = ticketsApi.useGetMyTicketsListQuery(query);
 
     return (
         <Page>

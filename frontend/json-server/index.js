@@ -10,14 +10,16 @@ server.use(jsonServer.defaults({}));
 server.use(jsonServer.bodyParser);
 
 const getDB = () => {
-    return JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
-}
+    return JSON.parse(
+        fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'),
+    );
+};
 
 // Эндпоинт для логина
 server.post('/auth/login', (req, res) => {
     try {
         const { email, password } = req.body;
-        const db = getDB()
+        const db = getDB();
         const { users = [] } = db;
 
         const userFromBd = users.find(
@@ -40,8 +42,8 @@ server.post('/registration', (req, res) => {
         const body = req.body;
 
         if (body) {
-            res.json({status: 'OK'})
-            return
+            res.json({ status: 'OK' });
+            return;
         }
 
         return res.status(403).json({ message: 'User not found' });
@@ -54,7 +56,7 @@ server.post('/registration', (req, res) => {
 // Эндпоинт для заявок
 server.get('/tickets/all', (req, res) => {
     try {
-        const db = getDB()
+        const db = getDB();
         const { tickets = [] } = db;
 
         if (tickets) {
@@ -70,20 +72,19 @@ server.get('/tickets/all', (req, res) => {
 
 server.get('/tickets/my', (req, res) => {
     try {
-        const db = getDB()
+        const db = getDB();
         const { tickets = [], users = [] } = db;
 
-        const user = JSON.parse(req.headers.authorization)
-        const userId = user.id
+        const user = JSON.parse(req.headers.authorization);
+        const userId = user.id;
 
-        const userFromBd = users.find(
-            (user) => user.id === userId
-        );
+        const userFromBd = users.find((user) => user.id === userId);
 
         const ticketItem = tickets.filter((ticketItem) => {
-            return userFromBd.roles.includes('ADMIN') ?
-                ticketItem.responsibleId === userFromBd.id : ticketItem.customerId === userFromBd.id
-        })
+            return userFromBd.roles.includes('ADMIN')
+                ? ticketItem.responsibleId === userFromBd.id
+                : ticketItem.customerId === userFromBd.id;
+        });
 
         if (ticketItem) {
             return res.json(ticketItem);
@@ -98,11 +99,11 @@ server.get('/tickets/my', (req, res) => {
 
 server.get('/tickets', (req, res) => {
     try {
-        const db = getDB()
+        const db = getDB();
         const { tickets = [] } = db;
         const ticketItem = tickets.find((ticketItem) => {
-            return ticketItem.id === String(req.query.id)
-        })
+            return ticketItem.id === String(req.query.id);
+        });
 
         if (ticketItem) {
             return res.json(ticketItem);
@@ -119,7 +120,7 @@ server.post('/tickets/assign', (req, res) => {
     try {
         const { ticketId, responsibleId } = req.body;
         if (ticketId && responsibleId) {
-            res.json({status: 'OK'})
+            res.json({ status: 'OK' });
         }
         return res.status(406).json({ message: 'no valid data' });
     } catch (e) {

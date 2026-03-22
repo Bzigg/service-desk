@@ -1,7 +1,3 @@
-export {
-	TicketItem
-} from './ui/TicketItem/TicketItem'
+export { TicketItem } from './ui/TicketItem/TicketItem';
 
-export {
-	TicketDetails
-} from './ui/TicketDetails/TicketDetails'
+export { TicketDetails } from './ui/TicketDetails/TicketDetails';

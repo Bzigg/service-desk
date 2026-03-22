@@ -1,16 +1,15 @@
-import { rtkApi } from 'shared/api/rtkApi'
+import { rtkApi } from 'shared/api/rtkApi';
 
-export const profileApi = rtkApi
-	.injectEndpoints({
-		endpoints: (build) => ({
-			getUserData: build.query<any, string>({
-				query: (arg) => ({
-					url: '/users/data',
-					method: 'GET',
-					params: {
-						id: arg
-					}
-				}),
-			}),
-		}),
-	});
+export const profileApi = rtkApi.injectEndpoints({
+    endpoints: (build) => ({
+        getUserData: build.query<any, string>({
+            query: (arg) => ({
+                url: '/users/data',
+                method: 'GET',
+                params: {
+                    id: arg,
+                },
+            }),
+        }),
+    }),
+});

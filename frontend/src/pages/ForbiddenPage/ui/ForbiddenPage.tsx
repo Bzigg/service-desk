@@ -1,13 +1,8 @@
-import React from 'react'
-import { Page } from 'widgets/Page/Page'
+import React from 'react';
+import { Page } from 'widgets/Page/Page';
 
 const ForbiddenPage = () => {
-
-    return (
-        <Page>
-            У вас нет доступа к этой странице
-        </Page>
-    );
+    return <Page>У вас нет доступа к этой странице</Page>;
 };
 
 export default ForbiddenPage;

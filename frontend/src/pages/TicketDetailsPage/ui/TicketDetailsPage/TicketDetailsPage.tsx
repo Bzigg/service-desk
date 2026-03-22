@@ -1,13 +1,12 @@
 import React, { FC, memo, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Page } from 'widgets/Page/Page';
-import { Button, ButtonTheme } from 'shared/ui/Button/Button'
-import { TicketDetails } from 'entities/Ticket'
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { TicketDetails } from 'entities/Ticket';
 
 interface TicketDetailsPageProps {
     className?: string;
 }
-
 
 const TicketDetailsPage: FC<TicketDetailsPageProps> = ({ className }) => {
     const { id } = useParams<{ id: string }>();
@@ -15,7 +14,7 @@ const TicketDetailsPage: FC<TicketDetailsPageProps> = ({ className }) => {
     const navigate = useNavigate();
 
     const onBackToList = useCallback(() => {
-        navigate(-1)
+        navigate(-1);
     }, [navigate]);
 
     return (
@@ -25,8 +24,7 @@ const TicketDetailsPage: FC<TicketDetailsPageProps> = ({ className }) => {
             </Button>
             <TicketDetails id={id as string} />
         </Page>
-    )
-}
+    );
+};
 
-export default memo(TicketDetailsPage)
-
+export default memo(TicketDetailsPage);

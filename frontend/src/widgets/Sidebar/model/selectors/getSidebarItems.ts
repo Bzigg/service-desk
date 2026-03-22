@@ -19,24 +19,20 @@ export const getSidebarItems = createSelector(
         ];
 
         if (userData) {
-            sidebarItemsList.push(
-                {
-                    path: RoutePath.my_tickets,
-                    Icon: ArticleIcon,
-                    text: 'Мои заявки',
-                    authOnly: true,
-                },
-            );
+            sidebarItemsList.push({
+                path: RoutePath.my_tickets,
+                Icon: ArticleIcon,
+                text: 'Мои заявки',
+                authOnly: true,
+            });
         }
 
         if (isUserAdmin) {
-            sidebarItemsList.push(
-                {
-                    path: RoutePath.all_tickets,
-                    Icon: AboutIcon,
-                    text: 'Все заявки',
-                },
-            );
+            sidebarItemsList.push({
+                path: RoutePath.all_tickets,
+                Icon: AboutIcon,
+                text: 'Все заявки',
+            });
         }
 
         return sidebarItemsList;

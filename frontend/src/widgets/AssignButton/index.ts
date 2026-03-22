@@ -1,1 +1,1 @@
-export { AssignButton } from './ui/AssignButton'
+export { AssignButton } from './ui/AssignButton';

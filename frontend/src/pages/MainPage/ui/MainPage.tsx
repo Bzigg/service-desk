@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Page } from 'widgets/Page/Page'
+import React, { useState } from 'react';
+import { Page } from 'widgets/Page/Page';
 
 const MainPage = () => {
     const [value, setValue] = useState('');
@@ -11,7 +11,10 @@ const MainPage = () => {
     return (
         <Page>
             <h1>Главная страница</h1>
-            <p>тут будет описание продукта, описание ролей, функционала и что то еще</p>
+            <p>
+                тут будет описание продукта, описание ролей, функционала и что
+                то еще
+            </p>
         </Page>
     );
 };

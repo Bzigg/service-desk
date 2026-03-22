@@ -10,8 +10,8 @@ interface EditableProfileCardProps {
 export const EditableProfileCard = memo(({ id }: EditableProfileCardProps) => {
     // todo доделать и выпилить комменты лишние
     const { data } = profileApi.useGetUserDataQuery(id as string, {
-        skip: !id
-    })
+        skip: !id,
+    });
 
     return (
         <>
