@@ -13,3 +13,5 @@ export const profileApi = rtkApi.injectEndpoints({
         }),
     }),
 });
+
+export const { useGetUserDataQuery } = profileApi
