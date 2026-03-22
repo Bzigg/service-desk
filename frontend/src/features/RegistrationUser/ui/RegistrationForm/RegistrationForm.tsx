@@ -57,7 +57,7 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
 		registration(values)
 			.unwrap()
 			.then(() => {
-				onSuccess()
+				onSuccess?.()
 			})
 	}, [onSuccess, registration])
 
@@ -97,7 +97,7 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
 
 			<Select
 				control={control}
-				className="mt8 w180p"
+				className="mt8"
 				name="role"
 				options={ROLES}
 				label="Роль"
