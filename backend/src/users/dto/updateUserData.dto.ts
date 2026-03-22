@@ -4,5 +4,4 @@ export class UpdateUserDataDto {
 	firstName?: string
 	lastName?: string
 	surname?: string
-	photo?: string
 }

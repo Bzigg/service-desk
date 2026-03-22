@@ -10,6 +10,7 @@ import {
     useUpdateUserPhotoMutation,
 } from '../../model/api/profileApi';
 import cls from './EditableProfileCard.module.scss';
+import UserIcon from 'shared/assets/icons/user-20-20.svg';
 
 interface EditableProfileCardProps {
     className?: string;
@@ -174,7 +175,9 @@ export const EditableProfileCard = memo(
                                 alt=""
                             />
                         ) : (
-                            <div className={cls.photoPlaceholder} aria-hidden />
+                            <div className={cls.photoPlaceholder} aria-hidden>
+                                <UserIcon className={cls.icon} />
+                            </div>
                         )}
                         <input
                             ref={fileInputRef}

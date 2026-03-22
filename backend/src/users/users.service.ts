@@ -27,12 +27,13 @@ export class UsersService {
 	}
 
 	async getUserById(id: string) {
-		const where = {
-			id: id
+		const numericId = Number(id)
+		if (Number.isNaN(numericId)) {
+			return null
 		}
 
 		return await this.userRepository.findOne({
-			where: where
+			where: { id: numericId }
 		})
 	}
 
@@ -48,7 +49,9 @@ export class UsersService {
 		}
 
 		const { id, ...nextData } = data
-		user.set(nextData)
+		const profileFields = { ...nextData }
+		delete (profileFields as { photo?: string }).photo
+		user.set(profileFields)
 		await user.save()
 
 		return user

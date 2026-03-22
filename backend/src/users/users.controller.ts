@@ -15,10 +15,27 @@ export class UsersController {
 
 	constructor(private usersService: UsersService) {}
 
+	private normalizePhoto(photo: unknown): string | null {
+		if (photo == null || typeof photo !== 'string') {
+			return null
+		}
+		const trimmed = photo.trim()
+		if (trimmed === '' || trimmed === '/') {
+			return null
+		}
+		if (!trimmed.startsWith('/uploads/users/')) {
+			return null
+		}
+		return trimmed
+	}
+
 	private sanitizeUser(user: User): SafeUserDto {
 		const userData = user.toJSON()
 		const { password, ...safeUser } = userData
-		return safeUser
+		return {
+			...safeUser,
+			photo: this.normalizePhoto(safeUser.photo)
+		}
 	}
 
 	@Get('/data')
