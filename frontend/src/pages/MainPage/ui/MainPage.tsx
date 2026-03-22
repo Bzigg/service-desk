@@ -1,16 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Page } from 'widgets/Page/Page';
+import { Text } from 'shared/ui/Text/Text'
 
 const MainPage = () => {
-    const [value, setValue] = useState('');
-
-    const onChange = (val: string) => {
-        setValue(val);
-    };
-
     return (
         <Page>
-            <h1>Главная страница</h1>
+            <Text title="Главная страницаа" />
             <p>
                 тут будет описание продукта, описание ролей, функционала и что
                 то еще
