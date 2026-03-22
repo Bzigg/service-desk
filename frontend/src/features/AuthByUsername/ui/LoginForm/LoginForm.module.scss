@@ -6,18 +6,6 @@
     margin: 0 auto;
 }
 
-.loginBtn {
-    margin-top: 20px;
-    width: 100%;
-    min-height: 68px;
-    border-radius: 24px;
-    background: #1f80f0;
-    color: #fff;
-    border: none;
-    font-size: 36px;
-    font-weight: 500;
-}
-
 .title {
     width: 312px;
     height: 28px;
@@ -70,29 +58,4 @@
     color: #1f80f0;
     font-size: 36px;
     font-weight: 500;
-}
-
-@media (max-width: 768px) {
-    .loginBtn {
-        min-height: 56px;
-        border-radius: 18px;
-        font-size: 24px;
-    }
-
-    .input {
-        input {
-            min-height: 56px;
-            border-radius: 18px;
-            font-size: 24px;
-        }
-    }
-
-    .errorText {
-        min-height: 20px;
-        font-size: 18px;
-    }
-
-    .registrationBtn {
-        font-size: 26px;
-    }
 }

@@ -125,7 +125,6 @@ const LoginForm = memo(({ className, onSuccess, onRegistrationClick }: LoginForm
 				/>
 				<Button
 					theme={ButtonTheme.BACKGROUND}
-					className={cls.loginBtn}
 					type="submit"
 					disabled={isLoading}
 				>
@@ -133,7 +132,6 @@ const LoginForm = memo(({ className, onSuccess, onRegistrationClick }: LoginForm
 				</Button>
 				<Button
 					theme={ButtonTheme.CLEAR}
-					className={cls.registrationBtn}
 					onClick={onRegistrationClick}
 				>
 					Регистрация
