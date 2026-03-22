@@ -12,8 +12,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
 
     return (
         <Page className={classNames('', {}, [className])}>
-            {/*todo выпилить все лишнее*/}
-            <EditableProfileCard id={id} />
+            <EditableProfileCard id={id || ''} />
         </Page>
     );
 };
