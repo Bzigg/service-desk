@@ -1,12 +1,10 @@
 import React, { useCallback } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { Listbox } from '@headlessui/react';
+import { useForm } from 'react-hook-form';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { UserRole } from 'entities/User'
 import cls from './RegistrationForm.module.scss';
-import { registrationApi } from 'features/RegistrationUser/model/api/registrationApi'
+import { registrationApi } from 'features/RegistrationUser'
 import { Input } from 'shared/ui/Input/Input'
-import { STATUS_OPTIONS_FILTER } from 'features/tickets/ui/TicketsFilters/model/consts/consts'
 import { Select } from 'shared/ui/Select/Select'
 import { Text } from 'shared/ui/Text/Text'
 import { useNavigate } from 'react-router-dom'
