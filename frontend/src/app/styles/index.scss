@@ -54,7 +54,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: var(--inverted-primary-color);    /* цвет плашки */
+    background-color: var(--tertiary-bg-color);    /* цвет плашки */
     border-radius: 20px;       /* закругления плашки */
-    border: 2px solid var(--primary-color);  /* padding вокруг плашки */
+    border: 1px solid var(--primary-border-color);  /* padding вокруг плашки */
 }

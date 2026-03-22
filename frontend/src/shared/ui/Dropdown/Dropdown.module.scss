@@ -12,7 +12,7 @@
 }
 
 .menu {
-    background: var(--card-bg);
+    background: var(--secondary-bg-color);
     position: absolute;
     z-index: 10000;
     border-radius: 8px;
@@ -33,7 +33,7 @@
 }
 
 .active {
-    background: var(--inverted-primary-color);
+    background: var(--tertiary-bg-color);
 }
 
 .optionsBottomLeft {
