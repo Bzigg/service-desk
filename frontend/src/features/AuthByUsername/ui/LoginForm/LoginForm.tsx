@@ -35,8 +35,6 @@ const LoginForm = memo(({ className, onSuccess, onRegistrationClick }: LoginForm
 	const {
 		control,
 		handleSubmit,
-		formState: { errors },
-		clearErrors,
 		setError,
 	} = useForm<LoginFormValues>({
 		defaultValues: {
