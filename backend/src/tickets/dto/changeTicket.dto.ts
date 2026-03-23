@@ -2,7 +2,7 @@ export class ChangeTicketDto {
 	ticketId: string
 	title: string
 	description: string
-	building: string
+	buildingId: number
 	cabinet: string
 	phone: string
 }

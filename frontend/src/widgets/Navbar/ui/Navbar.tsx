@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Logo } from 'shared/ui/Logo/Logo';
 import { useGetUserDataQuery } from 'features/editableProfileCard';
 import { Text, TextSize } from 'shared/ui/Text/Text';
-import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto'
+import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto';
 
 interface NavbarProps {
     className?: string;

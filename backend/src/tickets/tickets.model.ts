@@ -33,9 +33,9 @@ export class Ticket extends Model<Ticket, TicketCreationAtr>{
   @Column({ type: DataType.STRING })
   description: string;
 
-  // todo мб id строения?
-  @Column({ type: DataType.STRING })
-  building: string;
+  //todo в бд почему то string
+  @Column({ type: DataType.NUMBER })
+  buildingId: number;
 
   @Column({ type: DataType.STRING })
   cabinet: string;

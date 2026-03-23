@@ -11,8 +11,8 @@ import {
 } from '../../model/api/profileApi';
 import cls from './EditableProfileCard.module.scss';
 import UserIcon from 'shared/assets/icons/user-20-20.svg';
-import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto'
-import { Loader } from 'shared/ui/Loader/Loader'
+import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto';
+import { Loader } from 'shared/ui/Loader/Loader';
 
 interface EditableProfileCardProps {
     className?: string;
@@ -28,12 +28,9 @@ interface ProfileFormValues {
 
 export const EditableProfileCard = memo(
     ({ className, id }: EditableProfileCardProps) => {
-        const { data, isLoading, isError } = useGetUserDataQuery(
-            id as string,
-            {
-                skip: !id,
-            },
-        );
+        const { data, isLoading, isError } = useGetUserDataQuery(id as string, {
+            skip: !id,
+        });
 
         const [updateUser, { isLoading: isSaving, isError: isSaveError }] =
             useUpdateUserDataMutation();
@@ -126,9 +123,7 @@ export const EditableProfileCard = memo(
         }
 
         if (isLoading) {
-            return (
-                <Loader />
-            );
+            return <Loader />;
         }
 
         if (isError || !data) {

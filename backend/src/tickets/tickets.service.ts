@@ -100,7 +100,7 @@ export class TicketsService {
       await ticket.update({
         title: data.title,
         description: data.description,
-        building: data.building,
+        buildingId: data.buildingId,
         cabinet: data.cabinet,
         phone: data.phone,
       })

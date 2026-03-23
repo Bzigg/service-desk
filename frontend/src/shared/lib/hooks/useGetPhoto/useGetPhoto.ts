@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 export const useGetPhoto = (photo?: string): string => {
-	return useMemo(() => {
+    return useMemo(() => {
         if (!photo) {
             return '';
         }

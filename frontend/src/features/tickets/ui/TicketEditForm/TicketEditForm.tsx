@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
 import { Select } from 'shared/ui/Select/Select';
 import { buildingsApi } from 'entities/Building';
+
 interface IProps {
     id: string;
 }
@@ -25,7 +26,7 @@ export const TicketEditForm: FC<IProps> = ({ id }) => {
         values: {
             title: data?.title || '',
             description: data?.description || '',
-            building: data?.building || buildings?.[1]?.id,
+            buildingId: data?.buildingId || buildings?.[0]?.id,
             cabinet: data?.cabinet || '',
             phone: data?.phone || '',
         },
@@ -82,13 +83,14 @@ export const TicketEditForm: FC<IProps> = ({ id }) => {
             <Select
                 className="mt8"
                 control={control}
-                name="building"
-                options={buildings}
+                name="buildingId"
+                options={buildings?.map((buildingItem: any) => {
+                    return {
+                        value: buildingItem.id,
+                        content: `${buildingItem?.name} (${buildingItem?.street}, ${buildingItem?.building})`,
+                    };
+                })}
                 label="Выберете строение"
-                keyName="id"
-                labelName={(option: any) =>
-                    `${option?.name} (${option?.street}, ${option?.building})`
-                }
             />
             <Input
                 label="Кабинет"
