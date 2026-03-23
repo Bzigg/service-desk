@@ -164,7 +164,7 @@ export const EditableProfileCard = memo(
                 className={classNames(cls.EditableProfileCard, {}, [className])}
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <div className={cls.header}>
+                    <Text title="Профиль" />
                     <div className={cls.photoBlock}>
                         {photoSrc ? (
                             <img className={cls.photo} src={photoSrc} alt="" />
@@ -201,8 +201,7 @@ export const EditableProfileCard = memo(
                             />
                         )}
                     </div>
-                    <Text title="Профиль" />
-                </div>
+
                 {isSaveError && (
                     <Text
                         className="mt8"

@@ -1,5 +1,11 @@
 .Avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--secondary-border-color);
     border-radius: 50%;
-    height: 100px;
-    width: 100px;
+}
+
+.icon {
+    margin: 4px;
 }

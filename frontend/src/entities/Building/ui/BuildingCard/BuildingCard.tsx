@@ -20,7 +20,7 @@ export const BuildingCard = ({ id, street, building, name, onDelete }: any) => {
                 id: String(id),
                 data: values,
             }).unwrap();
-            setIsOpen(false)
+            setIsOpen(false);
         } catch (e) {
             console.error('Не удалось обновить строение', e);
             throw e;
@@ -45,7 +45,9 @@ export const BuildingCard = ({ id, street, building, name, onDelete }: any) => {
                         text={
                             <div className={cls.location}>
                                 <LocationIcon />
-                                <div>ул. {street}, дом {building}</div>
+                                <div>
+                                    ул. {street}, дом {building}
+                                </div>
                             </div>
                         }
                     />
@@ -63,7 +65,7 @@ export const BuildingCard = ({ id, street, building, name, onDelete }: any) => {
                     onClick={() => onDeleteBuilding(id)}
                     theme={ButtonTheme.OUTLINE}
                 >
-                    <CrossIcon/>
+                    <CrossIcon />
                 </Button>
             </div>
             <BuildingModal

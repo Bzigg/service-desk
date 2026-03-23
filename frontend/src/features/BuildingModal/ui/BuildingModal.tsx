@@ -18,10 +18,9 @@ export const BuildingModal = ({
 
     const save = useCallback(
         (values: any) => {
-            onSubmit(values)
-                .then(() => {
-                    reset();
-                });
+            onSubmit(values).then(() => {
+                reset();
+            });
         },
         [onSubmit],
     );
