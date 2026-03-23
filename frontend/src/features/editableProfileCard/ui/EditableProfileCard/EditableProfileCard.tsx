@@ -12,6 +12,7 @@ import {
 import cls from './EditableProfileCard.module.scss';
 import UserIcon from 'shared/assets/icons/user-20-20.svg';
 import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto'
+import { Loader } from 'shared/ui/Loader/Loader'
 
 interface EditableProfileCardProps {
     className?: string;
@@ -27,7 +28,7 @@ interface ProfileFormValues {
 
 export const EditableProfileCard = memo(
     ({ className, id }: EditableProfileCardProps) => {
-        const { data, isLoading, isError, isFetching } = useGetUserDataQuery(
+        const { data, isLoading, isError } = useGetUserDataQuery(
             id as string,
             {
                 skip: !id,
@@ -124,15 +125,9 @@ export const EditableProfileCard = memo(
             );
         }
 
-        if (isLoading || (isFetching && !data)) {
+        if (isLoading) {
             return (
-                <div
-                    className={classNames(cls.EditableProfileCard, {}, [
-                        className,
-                    ])}
-                >
-                    <Text text="Загрузка профиля…" />
-                </div>
+                <Loader />
             );
         }
 
