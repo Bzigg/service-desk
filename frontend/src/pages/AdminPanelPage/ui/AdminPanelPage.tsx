@@ -13,9 +13,9 @@ const AdminPanelPage = () => {
 
     const [addBuilding] = buildingsApi.useAddBuildingMutation();
 
-    const onSubmit = async () => {
+    const onSubmit = async (values: any) => {
         try {
-            await addBuilding().unwrap()
+            await addBuilding(values).unwrap()
             setIsOpen(false)
         } catch (e) {
             console.log(e)
