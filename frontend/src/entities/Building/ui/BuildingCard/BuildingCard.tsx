@@ -8,9 +8,11 @@ import { BuildingModal } from 'features/BuildingModal';
 import React, { useState } from 'react';
 import { buildingsApi } from '../../model/buildingsApi';
 
-export const BuildingCard = ({ id, street, building, name }: any) => {
+export const BuildingCard = ({ id, street, building, name, onDelete }: any) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+
     const [changeBuilding] = buildingsApi.useChangeBuildingMutation();
+    const [deleteBuilding] = buildingsApi.useDeleteBuildingMutation();
 
     const onSubmit = async (values: any) => {
         try {
@@ -22,6 +24,14 @@ export const BuildingCard = ({ id, street, building, name }: any) => {
         } catch (e) {
             console.error('Не удалось обновить строение', e);
             throw e;
+        }
+    };
+
+    const onDeleteBuilding = async (id: string) => {
+        try {
+            await deleteBuilding(String(id)).unwrap();
+        } catch (e) {
+            console.error('Не удалось удалить строение', e);
         }
     };
 
@@ -50,7 +60,7 @@ export const BuildingCard = ({ id, street, building, name }: any) => {
                 </Button>
 
                 <Button
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => onDeleteBuilding(id)}
                     theme={ButtonTheme.OUTLINE}
                 >
                     <CrossIcon/>

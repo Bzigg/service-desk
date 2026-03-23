@@ -69,10 +69,6 @@ export class BuildingsService {
       throw new HttpException('Строение не найдено', HttpStatus.NOT_FOUND)
     }
 
-    if (String(building.userId) !== String(userId)) {
-      throw new UnauthorizedException({ message: 'неверный логин или пароль' })
-    }
-
     await building.destroy()
 
     return { success: true }
