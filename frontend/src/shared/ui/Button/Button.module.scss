@@ -1,4 +1,6 @@
 .Button {
+    display: flex;
+    align-items: center;
     cursor: pointer;
     color: var(--primary-bg-color);
     padding: 6px 15px;

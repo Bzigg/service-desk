@@ -2,6 +2,7 @@ import cls from './BuildingCard.module.scss';
 import { Text } from 'shared/ui/Text/Text';
 import BuildingIcon from 'shared/assets/icons/building-20-20.svg';
 import LocationIcon from 'shared/assets/icons/location-20-20.svg';
+import CrossIcon from 'shared/assets/icons/cross-24-24.svg';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { BuildingModal } from 'features/BuildingModal';
 import React, { useState } from 'react';
@@ -38,7 +39,7 @@ export const BuildingCard = ({ street, building, name }: any) => {
                     onClick={() => setIsOpen(true)}
                     theme={ButtonTheme.OUTLINE}
                 >
-                    Х
+                    <CrossIcon/>
                 </Button>
             </div>
             <BuildingModal

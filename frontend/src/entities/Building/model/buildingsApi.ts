@@ -26,5 +26,22 @@ export const buildingsApi = rtkApi
                 }),
                 invalidatesTags: ['Building'],
             }),
+            changeBuilding: build.mutation<any, { id: string; data: any }>({
+                query: ({ id, data }) => ({
+                    url: `/buildings/change`,
+                    method: 'PUT',
+                    params: { id },
+                    body: data,
+                }),
+                invalidatesTags: ['Building'],
+            }),
+            deleteBuilding: build.mutation<any, string>({
+                query: (id) => ({
+                    url: `/buildings/delete`,
+                    method: 'DELETE',
+                    params: { id },
+                }),
+                invalidatesTags: ['Building'],
+            }),
         }),
     });
