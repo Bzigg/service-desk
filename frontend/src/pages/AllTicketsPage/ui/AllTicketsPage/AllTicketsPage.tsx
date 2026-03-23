@@ -18,7 +18,9 @@ const AllTicketsPage = () => {
     return (
         <Page>
             <Text title="Все заявки" text="Список всех заявок" />
-            {Boolean(data?.data?.length) && <TicketsFilters setFilters={setFilters} />}
+            {Boolean(data?.data?.length) && (
+                <TicketsFilters setFilters={setFilters} />
+            )}
             <TicketsList tickets={data?.data} />
             {data?.total > LIMIT && (
                 <Pagination

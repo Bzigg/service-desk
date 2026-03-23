@@ -23,7 +23,11 @@ export const Avatar = ({ className, src, size, alt }: AvatarProps) => {
 
     return (
         <div className={classNames(cls.Avatar, mods, [className])}>
-            {src ? <img src={src} alt={alt} style={styles} /> : <UserIcon className={cls.icon} />}
+            {src ? (
+                <img src={src} alt={alt} style={styles} />
+            ) : (
+                <UserIcon className={cls.icon} />
+            )}
         </div>
     );
 };

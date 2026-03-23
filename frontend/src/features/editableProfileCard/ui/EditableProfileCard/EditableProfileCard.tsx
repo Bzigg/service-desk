@@ -11,6 +11,7 @@ import {
 } from '../../model/api/profileApi';
 import cls from './EditableProfileCard.module.scss';
 import UserIcon from 'shared/assets/icons/user-20-20.svg';
+import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto'
 
 interface EditableProfileCardProps {
     className?: string;
@@ -55,16 +56,7 @@ export const EditableProfileCard = memo(
             },
         });
 
-        const photoSrc = useMemo(() => {
-            if (!data?.photo) {
-                return undefined;
-            }
-            const base = __API__.replace(/\/$/, '');
-            const path = data.photo.startsWith('/')
-                ? data.photo
-                : `/${data.photo}`;
-            return `${base}${path}`;
-        }, [data?.photo]);
+        const photoSrc = useGetPhoto(data?.photo || '');
 
         const onSubmit = useCallback(
             async (values: ProfileFormValues) => {
@@ -164,43 +156,40 @@ export const EditableProfileCard = memo(
                 className={classNames(cls.EditableProfileCard, {}, [className])}
                 onSubmit={handleSubmit(onSubmit)}
             >
-                    <Text title="Профиль" />
-                    <div className={cls.photoBlock}>
-                        {photoSrc ? (
-                            <img className={cls.photo} src={photoSrc} alt="" />
-                        ) : (
-                            <div className={cls.photoPlaceholder} aria-hidden>
-                                <UserIcon />
-                            </div>
-                        )}
-                        <input
-                            ref={fileInputRef}
-                            className={cls.hiddenFileInput}
-                            type="file"
-                            accept="image/jpeg,image/png,.jpg,.jpeg,.png"
-                            onChange={onPhotoChange}
+                <Text title="Профиль" />
+                <div className={cls.photoBlock}>
+                    {photoSrc ? (
+                        <img className={cls.photo} src={photoSrc} alt="" />
+                    ) : (
+                        <div className={cls.photoPlaceholder} aria-hidden>
+                            <UserIcon />
+                        </div>
+                    )}
+                    <input
+                        ref={fileInputRef}
+                        className={cls.hiddenFileInput}
+                        type="file"
+                        accept="image/jpeg,image/png,.jpg,.jpeg,.png"
+                        onChange={onPhotoChange}
+                    />
+                    <Button
+                        type="button"
+                        theme={ButtonTheme.OUTLINE}
+                        disabled={isPhotoUploading}
+                        onClick={openPhotoPicker}
+                    >
+                        {isPhotoUploading ? 'Загрузка…' : 'Сменить фото'}
+                    </Button>
+                    <span className={cls.photoHint}>JPG или PNG, до 5 МБ</span>
+                    {(isPhotoError || photoClientError) && (
+                        <Text
+                            text={
+                                photoClientError ?? 'Не удалось загрузить фото.'
+                            }
+                            theme={TextTheme.ERROR}
                         />
-                        <Button
-                            type="button"
-                            theme={ButtonTheme.OUTLINE}
-                            disabled={isPhotoUploading}
-                            onClick={openPhotoPicker}
-                        >
-                            {isPhotoUploading ? 'Загрузка…' : 'Сменить фото'}
-                        </Button>
-                        <span className={cls.photoHint}>
-                            JPG или PNG, до 5 МБ
-                        </span>
-                        {(isPhotoError || photoClientError) && (
-                            <Text
-                                text={
-                                    photoClientError ??
-                                    'Не удалось загрузить фото.'
-                                }
-                                theme={TextTheme.ERROR}
-                            />
-                        )}
-                    </div>
+                    )}
+                </div>
 
                 {isSaveError && (
                     <Text
