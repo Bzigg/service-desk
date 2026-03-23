@@ -41,15 +41,10 @@ export class BuildingsService {
       throw new HttpException('Ошибка', HttpStatus.BAD_REQUEST)
     }
 
-    const userId = await this.authService.getUserIdByToken(token)
     const building = await this.getBuildingById(id)
 
     if (!building) {
       throw new HttpException('Строение не найдено', HttpStatus.NOT_FOUND)
-    }
-
-    if (String(building.userId) !== String(userId)) {
-      throw new UnauthorizedException({ message: 'неверный логин или пароль' })
     }
 
     await building.update({

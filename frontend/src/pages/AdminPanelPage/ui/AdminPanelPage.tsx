@@ -13,6 +13,15 @@ const AdminPanelPage = () => {
 
     const [addBuilding] = buildingsApi.useAddBuildingMutation();
 
+    const onSubmit = async () => {
+        try {
+            await addBuilding().unwrap()
+            setIsOpen(false)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     return (
         <Page>
             <div className={cls.header}>
@@ -34,7 +43,7 @@ const AdminPanelPage = () => {
             <BuildingModal
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
-                onSubmit={addBuilding}
+                onSubmit={onSubmit}
             />
         </Page>
     );

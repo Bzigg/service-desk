@@ -19,7 +19,6 @@ export const BuildingModal = ({
     const save = useCallback(
         (values: any) => {
             onSubmit(values)
-                .unwrap()
                 .then(() => {
                     reset();
                 });

@@ -6,11 +6,24 @@ import CrossIcon from 'shared/assets/icons/cross-24-24.svg';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { BuildingModal } from 'features/BuildingModal';
 import React, { useState } from 'react';
+import { buildingsApi } from '../../model/buildingsApi';
 
-export const BuildingCard = ({ street, building, name }: any) => {
+export const BuildingCard = ({ id, street, building, name }: any) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [changeBuilding] = buildingsApi.useChangeBuildingMutation();
 
-    const onSubmit = () => {};
+    const onSubmit = async (values: any) => {
+        try {
+            await changeBuilding({
+                id: String(id),
+                data: values,
+            }).unwrap();
+            setIsOpen(false)
+        } catch (e) {
+            console.error('Не удалось обновить строение', e);
+            throw e;
+        }
+    };
 
     return (
         <div className={cls.BuildingCard}>
