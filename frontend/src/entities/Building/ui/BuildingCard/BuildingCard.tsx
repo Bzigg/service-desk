@@ -21,7 +21,8 @@ export const BuildingCard = ({ street, building, name }: any) => {
                     <Text
                         text={
                             <div className={cls.location}>
-                                <LocationIcon /> ул. {street}, дом {building}
+                                <LocationIcon />
+                                <div>ул. {street}, дом {building}</div>
                             </div>
                         }
                     />
