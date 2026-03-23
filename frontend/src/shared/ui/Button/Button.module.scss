@@ -31,45 +31,24 @@
     color: var(--primary-color);
     background: var(--primary-bg-color);
 }
-//
-.backgroundInverted {
-    background: var(--inverted-bg-color);
-    color: var(--inverted-primary-color);
-    border: none;
-}
 
-.square {
-    padding: 0;
-}
-
-.square.size_m {
-    width: var(--font-line-m);
-    height: var(--font-line-m);
-}
-
-.square.size_l {
-    width: var(--font-line-l);
-    height: var(--font-line-l);
-}
-
-.square.size_xl {
-    width: var(--font-line-xl);
-    height: var(--font-line-xl);
-}
-//
 .size_s {
     font: var(--font-s);
+    height: 36px;
 }
 .size_m {
     font: var(--font-m);
+    height: 42px;
 }
 
 .size_l {
     font: var(--font-l);
+    height: 48px;
 }
 
 .size_xl {
     font: var(--font-xl);
+    height: 56px;
 }
 
 .disabled {

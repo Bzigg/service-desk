@@ -19,19 +19,26 @@ export const BuildingCard = ({ street, building, name }: any) => {
                     <Text title={name} />
                     <Text
                         text={
-                            <div className={cls.locatio}>
+                            <div className={cls.location}>
                                 <LocationIcon /> ул. {street}, дом {building}
                             </div>
                         }
                     />
                 </div>
             </div>
-            <div>
+            <div className={cls.buttonWrapper}>
                 <Button
                     onClick={() => setIsOpen(true)}
                     theme={ButtonTheme.OUTLINE}
                 >
                     Редактировать
+                </Button>
+
+                <Button
+                    onClick={() => setIsOpen(true)}
+                    theme={ButtonTheme.OUTLINE}
+                >
+                    Х
                 </Button>
             </div>
             <BuildingModal

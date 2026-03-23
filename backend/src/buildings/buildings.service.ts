@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { AuthService } from '../auth/auth.service'
 import { Building } from './buildings.model'
@@ -34,5 +34,26 @@ export class BuildingsService {
       ...data,
       userId: userId
     })
+  }
+
+  async deleteBuilding(id?: string, token?: string) {
+    if (!id || !token) {
+      throw new HttpException('Ошибка', HttpStatus.BAD_REQUEST)
+    }
+
+    const userId = await this.authService.getUserIdByToken(token)
+    const building = await this.getBuildingById(id)
+
+    if (!building) {
+      throw new HttpException('Строение не найдено', HttpStatus.NOT_FOUND)
+    }
+
+    if (String(building.userId) !== String(userId)) {
+      throw new UnauthorizedException({ message: 'неверный логин или пароль' })
+    }
+
+    await building.destroy()
+
+    return { success: true }
   }
 }
