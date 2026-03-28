@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { TicketItem } from 'entities/Ticket';
+import cls from './TicketsList.module.scss';
 import { Empty } from 'shared/ui/Empty/Empty';
-import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 
 interface IProps {
     tickets: any[];
@@ -13,7 +13,7 @@ const TicketsList: FC<IProps> = ({ tickets }) => {
     }
 
     return (
-        <div className="mt8">
+        <div className={cls.WrapperList}>
             {tickets?.map((ticketItem) => {
                 return <TicketItem key={ticketItem.id} ticket={ticketItem} />;
             })}
