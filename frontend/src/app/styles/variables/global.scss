@@ -1,5 +1,5 @@
 :root {
-    --font-family-main: consolas, "Times New Roman", serif;
+    --font-family-main: consolas, 'Times New Roman', serif;
 
     // s
     --font-size-s: 12px;
@@ -32,32 +32,33 @@
     // Цвета
 
     // accent
-    --primary-color: #1284FF;
-    --primary-inverted-color: #1284FF;
-    --secondary-color: #F3F5F7;
-    --tertiary-color: #D3E3FD;
+    --primary-color: #1284ff;
+    --primary-inverted-color: #1284ff;
+    --secondary-color: #f3f5f7;
+    --tertiary-color: #d3e3fd;
     --inverted-primary-color: #04ff04;
     --inverted-secondary-color: #049604;
 
     // content
-    --primary-content-color: #1E2228;
+    --primary-content-color: #1e2228;
 
     // background
-    --primary-bg-color: #FFFFFF;
-    --secondary-bg-color: #F3F5F7;
-    --tertiary-bg-color: #EBEEF0;
+    --primary-bg-color: #ffffff;
+    --secondary-bg-color: #f3f5f7;
+    --tertiary-bg-color: #ebeef0;
     --bg-color-error: #fcd7d7;
 
     // border
-    --primary-border-color: #1284FF;
-    --secondary-border-color: #A3ACBA;
-    --tertiary-border-color: #D7DAE1;
+    --primary-border-color: #1284ff;
+    --secondary-border-color: #a3acba;
+    --tertiary-border-color: #d7dae1;
     --error-border-color: #d73f3f;
 
     // text
-    --text-primary-color: #1E2228;
-    --text-secondary-color: #4E5867;
-    --text-tertiary-color: #7A879D;
+    --text-primary-color: #1e2228;
+    --text-secondary-color: #4e5867;
+    --text-tertiary-color: #7a879d;
+    --text-white-color: #ffffff;
 
     // card
     --card-bg: #d5d5d7;
@@ -68,4 +69,7 @@
     --overlay-color: rgba(0 0 0 / 60%);
     --red-light: #f00;
     --red-dark: #ce0505;
+
+    //additional
+    --additional-success: #3dd598;
 }

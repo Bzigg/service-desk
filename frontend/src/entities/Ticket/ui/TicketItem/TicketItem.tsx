@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { buildingsApi } from 'entities/Building';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { Tag } from 'shared/ui/Tag/Tag';
+import { Status } from './Status';
 import cls from './TicketItem.module.scss';
 import MessageIcon from 'shared/assets/icons/message-24-24.svg';
 
@@ -39,7 +39,7 @@ export const TicketItem: FC<IProps> = ({ ticket }) => {
                 <div className={cls.Info}>
                     <div className={cls.HeaderInfo}>
                         <div className={cls.HeaderTitle}>Сломался принтер</div>
-                        <Tag />
+                        <Status status={ticket.status} />
                     </div>
                     {buildingLabel && <div>{buildingLabel}</div>}
                     <div>Принтер не печатает</div>
