@@ -8,6 +8,7 @@ import {
     LIMIT,
     useNavigationList,
 } from 'widgets/hooks/useNavigationList/useNavigationList';
+import { Text } from 'shared/ui/Text/Text';
 
 const AllTicketsPage = () => {
     const { setFilters, page, setPage, query } = useNavigationList();
@@ -16,7 +17,10 @@ const AllTicketsPage = () => {
 
     return (
         <Page>
-            <TicketsFilters setFilters={setFilters} />
+            <Text title="Все заявки" text="Список всех заявок" />
+            {Boolean(data?.data?.length) && (
+                <TicketsFilters setFilters={setFilters} />
+            )}
             <TicketsList tickets={data?.data} />
             {data?.total > LIMIT && (
                 <Pagination

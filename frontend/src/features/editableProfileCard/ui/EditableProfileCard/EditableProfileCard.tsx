@@ -11,6 +11,8 @@ import {
 } from '../../model/api/profileApi';
 import cls from './EditableProfileCard.module.scss';
 import UserIcon from 'shared/assets/icons/user-20-20.svg';
+import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto'
+import { Loader } from 'shared/ui/Loader/Loader'
 
 interface EditableProfileCardProps {
     className?: string;
@@ -26,22 +28,22 @@ interface ProfileFormValues {
 
 export const EditableProfileCard = memo(
     ({ className, id }: EditableProfileCardProps) => {
-        const {
-            data,
-            isLoading,
-            isError,
-            isFetching,
-        } = useGetUserDataQuery(id as string, {
-            skip: !id,
-        });
+        const { data, isLoading, isError } = useGetUserDataQuery(
+            id as string,
+            {
+                skip: !id,
+            },
+        );
 
         const [updateUser, { isLoading: isSaving, isError: isSaveError }] =
             useUpdateUserDataMutation();
 
-        const [updatePhoto, { isLoading: isPhotoUploading, isError: isPhotoError }] =
-            useUpdateUserPhotoMutation();
+        const [
+            updatePhoto,
+            { isLoading: isPhotoUploading, isError: isPhotoError },
+        ] = useUpdateUserPhotoMutation();
 
-        const fileInputRef = useRef<HTMLInputElement>(null);
+        const fileInputRef = useRef<HTMLInputElement | null>(null);
         const [photoClientError, setPhotoClientError] = useState<string | null>(
             null,
         );
@@ -55,16 +57,7 @@ export const EditableProfileCard = memo(
             },
         });
 
-        const photoSrc = useMemo(() => {
-            if (!data?.photo) {
-                return undefined;
-            }
-            const base = __API__.replace(/\/$/, '');
-            const path = data.photo.startsWith('/')
-                ? data.photo
-                : `/${data.photo}`;
-            return `${base}${path}`;
-        }, [data?.photo]);
+        const photoSrc = useGetPhoto(data?.photo || '');
 
         const onSubmit = useCallback(
             async (values: ProfileFormValues) => {
@@ -132,15 +125,9 @@ export const EditableProfileCard = memo(
             );
         }
 
-        if (isLoading || (isFetching && !data)) {
+        if (isLoading) {
             return (
-                <div
-                    className={classNames(cls.EditableProfileCard, {}, [
-                        className,
-                    ])}
-                >
-                    <Text text="Загрузка профиля…" />
-                </div>
+                <Loader />
             );
         }
 
@@ -161,56 +148,44 @@ export const EditableProfileCard = memo(
 
         return (
             <form
-                className={classNames(cls.EditableProfileCard, {}, [
-                    className,
-                ])}
+                className={classNames(cls.EditableProfileCard, {}, [className])}
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <div className={cls.header}>
-                    <div className={cls.photoBlock}>
-                        {photoSrc ? (
-                            <img
-                                className={cls.photo}
-                                src={photoSrc}
-                                alt=""
-                            />
-                        ) : (
-                            <div className={cls.photoPlaceholder} aria-hidden>
-                                <UserIcon className={cls.icon} />
-                            </div>
-                        )}
-                        <input
-                            ref={fileInputRef}
-                            className={cls.hiddenFileInput}
-                            type="file"
-                            accept="image/jpeg,image/png,.jpg,.jpeg,.png"
-                            onChange={onPhotoChange}
+                <Text title="Профиль" />
+                <div className={cls.photoBlock}>
+                    {photoSrc ? (
+                        <img className={cls.photo} src={photoSrc} alt="" />
+                    ) : (
+                        <div className={cls.photoPlaceholder} aria-hidden>
+                            <UserIcon />
+                        </div>
+                    )}
+                    <input
+                        ref={fileInputRef}
+                        className={cls.hiddenFileInput}
+                        type="file"
+                        accept="image/jpeg,image/png,.jpg,.jpeg,.png"
+                        onChange={onPhotoChange}
+                    />
+                    <Button
+                        type="button"
+                        theme={ButtonTheme.OUTLINE}
+                        disabled={isPhotoUploading}
+                        onClick={openPhotoPicker}
+                    >
+                        {isPhotoUploading ? 'Загрузка…' : 'Сменить фото'}
+                    </Button>
+                    <span className={cls.photoHint}>JPG или PNG, до 5 МБ</span>
+                    {(isPhotoError || photoClientError) && (
+                        <Text
+                            text={
+                                photoClientError ?? 'Не удалось загрузить фото.'
+                            }
+                            theme={TextTheme.ERROR}
                         />
-                        <Button
-                            type="button"
-                            theme={ButtonTheme.OUTLINE}
-                            disabled={isPhotoUploading}
-                            onClick={openPhotoPicker}
-                        >
-                            {isPhotoUploading
-                                ? 'Загрузка…'
-                                : 'Сменить фото'}
-                        </Button>
-                        <span className={cls.photoHint}>
-                            JPG или PNG, до 5 МБ
-                        </span>
-                        {(isPhotoError || photoClientError) && (
-                            <Text
-                                text={
-                                    photoClientError ??
-                                    'Не удалось загрузить фото.'
-                                }
-                                theme={TextTheme.ERROR}
-                            />
-                        )}
-                    </div>
-                    <Text title="Профиль" />
+                    )}
                 </div>
+
                 {isSaveError && (
                     <Text
                         className="mt8"

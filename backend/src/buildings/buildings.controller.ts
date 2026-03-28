@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, Post, Query } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Headers, Post, Put, Query } from '@nestjs/common'
 import { BuildingsService } from './buildings.service'
 import { GetBuildingByIdDto } from './dto/getBuildingById.dto'
 import { AddBuildingDto } from './dto/addBuilding.dto'
@@ -22,5 +22,19 @@ export class BuildingsController {
   @Post('/add')
   addBuilding(@Body() dto: AddBuildingDto, @Headers('authorization') token: string) {
     return this.buildingsService.addBuilding(dto, token)
+  }
+
+  @Put('/change')
+  changeBuilding(
+    @Query() query: GetBuildingByIdDto,
+    @Body() dto: AddBuildingDto,
+    @Headers('authorization') token: string
+  ) {
+    return this.buildingsService.changeBuilding(query?.id, dto, token)
+  }
+
+  @Delete('/delete')
+  deleteBuilding(@Query() query: GetBuildingByIdDto, @Headers('authorization') token: string) {
+    return this.buildingsService.deleteBuilding(query?.id, token)
   }
 }

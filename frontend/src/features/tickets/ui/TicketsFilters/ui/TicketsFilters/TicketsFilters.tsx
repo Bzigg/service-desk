@@ -33,7 +33,9 @@ export const TicketsFilters: FC<IProps> = ({ setFilters }) => {
                     label="Статус заявки"
                 />
             </div>
-            <Button type="submit">Применить</Button>
+            <div>
+                <Button type="submit">Применить</Button>
+            </div>
         </form>
     );
 };

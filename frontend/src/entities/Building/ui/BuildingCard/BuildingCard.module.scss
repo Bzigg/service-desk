@@ -1,0 +1,29 @@
+.BuildingCard {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  border: 1px solid var(--secondary-border-color);
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.info {
+  display: flex;
+  gap: 8px;
+}
+
+.icon {
+  margin-top: 4px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 8px;
+}
