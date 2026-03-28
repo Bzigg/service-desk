@@ -2,9 +2,7 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { getUserAuthData } from 'entities/User';
-import { ticketsApi } from 'entities/Ticket';
 import { buildingsApi } from 'entities/Building';
-import { AssignButton } from 'widgets/AssignButton';
 import cls from './TicketDetails.module.scss';
 import MessageIcon from 'shared/assets/icons/message-24-24.svg';
 import { Text } from 'shared/ui/Text/Text';
@@ -12,6 +10,9 @@ import { Tag } from 'shared/ui/Tag/Tag';
 import PhoneIcon from 'shared/assets/icons/phone-24-24.svg';
 import LocationIcon from 'shared/assets/icons/location-20-20.svg';
 import BuildingIcon from 'shared/assets/icons/building-20-20.svg';
+
+import { ticketsApi } from '../../model/api/ticketsApi';
+import { AssignButton } from '../../ui/AssignButton/AssignButton';
 
 interface IProps {
     id: string;

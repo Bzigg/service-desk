@@ -2,7 +2,8 @@ import React, { FC, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { getUserAuthData, isAdminSelector } from 'entities/User';
-import { ticketsApi } from 'entities/Ticket';
+
+import { ticketsApi } from '../../model/api/ticketsApi';
 
 interface IProps {
     className?: string;
