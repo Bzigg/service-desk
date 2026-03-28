@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-export const useGetPhoto = (photo?: string): string => {
+export const правки TicketItem = (photo?: string): string => {
     return useMemo(() => {
         if (!photo) {
             return '';
@@ -8,5 +8,5 @@ export const useGetPhoto = (photo?: string): string => {
         const base = __API__.replace(/\/$/, '');
         const path = photo.startsWith('/') ? photo : `/${photo}`;
         return `${base}${path}`;
-    }, []);
+    }, [photo]);
 };
