@@ -15,9 +15,12 @@ export const TicketItem: FC<IProps> = ({ ticket }) => {
     const navigate = useNavigate();
 
     const buildingId = ticket?.buildingId;
-    const { data: building } = buildingsApi.useGetBuildingQuery(String(buildingId), {
-        skip: !buildingId,
-    });
+    const { data: building } = buildingsApi.useGetBuildingQuery(
+        String(buildingId),
+        {
+            skip: !buildingId,
+        },
+    );
 
     const open = useCallback(() => {
         navigate(`${RoutePath.ticket_details}${ticket.id}`);
@@ -41,10 +44,7 @@ export const TicketItem: FC<IProps> = ({ ticket }) => {
                     {buildingLabel && <div>{buildingLabel}</div>}
                     <div>Принтер не печатает</div>
                 </div>
-                <Button
-                    onClick={open}
-                    theme={ButtonTheme.CLEAR}
-                >
+                <Button onClick={open} theme={ButtonTheme.CLEAR}>
                     Перейти
                 </Button>
             </div>
