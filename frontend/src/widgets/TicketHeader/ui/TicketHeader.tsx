@@ -8,7 +8,7 @@ import {
     StatusMapper,
 } from 'features/tickets/ui/TicketsFilters/model/consts/consts';
 import { Select } from 'shared/ui/Select/Select';
-import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
+import { ticketsApi } from 'entities/Ticket';
 
 interface IProps {
     data: {

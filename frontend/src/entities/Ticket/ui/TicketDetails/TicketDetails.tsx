@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { getUserAuthData } from 'entities/User';
-import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
+import { ticketsApi } from 'entities/Ticket';
 import { buildingsApi } from 'entities/Building';
 import { AssignButton } from 'widgets/AssignButton';
 import cls from './TicketDetails.module.scss';
