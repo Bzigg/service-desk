@@ -13,6 +13,7 @@ import BuildingIcon from 'shared/assets/icons/building-20-20.svg';
 
 import { ticketsApi } from '../../model/api/ticketsApi';
 import { AssignButton } from '../../ui/AssignButton/AssignButton';
+import { Status } from '../Status/Status';
 
 interface IProps {
     id: string;
@@ -39,8 +40,8 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                 <div>
                     <div className={cls.title}>
                         <Text title={data?.title} />
-                        <Tag />
-                        <Tag />
+                        {data && <Status status={data.status} />}
+                        <Tag type={'success'} title={'моя заявка'} />
                     </div>
                     <Text text={data?.createdAt} />
                 </div>

@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { buildingsApi } from 'entities/Building';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { Status } from './Status';
 import cls from './TicketItem.module.scss';
 import MessageIcon from 'shared/assets/icons/message-24-24.svg';
+
+import { Status } from '../Status/Status';
 
 interface IProps {
     ticket: any;

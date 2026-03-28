@@ -5,7 +5,7 @@ export type TType = 'success' | 'secondary' | 'error' | 'disabled' | 'accent';
 
 type TProps = {
     type: TType;
-    title: string;
+    title?: string;
 };
 
 export const Tag = ({ type, title }: TProps) => {
