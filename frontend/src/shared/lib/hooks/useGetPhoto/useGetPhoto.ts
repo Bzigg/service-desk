@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-export const правки TicketItem = (photo?: string): string => {
+export const useGetPhoto = (photo?: string): string => {
     return useMemo(() => {
         if (!photo) {
             return '';
