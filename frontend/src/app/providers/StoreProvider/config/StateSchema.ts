@@ -13,7 +13,6 @@ import { rtkApi } from 'shared/api/rtkApi';
 
 export interface StateSchema {
     user: UserSchema;
-    ui: UISchema;
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 }
 
