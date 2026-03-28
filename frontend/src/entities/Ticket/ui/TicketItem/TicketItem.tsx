@@ -29,7 +29,7 @@ export const TicketItem: FC<IProps> = ({ ticket }) => {
 
     return (
         <div className={cls.Ticket}>
-            <div className={cls.IconWrapper}>
+            <div className={cls.iconWrapper}>
                 <MessageIcon />
             </div>
             <div className={cls.Content}>
