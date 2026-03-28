@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page } from 'widgets/Page/Page';
-import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
+import { ticketsApi } from 'entities/Ticket';
 import TicketsList from 'features/tickets/ui/TicketsList/TicketsList';
 import { TicketsFilters } from 'features/tickets/ui/TicketsFilters';
 import {

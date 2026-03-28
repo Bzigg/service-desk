@@ -3,7 +3,7 @@ import { Page } from 'widgets/Page/Page';
 import { Pagination } from 'widgets/Pagination';
 import { TicketsFilters } from 'features/tickets/ui/TicketsFilters';
 import TicketsList from 'features/tickets/ui/TicketsList/TicketsList';
-import { ticketsApi } from 'features/tickets/model/api/ticketsApi';
+import { ticketsApi } from 'entities/Ticket';
 import {
     LIMIT,
     useNavigationList,

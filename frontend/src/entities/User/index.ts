@@ -6,7 +6,7 @@ export {
     isAdminSelector,
     isUserSelector,
     getUserRoles,
-} from './model/selectors/roleSelectors';
+} from './model/selectors/roleSelectors/roleSelectors';
 
 export { userReducer, userActions } from './model/slice/userSlice';
 

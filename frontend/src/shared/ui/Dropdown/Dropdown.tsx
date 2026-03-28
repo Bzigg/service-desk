@@ -1,4 +1,5 @@
 import { Menu } from '@headlessui/react';
+// todo отказаться от headlessui ?
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Fragment, ReactNode } from 'react';
 import { DropdownDirection } from 'shared/types/ui';

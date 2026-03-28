@@ -1,19 +1,15 @@
 import { UserSchema } from 'entities/User';
 import {
     AnyAction,
-    EnhancedStore,
     Reducer,
     ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 import { AxiosInstance } from 'axios';
-import { UISchema } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
-// import { ProfileSchema } from 'features/editableProfileCard';
 
 export interface StateSchema {
     user: UserSchema;
-    ui: UISchema;
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 }
 
@@ -30,10 +26,6 @@ export interface ReducerManager {
     remove: (key: StateSchemaKey) => void;
     // true - вмонтирован, false - демонтирован
     getMountedReducers: () => MountedReducers;
-}
-
-export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
-    reducerManager: ReducerManager;
 }
 
 export interface ThunkExtraArg {

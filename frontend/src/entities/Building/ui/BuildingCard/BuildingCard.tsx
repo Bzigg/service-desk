@@ -8,7 +8,7 @@ import { BuildingModal } from 'features/BuildingModal';
 import React, { useState } from 'react';
 import { buildingsApi } from '../../model/buildingsApi';
 
-export const BuildingCard = ({ id, street, building, name, onDelete }: any) => {
+export const BuildingCard = ({ id, street, building, name }: any) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const [changeBuilding] = buildingsApi.useChangeBuildingMutation();
