@@ -2,7 +2,7 @@ import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { Tag } from 'shared/ui/Tag/Tag';
+import { Status } from './Status';
 import cls from './TicketItem.module.scss';
 import statusIcon from './icons/Status.png';
 
@@ -24,7 +24,7 @@ export const TicketItem: FC<IProps> = ({ ticket }) => {
                 <div className={cls.Info}>
                     <div className={cls.HeaderInfo}>
                         <div className={cls.HeaderTitle}>Сломался принтер</div>
-                        <Tag />
+                        <Status status={ticket.status} />
                     </div>
                     <div>123</div>
                     <div>Принтер не печатает</div>
