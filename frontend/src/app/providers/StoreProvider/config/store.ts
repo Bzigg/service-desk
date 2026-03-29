@@ -15,7 +15,7 @@ export function createReduxStore(
         ...asyncReducers,
         user: userReducer,
         [rtkApi.reducerPath]: rtkApi.reducer,
-    } as ReducersMapObject<StateSchema> ;
+    } as ReducersMapObject<StateSchema>;
 
     const reducerManager = createReducerManager(rootReducers);
 

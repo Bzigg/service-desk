@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { getUserAuthData } from 'entities/User';
 import { buildingsApi } from 'entities/Building';
-import { useNavigate } from 'react-router-dom'
-import { Text } from 'shared/ui/Text/Text';
+import { useNavigate } from 'react-router-dom';
+import { Text, TextSize, TextTheme } from 'shared/ui/Text/Text';
 import { Tag } from 'shared/ui/Tag/Tag';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig'
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import MessageIcon from 'shared/assets/icons/message-24-24.svg';
 import PhoneIcon from 'shared/assets/icons/phone-24-24.svg';
 import LocationIcon from 'shared/assets/icons/location-20-20.svg';
@@ -25,47 +25,48 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
     const navigate = useNavigate();
     const userData = useSelector(getUserAuthData);
 
-    const { data } = ticketsApi.useGetTicketQuery(id as string);
+    const { data: ticket } = ticketsApi.useGetTicketQuery(id as string);
 
     const { data: building } = buildingsApi.useGetBuildingQuery(
-        data?.buildingId,
+        ticket?.buildingId,
         {
-            skip: !data?.buildingId,
+            skip: !ticket?.buildingId,
         },
     );
 
     const onEdit = () => {
-        navigate(`${RoutePath.my_tickets}/${id}/edit`)
-    }
+        navigate(`${RoutePath.my_tickets}/${id}/edit`);
+    };
 
     return (
         <div className={cls.TicketDetailsWrapper}>
-
             <div className={cls.header}>
                 <div>
                     <div className={cls.title}>
                         <div className={cls.iconWrapper}>
                             <MessageIcon />
                         </div>
-                        <Text title={data?.title} />
-                        {data && <Status status={data.status} />}
+                        <Text title={ticket?.title} />
+                        {ticket && <Status status={ticket.status} />}
                         <Tag type={'success'} title={'моя заявка'} />
                     </div>
-                    <Text text={data?.createdAt} />
+                    <Text theme={TextTheme.TERTIARY} text={ticket?.createdAt} />
                 </div>
-                {data?.customerId === userData?.id && (
-                    <Button theme={ButtonTheme.OUTLINE} onClick={onEdit}>Редактировать</Button>
+                {ticket?.customerId === userData?.id && (
+                    <Button theme={ButtonTheme.OUTLINE} onClick={onEdit}>
+                        Редактировать
+                    </Button>
                 )}
                 <AssignButton
                     className="mr8"
-                    id={data?.id}
-                    responsibleId={data?.responsibleId}
+                    id={ticket?.id}
+                    responsibleId={ticket?.responsibleId}
                 />
             </div>
             <div className={cls.info}>
                 <div className={cls.infoItem}>
                     <PhoneIcon />
-                    <Text text={data?.phone} />
+                    <Text text={ticket?.phone} />
                 </div>
                 <div className={cls.infoItem}>
                     <BuildingIcon />
@@ -78,9 +79,22 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                     />
                 </div>
             </div>
-            <div className={cls.description}>
-                <Text text="Описание:" />
-                <Text text={data?.description} />
+            <div>
+                <Text theme={TextTheme.SECONDARY} text="Описание:" />
+                <Text text={ticket?.description} />
+            </div>
+            <div className={cls.history}>
+                <Text theme={TextTheme.SECONDARY} text="История:" />
+                <div className={cls.historyItem}>
+                    <div className={cls.historyInfo}>
+                        <Text
+                            theme={TextTheme.PRIMARY}
+                            title="Заявка создана"
+                            size={TextSize.M}
+                        />
+                    </div>
+                    <div className={cls.historyDate}>{ticket?.createdAt}</div>
+                </div>
             </div>
         </div>
     );

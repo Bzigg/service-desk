@@ -1,9 +1,5 @@
 import { UserSchema } from 'entities/User';
-import {
-    AnyAction,
-    Reducer,
-    ReducersMapObject,
-} from '@reduxjs/toolkit';
+import { AnyAction, Reducer, ReducersMapObject } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 import { AxiosInstance } from 'axios';
 import { rtkApi } from 'shared/api/rtkApi';

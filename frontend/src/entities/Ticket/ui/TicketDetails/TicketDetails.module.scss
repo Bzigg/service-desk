@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow-y: hidden;
 }
 
 .iconWrapper {
@@ -39,8 +40,26 @@
   }
 }
 
-.description {
+.history {
+  overflow: hidden;
 
+  &Item {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &Info {
+
+  }
+
+  &Title {
+
+  }
+
+  &Date{
+    max-width: 72px;
+  }
 }
 
 .buttons {

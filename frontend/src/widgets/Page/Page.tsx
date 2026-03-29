@@ -13,10 +13,7 @@ export const Page = memo((props: PageProps) => {
     const { className, children } = props;
 
     return (
-        <main
-            className={classNames(cls.Page, {}, [className])}
-            id={PAGE_ID}
-        >
+        <main className={classNames(cls.Page, {}, [className])} id={PAGE_ID}>
             {children}
         </main>
     );
