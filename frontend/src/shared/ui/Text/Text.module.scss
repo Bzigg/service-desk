@@ -1,9 +1,11 @@
-.title {
-    color: var(--text-primary-color);
-}
+.primary {
+    .title {
+        color: var(--text-primary-color);
+    }
 
-.text {
-    color: var(--text-primary-color);
+    .text {
+        color: var(--text-primary-color);
+    }
 }
 
 .secondary {
