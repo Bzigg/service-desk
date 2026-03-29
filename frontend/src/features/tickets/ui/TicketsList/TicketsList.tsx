@@ -9,7 +9,7 @@ interface IProps {
 
 const TicketsList: FC<IProps> = ({ tickets }) => {
     if (!tickets?.length) {
-        return <Empty description="Вы еще не приняли ни одной заявки" />;
+        return <Empty description="У Вас еще нет ни одной заявки" />;
     }
 
     return (

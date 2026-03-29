@@ -2,7 +2,6 @@
   margin-top: 24px;
   display: flex;
   flex-direction: column;
-  position: relative;
   gap: 16px;
 }
 
@@ -14,8 +13,6 @@
   align-items: center;
   background: var(--tertiary-bg-color);
   border-radius: 8px;
-  position: absolute;
-  left: -56px;
 }
 
 .header {
@@ -26,7 +23,7 @@
 
 .title {
   display: flex;
-  gap: 4px;
+  gap: 8px;
 }
 
 .info {

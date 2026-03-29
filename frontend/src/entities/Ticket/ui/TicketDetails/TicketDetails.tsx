@@ -3,14 +3,16 @@ import { useSelector } from 'react-redux';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { getUserAuthData } from 'entities/User';
 import { buildingsApi } from 'entities/Building';
-import cls from './TicketDetails.module.scss';
-import MessageIcon from 'shared/assets/icons/message-24-24.svg';
+import { useNavigate } from 'react-router-dom'
 import { Text } from 'shared/ui/Text/Text';
 import { Tag } from 'shared/ui/Tag/Tag';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig'
+import MessageIcon from 'shared/assets/icons/message-24-24.svg';
 import PhoneIcon from 'shared/assets/icons/phone-24-24.svg';
 import LocationIcon from 'shared/assets/icons/location-20-20.svg';
 import BuildingIcon from 'shared/assets/icons/building-20-20.svg';
 
+import cls from './TicketDetails.module.scss';
 import { ticketsApi } from '../../model/api/ticketsApi';
 import { AssignButton } from '../../ui/AssignButton/AssignButton';
 import { Status } from '../Status/Status';
@@ -20,6 +22,7 @@ interface IProps {
 }
 
 export const TicketDetails: FC<IProps> = ({ id }) => {
+    const navigate = useNavigate();
     const userData = useSelector(getUserAuthData);
 
     const { data } = ticketsApi.useGetTicketQuery(id as string);
@@ -31,14 +34,19 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
         },
     );
 
+    const onEdit = () => {
+        navigate(`${RoutePath.my_tickets}/${id}/edit`)
+    }
+
     return (
         <div className={cls.TicketDetailsWrapper}>
-            <div className={cls.iconWrapper}>
-                <MessageIcon />
-            </div>
+
             <div className={cls.header}>
                 <div>
                     <div className={cls.title}>
+                        <div className={cls.iconWrapper}>
+                            <MessageIcon />
+                        </div>
                         <Text title={data?.title} />
                         {data && <Status status={data.status} />}
                         <Tag type={'success'} title={'моя заявка'} />
@@ -46,7 +54,7 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                     <Text text={data?.createdAt} />
                 </div>
                 {data?.customerId === userData?.id && (
-                    <Button theme={ButtonTheme.OUTLINE}>Редактировать</Button>
+                    <Button theme={ButtonTheme.OUTLINE} onClick={onEdit}>Редактировать</Button>
                 )}
                 <AssignButton
                     className="mr8"
