@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Text, TextSize, TextTheme } from 'shared/ui/Text/Text';
 import { Tag } from 'shared/ui/Tag/Tag';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { dateHelpers } from 'shared/lib/helpers/dateHelpers/dateHelpers';
 import MessageIcon from 'shared/assets/icons/message-24-24.svg';
 import PhoneIcon from 'shared/assets/icons/phone-24-24.svg';
 import LocationIcon from 'shared/assets/icons/location-20-20.svg';
@@ -50,7 +51,7 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                         {ticket && <Status status={ticket.status} />}
                         <Tag type={'success'} title={'моя заявка'} />
                     </div>
-                    <Text theme={TextTheme.TERTIARY} text={ticket?.createdAt} />
+                    <Text theme={TextTheme.TERTIARY} text={dateHelpers.getDateTime(ticket?.createdAt)} />
                 </div>
                 {ticket?.customerId === userData?.id && (
                     <Button theme={ButtonTheme.OUTLINE} onClick={onEdit}>
@@ -92,8 +93,22 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                             title="Заявка создана"
                             size={TextSize.M}
                         />
+                        <Text
+                            theme={TextTheme.PRIMARY}
+                            text="Создано:"
+                            size={TextSize.M}
+                        />
                     </div>
-                    <div className={cls.historyDate}>{ticket?.createdAt}</div>
+                    <div className={cls.historyDate}>
+                        <Text
+                            theme={TextTheme.TERTIARY}
+                            text={dateHelpers.getDate(ticket?.createdAt)}
+                        />
+                        <Text
+                            theme={TextTheme.TERTIARY}
+                            text={dateHelpers.getTime(ticket?.createdAt)}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

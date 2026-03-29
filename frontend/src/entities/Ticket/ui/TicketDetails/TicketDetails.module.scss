@@ -42,23 +42,27 @@
 
 .history {
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
   &Item {
+    border-top: 1px solid var(--secondary-border-color);
+    padding: 8px 0;
     display: flex;
     justify-content: space-between;
     gap: 16px;
   }
 
   &Info {
-
-  }
-
-  &Title {
-
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 
   &Date{
-    max-width: 72px;
+    display: flex;
+    flex-direction: column;
   }
 }
 
