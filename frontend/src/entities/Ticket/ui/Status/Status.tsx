@@ -1,4 +1,4 @@
-import { Tag, TType } from 'shared/ui/Tag';
+import { Tag, TType } from 'shared/ui/Tag/Tag';
 import { TStatus, statusMapper } from '../../const';
 
 type TProps = {

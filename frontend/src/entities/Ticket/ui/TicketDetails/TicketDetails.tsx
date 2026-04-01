@@ -112,14 +112,16 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                         </div>
                         <Text title={ticket?.title} />
                         {ticket && <Status status={ticket.status} />}
-                        <Tag type={'success'} title={'моя заявка'} />
+                        {[ticket?.customerId, ticket?.responsibleId].includes(
+                            userData?.id,
+                        ) && <Tag type="success" title={'моя заявка'} />}
                     </div>
                     <Text
                         theme={TextTheme.TERTIARY}
                         text={dateHelpers.getDateTime(ticket?.createdAt)}
                     />
                 </div>
-                {ticket?.customerId === userData?.id && (
+                {ticket?.customerId === userData?.id && ticket?.status === statusEnum.OPEN && (
                     <Button theme={ButtonTheme.OUTLINE} onClick={onEdit}>
                         Редактировать
                     </Button>

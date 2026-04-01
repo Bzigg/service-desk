@@ -43,3 +43,13 @@
     line-height: 22px;
     color: var(--text-primary-color);
 }
+
+.HeaderAdditionalBlock {
+    display: flex;
+    gap: 16px;
+}
+
+.HeaderAdditional {
+    display: flex;
+    gap: 4px;
+}

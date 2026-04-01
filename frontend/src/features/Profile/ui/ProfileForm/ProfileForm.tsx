@@ -19,231 +19,223 @@ import {
 type ProfileProps = {
     className?: string;
     id?: string;
-}
+};
 
-type ProfileFormValues= {
+type ProfileFormValues = {
     email: string;
     firstName: string;
     lastName: string;
     surname: string;
-}
+};
 
-export const ProfileForm = memo(
-    ({ className, id }: ProfileProps) => {
-        const { data, isLoading, isError } = useGetUserDataQuery(id as string, {
-            skip: !id,
-        });
+export const ProfileForm = memo(({ className, id }: ProfileProps) => {
+    const { data, isLoading, isError } = useGetUserDataQuery(id as string, {
+        skip: !id,
+    });
 
-        const [updateUser, { isLoading: isSaving, isError: isSaveError }] =
-            useUpdateUserDataMutation();
+    const [updateUser, { isLoading: isSaving, isError: isSaveError }] =
+        useUpdateUserDataMutation();
 
-        const [
-            updatePhoto,
-            { isLoading: isPhotoUploading, isError: isPhotoError },
-        ] = useUpdateUserPhotoMutation();
+    const [
+        updatePhoto,
+        { isLoading: isPhotoUploading, isError: isPhotoError },
+    ] = useUpdateUserPhotoMutation();
 
-        const fileInputRef = useRef<HTMLInputElement | null>(null);
-        const [photoClientError, setPhotoClientError] = useState<string | null>(
-            null,
-        );
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [photoClientError, setPhotoClientError] = useState<string | null>(
+        null,
+    );
 
-        const { control, handleSubmit } = useForm<ProfileFormValues>({
-            values: {
-                email: data?.email ?? '',
-                firstName: data?.firstName ?? '',
-                lastName: data?.lastName ?? '',
-                surname: data?.surname ?? '',
-            },
-        });
+    const { control, handleSubmit } = useForm<ProfileFormValues>({
+        values: {
+            email: data?.email ?? '',
+            firstName: data?.firstName ?? '',
+            lastName: data?.lastName ?? '',
+            surname: data?.surname ?? '',
+        },
+    });
 
-        const photoSrc = useGetPhoto(data?.photo || '');
+    const photoSrc = useGetPhoto(data?.photo || '');
 
-        const onSubmit = useCallback(
-            async (values: ProfileFormValues) => {
-                if (data?.id == null) {
-                    return;
-                }
-                try {
-                    await updateUser({
-                        id: data.id,
-                        email: values.email.trim(),
-                        firstName: values.firstName.trim(),
-                        lastName: values.lastName.trim(),
-                        surname: values.surname.trim(),
-                    }).unwrap();
-                } catch {
-                    // ошибка отображается через isSaveError
-                }
-            },
-            [data?.id, updateUser],
-        );
+    const onSubmit = useCallback(
+        async (values: ProfileFormValues) => {
+            if (data?.id == null) {
+                return;
+            }
+            try {
+                await updateUser({
+                    id: data.id,
+                    email: values.email.trim(),
+                    firstName: values.firstName.trim(),
+                    lastName: values.lastName.trim(),
+                    surname: values.surname.trim(),
+                }).unwrap();
+            } catch {
+                // ошибка отображается через isSaveError
+            }
+        },
+        [data?.id, updateUser],
+    );
 
-        const openPhotoPicker = useCallback(() => {
+    const openPhotoPicker = useCallback(() => {
+        setPhotoClientError(null);
+        fileInputRef.current?.click();
+    }, []);
+
+    const onPhotoChange = useCallback(
+        async (e: React.ChangeEvent<HTMLInputElement>) => {
+            const file = e.target.files?.[0];
+            e.target.value = '';
+            if (!file || data?.id == null) {
+                return;
+            }
             setPhotoClientError(null);
-            fileInputRef.current?.click();
-        }, []);
+            const allowed = ['image/jpeg', 'image/png'];
+            if (!allowed.includes(file.type)) {
+                setPhotoClientError('Допустимы только файлы JPG и PNG.');
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                setPhotoClientError('Размер файла не больше 5 МБ.');
+                return;
+            }
+            try {
+                await updatePhoto({ id: data.id, file }).unwrap();
+            } catch {
+                // ошибка отображается через isPhotoError
+            }
+        },
+        [data?.id, updatePhoto],
+    );
 
-        const onPhotoChange = useCallback(
-            async (e: React.ChangeEvent<HTMLInputElement>) => {
-                const file = e.target.files?.[0];
-                e.target.value = '';
-                if (!file || data?.id == null) {
-                    return;
-                }
-                setPhotoClientError(null);
-                const allowed = ['image/jpeg', 'image/png'];
-                if (!allowed.includes(file.type)) {
-                    setPhotoClientError('Допустимы только файлы JPG и PNG.');
-                    return;
-                }
-                if (file.size > 5 * 1024 * 1024) {
-                    setPhotoClientError('Размер файла не больше 5 МБ.');
-                    return;
-                }
-                try {
-                    await updatePhoto({ id: data.id, file }).unwrap();
-                } catch {
-                    // ошибка отображается через isPhotoError
-                }
-            },
-            [data?.id, updatePhoto],
-        );
-
-        if (!id) {
-            return (
-                <div
-                    className={classNames(cls.EditableProfileCard, {}, [
-                        className,
-                    ])}
-                >
-                    <Text
-                        text="Не указан профиль для отображения."
-                        theme={TextTheme.ERROR}
-                    />
-                </div>
-            );
-        }
-
-        if (isLoading) {
-            return <Loader />;
-        }
-
-        if (isError || !data) {
-            return (
-                <div
-                    className={classNames(cls.EditableProfileCard, {}, [
-                        className,
-                    ])}
-                >
-                    <Text
-                        text="Не удалось загрузить профиль. Попробуйте позже."
-                        theme={TextTheme.ERROR}
-                    />
-                </div>
-            );
-        }
-
+    if (!id) {
         return (
-            <form
-                className={classNames(cls.ProfileForm, {}, [className])}
-                onSubmit={handleSubmit(onSubmit)}
+            <div
+                className={classNames(cls.EditableProfileCard, {}, [className])}
             >
-                <Text title="Профиль" />
-                <div className={cls.photoBlock}>
-                    {photoSrc ? (
-                        <img className={cls.photo} src={photoSrc} alt="" />
-                    ) : (
-                        <div className={cls.photoPlaceholder} aria-hidden>
-                            <UserIcon />
-                        </div>
-                    )}
-                    <input
-                        ref={fileInputRef}
-                        className={cls.hiddenFileInput}
-                        type="file"
-                        accept="image/jpeg,image/png,.jpg,.jpeg,.png"
-                        onChange={onPhotoChange}
-                    />
-                    <Button
-                        type="button"
-                        theme={ButtonTheme.OUTLINE}
-                        disabled={isPhotoUploading}
-                        onClick={openPhotoPicker}
-                    >
-                        {isPhotoUploading ? 'Загрузка…' : 'Сменить фото'}
-                    </Button>
-                    <span className={cls.photoHint}>JPG или PNG, до 5 МБ</span>
-                    {(isPhotoError || photoClientError) && (
-                        <Text
-                            text={
-                                photoClientError ?? 'Не удалось загрузить фото.'
-                            }
-                            theme={TextTheme.ERROR}
-                        />
-                    )}
-                </div>
+                <Text
+                    text="Не указан профиль для отображения."
+                    theme={TextTheme.ERROR}
+                />
+            </div>
+        );
+    }
 
-                {isSaveError && (
+    if (isLoading) {
+        return <Loader />;
+    }
+
+    if (isError || !data) {
+        return (
+            <div
+                className={classNames(cls.EditableProfileCard, {}, [className])}
+            >
+                <Text
+                    text="Не удалось загрузить профиль. Попробуйте позже."
+                    theme={TextTheme.ERROR}
+                />
+            </div>
+        );
+    }
+
+    return (
+        <form
+            className={classNames(cls.ProfileForm, {}, [className])}
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <Text title="Профиль" />
+            <div className={cls.photoBlock}>
+                {photoSrc ? (
+                    <img className={cls.photo} src={photoSrc} alt="" />
+                ) : (
+                    <div className={cls.photoPlaceholder} aria-hidden>
+                        <UserIcon />
+                    </div>
+                )}
+                <input
+                    ref={fileInputRef}
+                    className={cls.hiddenFileInput}
+                    type="file"
+                    accept="image/jpeg,image/png,.jpg,.jpeg,.png"
+                    onChange={onPhotoChange}
+                />
+                <Button
+                    type="button"
+                    theme={ButtonTheme.OUTLINE}
+                    disabled={isPhotoUploading}
+                    onClick={openPhotoPicker}
+                >
+                    {isPhotoUploading ? 'Загрузка…' : 'Сменить фото'}
+                </Button>
+                <span className={cls.photoHint}>JPG или PNG, до 5 МБ</span>
+                {(isPhotoError || photoClientError) && (
                     <Text
-                        className="mt8"
-                        text="Не удалось сохранить изменения."
+                        text={photoClientError ?? 'Не удалось загрузить фото.'}
                         theme={TextTheme.ERROR}
                     />
                 )}
-                <Input
-                    control={control}
-                    name="email"
-                    label="Email"
-                    type="email"
+            </div>
+
+            {isSaveError && (
+                <Text
                     className="mt8"
-                    placeholder="email@example.com"
-                    rules={{
-                        required: 'Укажите email',
-                    }}
+                    text="Не удалось сохранить изменения."
+                    theme={TextTheme.ERROR}
                 />
-                <Input
-                    control={control}
-                    name="firstName"
-                    label="Имя"
-                    type="text"
-                    className="mt8"
-                    placeholder="Имя"
-                    rules={{
-                        required: 'Укажите имя',
-                    }}
-                />
-                <Input
-                    control={control}
-                    name="lastName"
-                    label="Фамилия"
-                    type="text"
-                    className="mt8"
-                    placeholder="Фамилия"
-                    rules={{
-                        required: 'Укажите фамилию',
-                    }}
-                />
-                <Input
-                    control={control}
-                    name="surname"
-                    label="Отчество"
-                    type="text"
-                    className="mt8"
-                    placeholder="Отчество"
-                    rules={{
-                        required: 'Укажите отчество',
-                    }}
-                />
-                <div className={cls.buttons}>
-                    <Button
-                        theme={ButtonTheme.BACKGROUND}
-                        type="submit"
-                        disabled={isSaving}
-                    >
-                        Сохранить
-                    </Button>
-                </div>
-            </form>
-        );
-    },
-);
+            )}
+            <Input
+                control={control}
+                name="email"
+                label="Email"
+                type="email"
+                className="mt8"
+                placeholder="email@example.com"
+                rules={{
+                    required: 'Укажите email',
+                }}
+            />
+            <Input
+                control={control}
+                name="firstName"
+                label="Имя"
+                type="text"
+                className="mt8"
+                placeholder="Имя"
+                rules={{
+                    required: 'Укажите имя',
+                }}
+            />
+            <Input
+                control={control}
+                name="lastName"
+                label="Фамилия"
+                type="text"
+                className="mt8"
+                placeholder="Фамилия"
+                rules={{
+                    required: 'Укажите фамилию',
+                }}
+            />
+            <Input
+                control={control}
+                name="surname"
+                label="Отчество"
+                type="text"
+                className="mt8"
+                placeholder="Отчество"
+                rules={{
+                    required: 'Укажите отчество',
+                }}
+            />
+            <div className={cls.buttons}>
+                <Button
+                    theme={ButtonTheme.BACKGROUND}
+                    type="submit"
+                    disabled={isSaving}
+                >
+                    Сохранить
+                </Button>
+            </div>
+        </form>
+    );
+});

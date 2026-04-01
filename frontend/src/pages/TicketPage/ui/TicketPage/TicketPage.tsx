@@ -3,7 +3,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { Page } from 'widgets/Page/Page';
 import { useParams } from 'react-router-dom';
 import { TicketForm } from 'features/tickets/ui/TicketForm/TicketForm';
-import { Text, TextAlign } from 'shared/ui/Text/Text'
+import { Text, TextAlign } from 'shared/ui/Text/Text';
 
 import cls from './TicketPage.module.scss';
 
@@ -18,7 +18,12 @@ const TicketPage = memo((props: ArticleEditPageProps) => {
 
     return (
         <Page className={classNames(cls.TicketPage, {}, [className])}>
-            <Text title={isEdit ? 'Редактирование заявки' : 'Создание новой заявки'} align={TextAlign.CENTER}/>
+            <Text
+                title={
+                    isEdit ? 'Редактирование заявки' : 'Создание новой заявки'
+                }
+                align={TextAlign.CENTER}
+            />
             <TicketForm id={id as string} />
         </Page>
     );
