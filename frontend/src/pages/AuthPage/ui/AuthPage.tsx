@@ -5,7 +5,7 @@ import { getUserAuthData } from 'entities/User';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Loader } from 'shared/ui/Loader/Loader';
 import { LoginForm } from 'features/AuthByUsername';
-import logoIcon from 'shared/icons/Logo.png';
+import logoIcon from 'shared/assets/logo/Logo.png';
 import cls from './AuthPage.module.scss';
 
 interface AuthLocationState {

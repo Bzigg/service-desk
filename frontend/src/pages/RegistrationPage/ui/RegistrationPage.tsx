@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { getUserAuthData } from 'entities/User';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
-import logoIcon from 'shared/icons/Logo.png';
+import logoIcon from 'shared/assets/logo/Logo.png';
 import cls from './RegistrationPage.module.scss';
 import { Text } from 'shared/ui/Text/Text';
 
