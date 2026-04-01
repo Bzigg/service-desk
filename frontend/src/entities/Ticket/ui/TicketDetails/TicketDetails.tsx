@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { getUserAuthData } from 'entities/User';
 import { buildingsApi } from 'entities/Building';
 import { useNavigate } from 'react-router-dom';
-import { Text, TextSize, TextTheme } from 'shared/ui/Text/Text';
+import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { Tag } from 'shared/ui/Tag/Tag';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { dateHelpers } from 'shared/lib/helpers/dateHelpers/dateHelpers';
@@ -22,6 +22,7 @@ import { HistoryItem } from 'entities/Ticket/ui/TicketDetails/HistoryItem';
 import { useGetUserDataQuery } from 'features/editableProfileCard';
 import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto';
 import { statusEnum } from 'features/tickets/ui/TicketsFilters';
+import { RejectTicketModal } from './RejectTicketModal/RejectTicketModal';
 
 interface IProps {
     id: string;
@@ -30,8 +31,11 @@ interface IProps {
 export const TicketDetails: FC<IProps> = ({ id }) => {
     const navigate = useNavigate();
     const userData = useSelector(getUserAuthData);
+    const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
 
     const { data: ticket } = ticketsApi.useGetTicketQuery(id as string);
+    const [changeStatus, { isLoading: isChangeStatusLoading }] =
+        ticketsApi.useChangeStatusMutation();
 
     const { data: building } = buildingsApi.useGetBuildingQuery(
         ticket?.buildingId,
@@ -58,8 +62,48 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
         navigate(`${RoutePath.my_tickets}/${id}/edit`);
     };
 
+    const onTakeToWork = useCallback(async () => {
+        if (!ticket) return;
+        await changeStatus({
+            ticketId: ticket.id,
+            status: statusEnum.IN_PROGRESS,
+        });
+    }, [changeStatus, ticket]);
+
+    const onComplete = useCallback(async () => {
+        if (!ticket) return;
+        await changeStatus({
+            ticketId: ticket.id,
+            status: statusEnum.COMPLETED,
+        });
+    }, [changeStatus, ticket]);
+
+    const onOpenRejectModal = useCallback(() => {
+        setIsRejectModalOpen(true);
+    }, []);
+
+    const onCloseRejectModal = useCallback(() => {
+        setIsRejectModalOpen(false);
+    }, []);
+
+    const onReject = useCallback(async () => {
+        if (!ticket) return;
+        await changeStatus({
+            ticketId: ticket.id,
+            status: statusEnum.REJECTED,
+        });
+        setIsRejectModalOpen(false);
+    }, [changeStatus, ticket]);
+
     return (
         <div className={cls.TicketDetailsWrapper}>
+            <RejectTicketModal
+                isOpen={isRejectModalOpen}
+                onClose={onCloseRejectModal}
+                onReject={onReject}
+                isLoading={isChangeStatusLoading}
+                lazy
+            />
             <div className={cls.header}>
                 <div>
                     <div className={cls.title}>
@@ -81,15 +125,37 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                     </Button>
                 )}
                 {ticket?.responsibleId === userData?.id && (
-                    <>
-                        <Button theme={ButtonTheme.OUTLINE} onClick={onEdit}>
-                            Завершить
-                        </Button>
-                        {/* todo реализовать Отклонить*/}
-                        <Button theme={ButtonTheme.CLEAR} onClick={() => {}}>
-                            Отклонить
-                        </Button>
-                    </>
+                    <div>
+                        {ticket?.status === statusEnum.OPEN && (
+                            <Button
+                                theme={ButtonTheme.OUTLINE}
+                                onClick={onTakeToWork}
+                                disabled={isChangeStatusLoading}
+                            >
+                                В работу
+                            </Button>
+                        )}
+                        {ticket?.status === statusEnum.IN_PROGRESS && (
+                            <Button
+                                theme={ButtonTheme.OUTLINE}
+                                onClick={onComplete}
+                                disabled={isChangeStatusLoading}
+                            >
+                                Завершить
+                            </Button>
+                        )}
+                        {![statusEnum.COMPLETED, statusEnum.REJECTED].includes(
+                            ticket?.status,
+                        ) && (
+                            <Button
+                                theme={ButtonTheme.CLEAR}
+                                onClick={onOpenRejectModal}
+                                disabled={isChangeStatusLoading}
+                            >
+                                Отклонить
+                            </Button>
+                        )}
+                    </div>
                 )}
                 <AssignButton
                     className="mr8"
