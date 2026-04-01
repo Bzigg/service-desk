@@ -23,6 +23,7 @@ import { useGetUserDataQuery } from 'features/Profile';
 import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto';
 import { statusEnum } from 'features/tickets/ui/TicketsFilters';
 import { RejectTicketModal } from './RejectTicketModal/RejectTicketModal';
+import { Loader } from 'shared/ui/Loader/Loader';
 
 interface IProps {
     id: string;
@@ -33,22 +34,24 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
     const userData = useSelector(getUserAuthData);
     const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
 
-    const { data: ticket } = ticketsApi.useGetTicketQuery(id as string);
-    const [changeStatus, { isLoading: isChangeStatusLoading }] =
+    const { data: ticket, isLoading: ticketIsLoading } =
+        ticketsApi.useGetTicketQuery(id as string);
+    const [changeStatus, { isLoading: changeStatusIsLoading }] =
         ticketsApi.useChangeStatusMutation();
 
-    const { data: building } = buildingsApi.useGetBuildingQuery(
-        ticket?.buildingId,
-        {
+    const { data: building, isLoading: buildingIsLoading } =
+        buildingsApi.useGetBuildingQuery(ticket?.buildingId, {
             skip: !ticket?.buildingId,
+        });
+
+    const { data: user, isLoading: userIsLoading } = useGetUserDataQuery(
+        ticket?.customerId as string,
+        {
+            skip: !ticket?.customerId,
         },
     );
 
-    const { data: user } = useGetUserDataQuery(ticket?.customerId as string, {
-        skip: !ticket?.customerId,
-    });
-
-    const { data: admin } = useGetUserDataQuery(
+    const { data: admin, isLoading: adminIsLoading } = useGetUserDataQuery(
         ticket?.responsibleId as string,
         {
             skip: !ticket?.responsibleId,
@@ -95,6 +98,15 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
         setIsRejectModalOpen(false);
     }, [changeStatus, ticket]);
 
+    if (
+        ticketIsLoading ||
+        buildingIsLoading ||
+        userIsLoading ||
+        adminIsLoading
+    ) {
+        return <Loader />;
+    }
+
     return (
         <div className={cls.TicketDetailsWrapper}>
             <div className={cls.header}>
@@ -114,18 +126,19 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                         text={dateHelpers.getDateTime(ticket?.createdAt)}
                     />
                 </div>
-                {ticket?.customerId === userData?.id && ticket?.status === statusEnum.OPEN && (
-                    <Button theme={ButtonTheme.OUTLINE} onClick={onEdit}>
-                        Редактировать
-                    </Button>
-                )}
+                {ticket?.customerId === userData?.id &&
+                    ticket?.status === statusEnum.OPEN && (
+                        <Button theme={ButtonTheme.OUTLINE} onClick={onEdit}>
+                            Редактировать
+                        </Button>
+                    )}
                 {ticket?.responsibleId === userData?.id && (
                     <div>
                         {ticket?.status === statusEnum.OPEN && (
                             <Button
                                 theme={ButtonTheme.OUTLINE}
                                 onClick={onTakeToWork}
-                                disabled={isChangeStatusLoading}
+                                disabled={changeStatusIsLoading}
                             >
                                 В работу
                             </Button>
@@ -134,7 +147,7 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                             <Button
                                 theme={ButtonTheme.OUTLINE}
                                 onClick={onComplete}
-                                disabled={isChangeStatusLoading}
+                                disabled={changeStatusIsLoading}
                             >
                                 Завершить
                             </Button>
@@ -145,7 +158,7 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                             <Button
                                 theme={ButtonTheme.CLEAR}
                                 onClick={onOpenRejectModal}
-                                disabled={isChangeStatusLoading}
+                                disabled={changeStatusIsLoading}
                             >
                                 Отклонить
                             </Button>
@@ -212,7 +225,7 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                 isOpen={isRejectModalOpen}
                 onClose={onCloseRejectModal}
                 onReject={onReject}
-                isLoading={isChangeStatusLoading}
+                isLoading={changeStatusIsLoading}
                 lazy
             />
         </div>
