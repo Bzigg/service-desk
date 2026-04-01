@@ -17,6 +17,11 @@ import cls from './TicketDetails.module.scss';
 import { ticketsApi } from '../../model/api/ticketsApi';
 import { AssignButton } from '../../ui/AssignButton/AssignButton';
 import { Status } from '../Status/Status';
+import { InfoItem } from 'entities/Ticket/ui/TicketDetails/InfoItem';
+import { HistoryItem } from 'entities/Ticket/ui/TicketDetails/HistoryItem';
+import { useGetUserDataQuery } from 'features/editableProfileCard';
+import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto';
+import { statusEnum } from 'features/tickets/ui/TicketsFilters';
 
 interface IProps {
     id: string;
@@ -35,6 +40,20 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
         },
     );
 
+    const { data: user } = useGetUserDataQuery(ticket?.customerId as string, {
+        skip: !ticket?.customerId,
+    });
+
+    const { data: admin } = useGetUserDataQuery(
+        ticket?.responsibleId as string,
+        {
+            skip: !ticket?.responsibleId,
+        },
+    );
+
+    const userPhoto = useGetPhoto(user?.photo || '');
+    const adminPhoto = useGetPhoto(admin?.photo || '');
+
     const onEdit = () => {
         navigate(`${RoutePath.my_tickets}/${id}/edit`);
     };
@@ -51,12 +70,26 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                         {ticket && <Status status={ticket.status} />}
                         <Tag type={'success'} title={'моя заявка'} />
                     </div>
-                    <Text theme={TextTheme.TERTIARY} text={dateHelpers.getDateTime(ticket?.createdAt)} />
+                    <Text
+                        theme={TextTheme.TERTIARY}
+                        text={dateHelpers.getDateTime(ticket?.createdAt)}
+                    />
                 </div>
                 {ticket?.customerId === userData?.id && (
                     <Button theme={ButtonTheme.OUTLINE} onClick={onEdit}>
                         Редактировать
                     </Button>
+                )}
+                {ticket?.responsibleId === userData?.id && (
+                    <>
+                        <Button theme={ButtonTheme.OUTLINE} onClick={onEdit}>
+                            Завершить
+                        </Button>
+                        {/* todo реализовать Отклонить*/}
+                        <Button theme={ButtonTheme.CLEAR} onClick={() => {}}>
+                            Отклонить
+                        </Button>
+                    </>
                 )}
                 <AssignButton
                     className="mr8"
@@ -65,20 +98,12 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                 />
             </div>
             <div className={cls.info}>
-                <div className={cls.infoItem}>
-                    <PhoneIcon />
-                    <Text text={ticket?.phone} />
-                </div>
-                <div className={cls.infoItem}>
-                    <BuildingIcon />
-                    <Text text={building?.name} />
-                </div>
-                <div className={cls.infoItem}>
-                    <LocationIcon />
-                    <Text
-                        text={`Ул. ${building?.street}, д. ${building?.building}`}
-                    />
-                </div>
+                <InfoItem Icon={<PhoneIcon />} text={ticket?.phone} />
+                <InfoItem Icon={<BuildingIcon />} text={building?.name} />
+                <InfoItem
+                    Icon={<LocationIcon />}
+                    text={`Ул. ${building?.street}, д. ${building?.building}`}
+                />
             </div>
             <div>
                 <Text theme={TextTheme.SECONDARY} text="Описание:" />
@@ -86,30 +111,41 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
             </div>
             <div className={cls.history}>
                 <Text theme={TextTheme.SECONDARY} text="История:" />
-                <div className={cls.historyItem}>
-                    <div className={cls.historyInfo}>
-                        <Text
-                            theme={TextTheme.PRIMARY}
-                            title="Заявка создана"
-                            size={TextSize.M}
-                        />
-                        <Text
-                            theme={TextTheme.PRIMARY}
-                            text="Создано:"
-                            size={TextSize.M}
-                        />
-                    </div>
-                    <div className={cls.historyDate}>
-                        <Text
-                            theme={TextTheme.TERTIARY}
-                            text={dateHelpers.getDate(ticket?.createdAt)}
-                        />
-                        <Text
-                            theme={TextTheme.TERTIARY}
-                            text={dateHelpers.getTime(ticket?.createdAt)}
-                        />
-                    </div>
-                </div>
+                <HistoryItem
+                    title="Заявка создана"
+                    description="Создано:"
+                    dateTime={ticket?.createdAt}
+                    user={{
+                        photoSrc: userPhoto,
+                        name:
+                            `${user?.firstName} ${user?.lastName?.[0]}.` || '',
+                    }}
+                />
+                {admin && (
+                    <HistoryItem
+                        title="Взяли в работу"
+                        description="Исполнитель:"
+                        dateTime={ticket?.updatedAt}
+                        user={{
+                            photoSrc: adminPhoto,
+                            name:
+                                `${admin?.firstName} ${admin?.lastName?.[0]}.` ||
+                                '',
+                        }}
+                    />
+                )}
+                {[statusEnum.COMPLETED, statusEnum.REJECTED].includes(
+                    ticket?.status,
+                ) && (
+                    <HistoryItem
+                        title={
+                            ticket?.status === statusEnum.COMPLETED
+                                ? 'Работа завершена'
+                                : 'Задача отклонена'
+                        }
+                        dateTime={ticket?.updatedAt}
+                    />
+                )}
             </div>
         </div>
     );

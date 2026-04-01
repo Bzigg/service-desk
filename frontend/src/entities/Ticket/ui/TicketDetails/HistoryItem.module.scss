@@ -1,0 +1,32 @@
+.History {
+  &Item {
+    border-top: 1px solid var(--secondary-border-color);
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &Info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &Description {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &Avatar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &Date {
+    display: flex;
+    flex-direction: column;
+  }
+}

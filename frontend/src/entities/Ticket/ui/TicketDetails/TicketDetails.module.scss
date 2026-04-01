@@ -30,14 +30,6 @@
 .info {
   display: flex;
   gap: 8px;
-
-  &Item {
-    display: flex;
-    gap: 4px;
-    padding: 12px;
-    border-radius: 16px;
-    background-color: var(--secondary-bg-color);
-  }
 }
 
 .history {
@@ -45,25 +37,6 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-
-  &Item {
-    border-top: 1px solid var(--secondary-border-color);
-    padding: 8px 0;
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  &Info {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  &Date{
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 .buttons {

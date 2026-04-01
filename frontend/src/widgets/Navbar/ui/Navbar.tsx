@@ -63,7 +63,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                                     }
                                 />
                             )}
-                            <Avatar size={30} src={photoSrc} />
+                            <Avatar size={32} src={photoSrc} />
                         </div>
                     }
                 />
