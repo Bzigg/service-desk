@@ -4,30 +4,32 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { Input } from 'shared/ui/Input/Input';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
+
+import UserIcon from 'shared/assets/icons/user-20-20.svg';
+import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto';
+import { Loader } from 'shared/ui/Loader/Loader';
+
+import cls from './ProfileForm.module.scss';
 import {
     useGetUserDataQuery,
     useUpdateUserDataMutation,
     useUpdateUserPhotoMutation,
 } from '../../model/api/profileApi';
-import cls from './EditableProfileCard.module.scss';
-import UserIcon from 'shared/assets/icons/user-20-20.svg';
-import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto';
-import { Loader } from 'shared/ui/Loader/Loader';
 
-interface EditableProfileCardProps {
+type ProfileProps = {
     className?: string;
     id?: string;
 }
 
-interface ProfileFormValues {
+type ProfileFormValues= {
     email: string;
     firstName: string;
     lastName: string;
     surname: string;
 }
 
-export const EditableProfileCard = memo(
-    ({ className, id }: EditableProfileCardProps) => {
+export const ProfileForm = memo(
+    ({ className, id }: ProfileProps) => {
         const { data, isLoading, isError } = useGetUserDataQuery(id as string, {
             skip: !id,
         });
@@ -143,7 +145,7 @@ export const EditableProfileCard = memo(
 
         return (
             <form
-                className={classNames(cls.EditableProfileCard, {}, [className])}
+                className={classNames(cls.ProfileForm, {}, [className])}
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <Text title="Профиль" />

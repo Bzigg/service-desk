@@ -8,7 +8,7 @@ import { Avatar } from 'shared/ui/Avatar/Avatar';
 import cls from './Navbar.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { Logo } from 'shared/ui/Logo/Logo';
-import { useGetUserDataQuery } from 'features/editableProfileCard';
+import { useGetUserDataQuery } from 'features/Profile';
 import { Text, TextSize } from 'shared/ui/Text/Text';
 import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto';
 

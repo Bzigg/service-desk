@@ -19,7 +19,7 @@ import { AssignButton } from '../../ui/AssignButton/AssignButton';
 import { Status } from '../Status/Status';
 import { InfoItem } from 'entities/Ticket/ui/TicketDetails/InfoItem';
 import { HistoryItem } from 'entities/Ticket/ui/TicketDetails/HistoryItem';
-import { useGetUserDataQuery } from 'features/editableProfileCard';
+import { useGetUserDataQuery } from 'features/Profile';
 import { useGetPhoto } from 'shared/lib/hooks/useGetPhoto/useGetPhoto';
 import { statusEnum } from 'features/tickets/ui/TicketsFilters';
 import { RejectTicketModal } from './RejectTicketModal/RejectTicketModal';

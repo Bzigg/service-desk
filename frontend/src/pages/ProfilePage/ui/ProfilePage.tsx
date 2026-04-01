@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Page } from 'widgets/Page/Page';
-import { EditableProfileCard } from 'features/editableProfileCard';
+import { ProfileForm } from 'features/Profile';
 import { useParams } from 'react-router-dom';
 
 interface ProfilePageProps {
@@ -12,7 +12,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
 
     return (
         <Page className={classNames('', {}, [className])}>
-            <EditableProfileCard id={id || ''} />
+            <ProfileForm id={id || ''} />
         </Page>
     );
 };
