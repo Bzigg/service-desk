@@ -19,7 +19,7 @@ const TicketDetailsPage: FC<TicketDetailsPageProps> = ({ className }) => {
 
     return (
         <Page>
-            <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
+            <Button theme={ButtonTheme.CLEAR} onClick={onBackToList}>
                 Назад
             </Button>
             <TicketDetails id={id as string} />

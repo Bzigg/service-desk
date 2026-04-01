@@ -97,13 +97,6 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
 
     return (
         <div className={cls.TicketDetailsWrapper}>
-            <RejectTicketModal
-                isOpen={isRejectModalOpen}
-                onClose={onCloseRejectModal}
-                onReject={onReject}
-                isLoading={isChangeStatusLoading}
-                lazy
-            />
             <div className={cls.header}>
                 <div>
                     <div className={cls.title}>
@@ -215,6 +208,13 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                     />
                 )}
             </div>
+            <RejectTicketModal
+                isOpen={isRejectModalOpen}
+                onClose={onCloseRejectModal}
+                onReject={onReject}
+                isLoading={isChangeStatusLoading}
+                lazy
+            />
         </div>
     );
 };
