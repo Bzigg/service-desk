@@ -234,7 +234,7 @@ export const EditableProfileCard = memo(
                 />
                 <div className={cls.buttons}>
                     <Button
-                        theme={ButtonTheme.OUTLINE}
+                        theme={ButtonTheme.BACKGROUND}
                         type="submit"
                         disabled={isSaving}
                     >
