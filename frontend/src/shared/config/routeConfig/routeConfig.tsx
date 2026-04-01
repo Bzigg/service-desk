@@ -4,7 +4,7 @@ import { AllTicketsPage } from 'pages/AllTicketsPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { TicketDetailsPage } from 'pages/TicketDetailsPage';
-import { TicketEditPage } from 'pages/TicketEditPage';
+import { TicketPage } from 'pages/TicketPage';
 import { AdminPanelPage } from 'pages/AdminPanelPage';
 import { UserRole } from 'entities/User';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
@@ -82,13 +82,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.TICKET_CREATE]: {
         path: `${RoutePath.ticket_create}`,
-        element: <TicketEditPage />,
+        element: <TicketPage />,
         authOnly: true,
         roles: [UserRole.USER],
     },
     [AppRoutes.TICKET_EDIT]: {
         path: `${RoutePath.ticket_edit}`,
-        element: <TicketEditPage />,
+        element: <TicketPage />,
         authOnly: true,
         roles: [UserRole.USER],
     },
