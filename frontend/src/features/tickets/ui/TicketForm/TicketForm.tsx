@@ -1,7 +1,6 @@
 import React, { FC, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from 'shared/ui/Input/Input';
-import cls from './TicketEditForm.module.scss';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useNavigate } from 'react-router-dom';
@@ -9,11 +8,13 @@ import { ticketsApi } from 'entities/Ticket';
 import { Select } from 'shared/ui/Select/Select';
 import { buildingsApi } from 'entities/Building';
 
+import cls from './TicketForm.module.scss';
+
 interface IProps {
     id: string;
 }
 
-export const TicketEditForm: FC<IProps> = ({ id }) => {
+export const TicketForm: FC<IProps> = ({ id }) => {
     const navigate = useNavigate();
 
     const { data } = ticketsApi.useGetTicketQuery(id, {

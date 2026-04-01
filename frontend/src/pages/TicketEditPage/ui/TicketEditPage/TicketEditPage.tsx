@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Page } from 'widgets/Page/Page';
 import { useParams } from 'react-router-dom';
-import { TicketEditForm } from 'features/tickets/ui/TicketEditForm/TicketEditForm';
+import { TicketForm } from 'features/tickets/ui/TicketForm/TicketForm';
 import cls from './TicketEditPage.module.scss';
 
 interface ArticleEditPageProps {
@@ -19,7 +19,7 @@ const TicketEditPage = memo((props: ArticleEditPageProps) => {
             <h2 className={cls.title}>
                 {isEdit ? 'Редактирование заявки' : 'Создание новой заявки'}
             </h2>
-            <TicketEditForm id={id as string} />
+            <TicketForm id={id as string} />
         </Page>
     );
 });
