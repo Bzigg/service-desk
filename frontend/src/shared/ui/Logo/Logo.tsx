@@ -5,7 +5,7 @@ import cls from './Logo.module.scss';
 
 export const Logo = () => (
     <AppLink to="/" className={cls.Brand}>
-        <img className={cls.LogoIcon} src={logoIcon} alt="БГПУ Поддержка" />
-        <span className={cls.BrandText}>БГПУ Поддержка</span>
+        <img className={cls.LogoIcon} src={logoIcon} alt="Service-Desk" />
+        <span className={cls.BrandText}>Service-Desk</span>
     </AppLink>
 );

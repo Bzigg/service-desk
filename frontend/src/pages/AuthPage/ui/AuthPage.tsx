@@ -39,9 +39,9 @@ const AuthPage = memo(() => {
                     <img
                         className={cls.LogoIcon}
                         src={logoIcon}
-                        alt="БГПУ Поддержка"
+                        alt="Service-Desk"
                     />
-                    <span className={cls.BrandText}>БГПУ Поддержка</span>
+                    <span className={cls.BrandText}>Service-Desk</span>
                 </div>
                 <Suspense fallback={<Loader />}>
                     <LoginForm

@@ -27,9 +27,9 @@ const RegistrationPage = memo(() => {
                     <img
                         className={cls.LogoIcon}
                         src={logoIcon}
-                        alt="БГПУ Поддержка"
+                        alt="Service-Desk"
                     />
-                    <Text title="БГПУ Поддержка" />
+                    <Text title="Service-Desk" />
                 </div>
                 <RegistrationForm onSuccess={onSuccess} />
             </div>
