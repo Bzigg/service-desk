@@ -10,13 +10,15 @@ import {
 import { Pagination } from 'widgets/Pagination';
 import { Text } from 'shared/ui/Text/Text';
 
+import cls from './MyTicketPage.module.scss';
+
 const MyTicketsPage = () => {
     const { setFilters, page, setPage, query } = useNavigationList();
 
     const { data } = ticketsApi.useGetMyTicketsListQuery(query);
 
     return (
-        <Page>
+        <Page className={cls.MyTicketPage}>
             <Text title="Мои заявки" text="Список моих заявок" />
             <TicketsFilters setFilters={setFilters} />
             <TicketsList tickets={data?.data} />
