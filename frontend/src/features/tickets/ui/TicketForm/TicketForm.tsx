@@ -82,7 +82,6 @@ export const TicketForm: FC<IProps> = ({ id }) => {
                 placeholder="Введите описание"
             />
             <Select
-                className="mt8"
                 control={control}
                 name="buildingId"
                 options={buildings?.map((buildingItem: any) => {
@@ -114,7 +113,7 @@ export const TicketForm: FC<IProps> = ({ id }) => {
                 placeholder="Введите телефон"
             />
             <div className={cls.buttons}>
-                <Button type="submit" theme={ButtonTheme.OUTLINE}>
+                <Button type="submit" theme={ButtonTheme.BACKGROUND}>
                     Сохранить
                 </Button>
                 {Boolean(id) && (

@@ -60,11 +60,6 @@ export const Input = memo(
                                     {`${label}:`}
                                 </div>
                             )}
-                            {fieldState?.error?.message && (
-                                <div className={cls.errorTooltip}>
-                                    {fieldState?.error?.message}
-                                </div>
-                            )}
                             <div className={cls.inputWrapper}>
                                 <input
                                     placeholder={placeholder}
@@ -86,6 +81,11 @@ export const Input = memo(
                                     {...otherProps}
                                 />
                             </div>
+                            {fieldState?.error?.message && (
+                                <div className={cls.errorMessage}>
+                                    {fieldState?.error?.message}
+                                </div>
+                            )}
                         </div>
                     )}
                 />

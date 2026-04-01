@@ -24,30 +24,11 @@
 
 .error {
     border-color: var(--error-border-color);
-    background-color: var(--bg-color-error);
+    background-color: var(--error-bg-color);
 }
 
-.errorTooltip {
-    background-color: var(--bg-color-error);
-    position: absolute;
+.errorMessage {
     color: var(--red-light);
-    left: 50%;
-    top: -10%;
-    transform: translate(-50%, -50%);
-    padding: 5px 8px;
-    border-radius: 6px;
-
-    &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        left: 50%;
-        top: 100%;
-        transform: matrix(0.71,0.71,-0.71,0.71,-4,-2);
-        height: 6px;
-        width: 6px;
-        background-color: var(--bg-color-error);
-    }
 }
 
 .inputWrapper {
