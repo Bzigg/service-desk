@@ -21,6 +21,21 @@ export class AuthService {
   }
 
   async registration(userDto: CreateUserDto) {
+    const missing: string[] = []
+    if (!userDto.email?.trim()) missing.push('email')
+    if (typeof userDto.password !== 'string' || userDto.password.length === 0) {
+      missing.push('password')
+    }
+    if (!userDto.firstName?.trim()) missing.push('firstName')
+    if (!userDto.lastName?.trim()) missing.push('lastName')
+
+    if (missing.length) {
+      throw new HttpException(
+        `Обязательные поля: ${missing.join(', ')}`,
+        HttpStatus.BAD_REQUEST,
+      )
+    }
+
     const candidate = await this.usersService.getUserByEmail(userDto.email)
 
     if (candidate) {
