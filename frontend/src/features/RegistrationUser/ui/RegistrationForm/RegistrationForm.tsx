@@ -78,6 +78,9 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
                 type="text"
                 className="mt8"
                 placeholder="Иванов"
+                rules={{
+                    required: 'Укажите фамилию',
+                }}
             />
 
             <div className={cls.row}>
@@ -88,6 +91,9 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
                     type="text"
                     className="mt8"
                     placeholder="Иван"
+                    rules={{
+                        required: 'Укажите имя',
+                    }}
                 />
                 <Input
                     control={control}
@@ -114,6 +120,9 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
                 type="text"
                 className="mt8"
                 placeholder="user@email.ru"
+                rules={{
+                    required: 'Укажите Email',
+                }}
             />
 
             <Input
@@ -123,6 +132,9 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
                 className="mt8"
                 placeholder="Введите пароль"
                 type="password"
+                rules={{
+                    required: 'Укажите пароль',
+                }}
             />
 
             <div className={cls.buttonWrapper}>

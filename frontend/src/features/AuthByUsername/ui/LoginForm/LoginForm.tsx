@@ -63,6 +63,9 @@ const LoginForm = memo(
                     type="text"
                     className="mt8"
                     placeholder="user@email.ru"
+                    rules={{
+                        required: 'Укажите Email',
+                    }}
                 />
                 <Input
                     control={control}
@@ -71,6 +74,9 @@ const LoginForm = memo(
                     className="mt8"
                     placeholder="Введите пароль"
                     type="password"
+                    rules={{
+                        required: 'Укажите пароль',
+                    }}
                 />
                 <div className={cls.buttonWrapper}>
                     <Button
