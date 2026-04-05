@@ -199,7 +199,7 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                     <HistoryItem
                         title="Взяли в работу"
                         description="Исполнитель:"
-                        dateTime={ticket?.updatedAt}
+                        dateTime={ticket?.progressAt}
                         user={{
                             photoSrc: adminPhoto,
                             name:
@@ -217,7 +217,7 @@ export const TicketDetails: FC<IProps> = ({ id }) => {
                                 ? 'Работа завершена'
                                 : 'Задача отклонена'
                         }
-                        dateTime={ticket?.updatedAt}
+                        dateTime={ticket?.endAt}
                     />
                 )}
             </div>

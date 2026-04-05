@@ -120,9 +120,19 @@ export class TicketsService {
     }
 
     if (userId === ticket.responsibleId) {
-      await ticket.update({
-        status: data.status
-      })
+      const now = new Date()
+      const payload: { status: string; progressAt?: Date; endAt?: Date } = {
+        status: data.status,
+      }
+
+      if (data.status === statusEnum.IN_PROGRESS) {
+        payload.progressAt = now
+      }
+      if (data.status === statusEnum.COMPLETED || data.status === statusEnum.REJECTED) {
+        payload.endAt = now
+      }
+
+      await ticket.update(payload)
 
       return await ticket.save()
     }

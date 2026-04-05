@@ -45,6 +45,12 @@ export class Ticket extends Model<Ticket, TicketCreationAtr>{
   @Column({ type: DataType.STRING })
   status: string;
 
+  @Column({ type: DataType.DATE, allowNull: true })
+  progressAt: Date | null;
+
+  @Column({ type: DataType.DATE, allowNull: true })
+  endAt: Date | null;
+
   @BelongsTo(() => User)
   customer: User
 }
